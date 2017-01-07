@@ -174,42 +174,42 @@ public class TerrainManager : MonoBehaviour
 
         if (newState == Tile.TileState.Disease)
         {
-            if (GridHasIndexes(x-1, y-1))
-                InfectTree(new Vector2(x-1,y-1));
-            if (GridHasIndexes(x,   y-1))
-                InfectTree(new Vector2(x, y - 1));
-            if (GridHasIndexes(x+1, y-1))
-                InfectTree(new Vector2(x + 1, y - 1));
+            if (GridHasIndexes(x-1, y+1))
+                InfectTree(new Vector2(x-1,y+1));
+            if (GridHasIndexes(x,   y+1))
+                InfectTree(new Vector2(x, y+1));
+            if (GridHasIndexes(x+1, y+1))
+                InfectTree(new Vector2(x+1, y+1));
             if (GridHasIndexes(x-1, y))
                 InfectTree(new Vector2(x - 1, y));
             if (GridHasIndexes(x+1, y))
                 InfectTree(new Vector2(x + 1, y));
-            if (GridHasIndexes(x-1, y+1))
-                InfectTree(new Vector2(x - 1, y + 1));
-            if (GridHasIndexes(x,   y+1))
-                InfectTree(new Vector2(x, y + 1));
-            if (GridHasIndexes(x+1, y+1))
-                InfectTree(new Vector2(x + 1, y + 1));
+            if (GridHasIndexes(x-1, y-1))
+                InfectTree(new Vector2(x - 1, y-1));
+            if (GridHasIndexes(x,   y-1))
+                InfectTree(new Vector2(x, y-1));
+            if (GridHasIndexes(x+1, y-1))
+                InfectTree(new Vector2(x + 1, y-1));
         }
 
         if (newState == Tile.TileState.Disease)
         {
-            if (GridHasIndexes(x - 1, y - 1))
-                PlantSeed(new Vector2(x - 1, y - 1));
-            if (GridHasIndexes(x, y - 1))
-                PlantSeed(new Vector2(x, y - 1));
-            if (GridHasIndexes(x + 1, y - 1))
-                PlantSeed(new Vector2(x + 1, y - 1));
+            if (GridHasIndexes(x - 1, y+1))
+                PlantSeed(new Vector2(x - 1, y+1));
+            if (GridHasIndexes(x, y+1))
+                PlantSeed(new Vector2(x, y+1));
+            if (GridHasIndexes(x + 1, y+1))
+                PlantSeed(new Vector2(x + 1, y+1));
             if (GridHasIndexes(x - 1, y))
                 PlantSeed(new Vector2(x - 1, y));
             if (GridHasIndexes(x + 1, y))
                 PlantSeed(new Vector2(x + 1, y));
             if (GridHasIndexes(x - 1, y + 1))
-                PlantSeed(new Vector2(x - 1, y + 1));
-            if (GridHasIndexes(x, y + 1))
-                PlantSeed(new Vector2(x, y + 1));
-            if (GridHasIndexes(x + 1, y + 1))
-                PlantSeed(new Vector2(x + 1, y + 1));
+                PlantSeed(new Vector2(x - 1, y-1));
+            if (GridHasIndexes(x, y-1))
+                PlantSeed(new Vector2(x, y-1));
+            if (GridHasIndexes(x + 1, y-1))
+                PlantSeed(new Vector2(x + 1, y-1));
         }
     }
 
@@ -227,8 +227,8 @@ public class TerrainManager : MonoBehaviour
     // Returns true if these are legal indexes in this.grid
     bool GridHasIndexes(int x, int y)
     {
-        if (0 <= x && x < grid.GetLength(1) &&
-            0 <= y && y < grid.GetLength(0))
+        if (0 <= x && x < grid.GetLength(0) &&
+            0 <= y && y < grid.GetLength(1))
             return true;
         return false;
     }
@@ -338,15 +338,17 @@ public class TerrainManager : MonoBehaviour
         bool condition3 = selected.GetState() == Tile.TileState.Disease;
 
         if (condition1 || condition2 || condition3)
-            RemoveTree(worldPosition);
-    }
+        {
+            this.trees_disease.Remove(selected);
+            this.trees_seed.Remove(selected);
+            this.trees_healthy.Remove(selected);
 
-    public void KillTree(Vector3 worldPosition)
-    {
+            DestroyImmediate(selected.GetCurrentObject());
+        }
+
         // Sets the gameobject of the tile at this position to null
         // Sets the state of this tile to Empty
         // Remove the tree from the diseased trees list
-
         UpdateNatureLevel();
     }
 

@@ -43,7 +43,7 @@ public class TreeComponent : MonoBehaviour
     }
     void Die()
     {
-        terrain.KillTree(transform.position);
+        terrain.RemoveTree(transform.position);
     }
     public void FallDown()
     {
@@ -90,6 +90,7 @@ public class TreeComponent : MonoBehaviour
     void SpreadDisease()
     {
         terrain.SpreadInfection(transform.position);
+        Die();
     }
     IEnumerator PlantSeed()
     {
