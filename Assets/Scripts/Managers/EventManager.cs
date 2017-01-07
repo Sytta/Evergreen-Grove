@@ -27,7 +27,8 @@ public class EventManager : MonoBehaviour
             firstTime = false;
         }
 
-        if (disease) {
+        if (disease)
+        {
             Create_Disease();
         }
         else
@@ -86,10 +87,10 @@ public class EventManager : MonoBehaviour
                 //checks game state and does the appropriate decision ( breaks equilibirum, adds trees, adds diseases)
                 if (GameManager.instance.GetNatureState() == GM_Nature_State.Equilibrium)
                 {
-                    if(goal != EM_Goal.Break_Equilibrium)
+                    if (goal != EM_Goal.Break_Equilibrium)
                     {
                         firstTimeEquilibrium = true;
-                    }   
+                    }
                     goal = EM_Goal.Break_Equilibrium;
                     Break_Equilibrium(firstTimeEquilibrium);
                     firstTimeEquilibrium = false;
@@ -110,3 +111,5 @@ public class EventManager : MonoBehaviour
             wait = true;
         }
     }
+
+}
