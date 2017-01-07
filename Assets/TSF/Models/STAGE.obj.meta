@@ -1,16 +1,20 @@
 fileFormatVersion: 2
-guid: 7ed4cca88a5e938438fd27b6aaacb8f3
-timeCreated: 1483794352
-licenseType: Free
+guid: c21ade05d7eb14f54a3d2793f3fa47dd
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Group56717
-    6400000: //RootNode
+    100000: pCylinder1
+    100002: //RootNode
+    100004: ramp
+    400000: pCylinder1
+    400002: //RootNode
+    400004: ramp
+    2300000: pCylinder1
+    2300002: ramp
+    3300000: pCylinder1
+    3300002: ramp
+    4300000: pCylinder1
+    4300002: ramp
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -38,7 +42,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -50,11 +54,11 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
-    tangentImportMode: 3
+    normalImportMode: 1
+    tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -70,7 +74,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
