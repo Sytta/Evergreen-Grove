@@ -157,8 +157,6 @@ public class TerrainManager : MonoBehaviour
     public void SpreadInfection(Vector3 worldPosition)
     {
         //Sets all adjacent tiles to infected if there is a healthy tree
-
-        
     }
 
     // A TreeComponent script calls this function when a seed on a tree
