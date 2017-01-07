@@ -98,15 +98,23 @@ public class GameManager : MonoBehaviour
     public void Initialise()
     {
         state = GM_InGame_State.Initialising;
+
+        StartCoroutine(callThisABitLater());
+    }
+
+    // Test code
+    IEnumerator callThisABitLater()
+    {
         terrainManager = FindObjectOfType<TerrainManager>();
+
         terrainManager.Initialise();
         terrainManager.GenerateGrid();
 
-        terrainManager.WorldPosToGridPos(new Vector3(-13, 0, -14));
+        yield return new WaitForSeconds(2);
 
         // This will eventually become a loop where either of those two are called once in a while
         // This loop will be placed in the EventManager.
-        terrainManager.AddRandomSeed();
+        //terrainManager.AddRandomSeed();
         terrainManager.InfectRandomTree();
     }
 }
