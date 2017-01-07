@@ -1,8 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TerrainManager : MonoBehaviour
 {
+    public List<GameObject> treePrefabs;
+
+    public GameObject seedPrefab;
+    public float heightOfSeed;
+
     // The LayerMask where the players should not be able to walk
     public LayerMask unwalkableMask;
 
@@ -21,14 +27,28 @@ public class TerrainManager : MonoBehaviour
     // The final Grid
     private Tile[,] grid;
 
-    // Use this for initialization
-    void Start()
+    // A list of healthy trees
+    List<Tile> trees_healthy;
+
+    // A list of healthy trees that have a seed that is about to burst
+    List<Tile> trees_seed;
+
+    // A list of diseased trees
+    List<Tile> trees_disease;
+
+    public void Initialise()
     {
         gridMinLength = new Vector2(30, 30);
-        squareLength = 1;
+        squareLength = 3f;
 
         treePercentage = 0.5f;
         natureLevel = 0.5f;
+
+        heightOfSeed = 4.7f;
+
+        trees_healthy = new List<Tile>();
+        trees_seed    = new List<Tile>();
+        trees_disease = new List<Tile>();
     }
 
 
@@ -55,6 +75,8 @@ public class TerrainManager : MonoBehaviour
                 // Now we shall determine the state of this Tile
                 Tile.TileState newTileState = Tile.TileState.UnWalkable;
 
+                GameObject currentObject = null;
+
                 // If this tile doesn't collide with a mountain, water etc. it will be walkable
                 if (!Physics.CheckSphere(worldPosition, squareLength/2, unwalkableMask))
                 {
@@ -62,46 +84,93 @@ public class TerrainManager : MonoBehaviour
 
                     // In this case Random chose to spawn a tree here
                     if (probability < treePercentage)
+                    {
                         newTileState = Tile.TileState.Tree;
+                        // Spawn the tree with a random rotation and keep a reference to it in the Tile
+                        currentObject = Instantiate(treePrefabs[0],
+                            new Vector3(worldPosition.x, 0, worldPosition.z),
+                            Quaternion.Euler(0, (int)Random.Range(0f, 359f), 0)) as GameObject;
+                    }
                     else
                         newTileState = Tile.TileState.Empty;
                 }
 
-                grid[i, j] = new Tile(newTileState, gridPosition, worldPosition);
+                grid[i, j] = new Tile(newTileState, gridPosition, worldPosition, currentObject);
+
+                // Add the Tile to the healthy tree list
+                if (newTileState == Tile.TileState.Tree)
+                    this.trees_healthy.Add(grid[i, j]);
             }
         }
     }
 
+    // Places a disease on a random healthy tree
     public void InfectRandomTree()
     {
-        //Goes through the list of healthy trees and pick one at random
-        //Call ReceiveDisease() on the tree
+        if (trees_healthy.Count != 0)
+        {
+            // Pick a random healthy tree tile
+            int you = Random.Range(0, this.trees_healthy.Count - 1);
+            Tile newSeedTile = this.trees_healthy[you];
+            // Remove this tile from the healthy list
+            this.trees_healthy.Remove(newSeedTile);
 
+            newSeedTile.SetState(Tile.TileState.Disease);
+            newSeedTile.GetCurrentObject().GetComponent<TreeComponent>().ReceiveDisease();
+
+            // Place this Tile in the disease list
+            this.trees_disease.Add(newSeedTile);
+        }
     }
-    public void SpreadInfection(Vector2 gridPosition)
+
+    // Places a seed on a random healthy tree
+    public void AddRandomSeed()
+    {
+        if (trees_healthy.Count != 0)
+        {
+            // Pick a random healthy tree tile
+            int you = Random.Range(0, this.trees_healthy.Count - 1);
+            Tile newSeedTile = this.trees_healthy[you];
+            // Remove this tile from the healthy list
+            this.trees_healthy.Remove(newSeedTile);
+
+            Vector3 spawnPosition = newSeedTile.GetWorldPosition();
+            spawnPosition.y = 0;
+
+            // Instantiate a random seed to that tree's tile
+            GameObject newSeed = Instantiate(seedPrefab,
+                spawnPosition + new Vector3(0, this.heightOfSeed, 0),
+                Quaternion.identity) as GameObject;
+
+            newSeedTile.SetCurrentObject(newSeed);
+            newSeedTile.SetState(Tile.TileState.Seed);
+
+            // Place this Tile in the seed list
+            this.trees_seed.Add(newSeedTile);
+        }
+    }
+
+    public void SpreadInfection(Vector3 worldPosition)
     {
         //Sets all adjacent tiles to infected if there is a healthy tree
 
     }
-    public void SpreadSeed(Vector2 gridPosition)
+    public void SpreadSeed(Vector3 worldPosition)
     {
         //Sets all adjacent tiles to seeds if there is a healthy tree
     }
-    public void AddRandomSeed()
-    {
-        //Add random seed to a tree (integer)
-    }
-    public void PlantTree(Vector2 gridPosition)
+    
+    public void PlantTree(Vector3 worldPosition)
     {
         //Spawns a tree and add it to the healthy tree list, change the tile from seed to tree
 
         UpdateNatureLevel();
     }
-    void InfectTree(Vector2 gridPosition)
+    void InfectTree(Vector3 worldPosition)
     {
         //Check if the tile is a healthy tree, then infect it . Remove it from the healthy tree list
     }
-    void PlantSeed(Vector2 gridPosition)
+    void PlantSeed(Vector3 worldPosition)
     {
         //Check if the tile is empty, then plant a seed on it
     }
@@ -109,7 +178,19 @@ public class TerrainManager : MonoBehaviour
     {
 
     }
-    public void KillTree(Vector2 gridPosition)
+
+    // Wisp picks up a seed at a worldPosition
+    void PickUpSeed()
+    {
+
+    }
+    // The lumberjack calls this function when he is finished cutting the tree
+    void RemoveTree()
+    {
+
+    }
+
+    public void KillTree(Vector3 worldPosition)
     {
         // Sets the gameobject of the tile at this position to null
         // Sets the state of this tile to Empty
@@ -117,22 +198,21 @@ public class TerrainManager : MonoBehaviour
 
         UpdateNatureLevel();
     }
+
     // For debugging purposes, showing the grid.
     void OnDrawGizmos()
     {
+        Gizmos.color = Color.green;
+
         if (grid != null)
         {
             for (int i = 0; i < this.grid.GetLength(0); i++)
             {
                 for (int j = 0; j < this.grid.GetLength(1); j++)
                 {
-                    // Unwalkable tiles will be rendered red, walkable tiles green.
-                    if (this.grid[i, j].GetState() == Tile.TileState.UnWalkable)
-                        Gizmos.color = Color.red;
-                    else
-                        Gizmos.color = Color.green;
-
-                    Gizmos.DrawWireCube(this.grid[i, j].GetWorldPosition(), Vector3.one*this.squareLength);
+                    // Only draw a wire cube if a tree can be spawned there
+                    if (!(this.grid[i,j].GetState() == Tile.TileState.UnWalkable))
+                        Gizmos.DrawWireCube(this.grid[i, j].GetWorldPosition(), Vector3.one*this.squareLength);
                 }
             }
         }
@@ -142,5 +222,22 @@ public class TerrainManager : MonoBehaviour
     public float GetNatureLevel()
     {
         return this.natureLevel;
+    }
+
+
+    public Vector2 WorldPosToGridPos(Vector3 worldPosition)
+    {
+        Vector3 localPosition = worldPosition - transform.position;
+
+        Vector2 gridPosition = new Vector2(0, 0);
+
+        // Make sure our new gridPosition wont be out of bounds
+        float xPosClamped = Mathf.Clamp(localPosition.x, 0, this.gridMinLength.x);
+        float yPosClamped = Mathf.Clamp(localPosition.z, 0, this.gridMinLength.y);
+
+        gridPosition.x = (int)(xPosClamped-1 / squareLength);
+        gridPosition.y = (int)(yPosClamped-1 / squareLength);
+
+        return gridPosition;
     }
 }

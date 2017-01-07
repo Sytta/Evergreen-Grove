@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LumberJackPlayer : PlayerCharacter {
-
-    private 
+public abstract class PlayerCharacter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -15,9 +13,6 @@ public class LumberJackPlayer : PlayerCharacter {
 	
 	}
 
-    //
-    public override void ExecuteAction()
-    {
-        Debug.Log("Cut Down Tree");
+    public virtual void ExecuteAction() {
     }
 }

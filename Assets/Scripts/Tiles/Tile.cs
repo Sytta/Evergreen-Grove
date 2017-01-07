@@ -13,16 +13,22 @@ public class Tile
     //Either a Tree, a Seed or null for now
     public GameObject currentObject;
 
-    public Tile(TileState currentState, Vector2 gridPosition, Vector3 worldPosition)
+    public Tile(TileState currentState, Vector2 gridPosition, Vector3 worldPosition, GameObject currentObject)
     {
         this.currentState = currentState;
         this.gridPosition = gridPosition;
         this.worldPosition = worldPosition;
+        this.currentObject = currentObject;
     }
 
     public TileState GetState()
     {
         return this.currentState;
+    }
+
+    public void SetState(TileState newState)
+    {
+        this.currentState = newState;
     }
 
     public Vector2 GetGridPosition()
@@ -33,5 +39,15 @@ public class Tile
     public Vector3 GetWorldPosition()
     {
         return this.worldPosition;
+    }
+
+    public void SetCurrentObject(GameObject currentObject)
+    {
+        this.currentObject = currentObject;
+    }
+
+    public GameObject GetCurrentObject()
+    {
+        return this.currentObject;
     }
 }
