@@ -434,12 +434,4 @@ public class TerrainManager : MonoBehaviour
     //    }
         
     //}
-
-    void Update()
-    {
-        Debug.Log("Nature level: " + this.natureLevel);
-        Debug.Log("Healthy trees: " + this.trees_healthy.Count);
-        Debug.Log("Diseased trees: " + this.trees_disease.Count);
-        Debug.Log("walkableTiles: " + this.walkableTiles);
-    }
 }
