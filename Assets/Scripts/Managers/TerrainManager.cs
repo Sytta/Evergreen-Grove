@@ -36,6 +36,8 @@ public class TerrainManager : MonoBehaviour
     // A list of diseased trees
     List<Tile> trees_disease;
 
+    
+
     public void Initialise()
     {
         gridMinLength = new Vector2(30, 30);
@@ -262,4 +264,13 @@ public class TerrainManager : MonoBehaviour
 
         return gridPosition;
     }
+    //void HighlightTiles()
+    //{
+    //    foreach (PlayerCharacter player in GameManager.instance.players)
+    //    {
+    //        Vector2 gridPos = WorldPosToGridPos(player.transform.position);
+    //        grid[gridPos.x,gridPos.y].
+    //    }
+        
+    //}
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 public enum GM_InGame_State { Initialising , Playing, Paused ,Ending}
 public enum GM_Nature_State { Equilibrium, LowNatureLevel, HighNatureLevel }
 public class GameManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     public int seeds=0;
     public TerrainManager terrainManager;
     public GM_InGame_State state;
+    //public List<PlayerCharacter> players;
     public const float EQUILIBRIUM_LEVEL=0.5F;
     private float deltaNatureLevel;
     private GM_Nature_State deltaNatureState=GM_Nature_State.Equilibrium;
