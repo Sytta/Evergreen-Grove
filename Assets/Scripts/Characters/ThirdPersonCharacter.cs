@@ -71,6 +71,7 @@ using UnityEngine;
 
 			// send input and other state parameters to the animator
 			UpdateAnimator(move);
+            m_Rigidbody.AddRelativeForce(move*100);
 		}
 
 
