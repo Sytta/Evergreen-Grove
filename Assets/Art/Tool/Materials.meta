@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Art/Tool/Materials.meta
+guid: a0521733f5f1f0d419ff32eb772c788f
+folderAsset: yes
+timeCreated: 1483810857
+=======
 guid: 93c10f6b0f2419d4faace206cda19d7b
 folderAsset: yes
 timeCreated: 1483810644
+>>>>>>> e634f6b9122b182b6c84319d47c2e592d9d5af56:Assets/Art/Tool/Materials.meta
 licenseType: Free
 DefaultImporter:
   userData: 
