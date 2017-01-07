@@ -195,19 +195,19 @@ public class TerrainManager : MonoBehaviour
     //////////////
 
     // Wisp picks up a seed at a worldPosition
-    void PickUpSeed(Vector3 worldPosition)
+    public void PickUpSeed(Vector3 worldPosition)
     {
 
     }
 
     // Wisp plants a tree
-    void PlantTree(Vector3 worldPosition)
+    public void PlantTree(Vector3 worldPosition)
     {
 
     }
 
     // The lumberjack calls this function when he is finished cutting the tree
-    void RemoveTree(Vector3 worldPosition)
+    public void RemoveTree(Vector3 worldPosition)
     {
 
     }
