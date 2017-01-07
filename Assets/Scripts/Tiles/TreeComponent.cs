@@ -13,14 +13,19 @@ public class TreeComponent : MonoBehaviour
     public Color sicklyLeavesColor;
     public Color diseasedBarkColor;
     public Color sicklyBarkColor;
-    public float TimeToTurnDiseased=2;
+    public float minimumSeedPlantTime;
+    public float maximumSeedPlantTime;
+    public float timeToTurnDiseased=2;
+    private int seedCount;
 
+    TerrainManager terrain;
     Color healthyBarkColor;
     Color healthyLeavesColor;
     SkinnedMeshRenderer mr;
     Animator anim;
     bool isDiseased = false;
     bool isSickly = false;
+    bool isPlantingSeed=false;
     const int LEAVES_MAT_INDEX = 0;
     const int BARK_MAT_INDEX = 1;
     // Use this for initialization
@@ -28,6 +33,7 @@ public class TreeComponent : MonoBehaviour
     {
         mr = GetComponentInChildren<SkinnedMeshRenderer>();
         anim = GetComponent<Animator>();
+        terrain = FindObjectOfType<TerrainManager>();
         healthyBarkColor = mr.materials[BARK_MAT_INDEX].color;
         healthyLeavesColor = mr.materials[LEAVES_MAT_INDEX].color;
     }
@@ -37,7 +43,7 @@ public class TreeComponent : MonoBehaviour
     }
     void Die()
     {
-        Destroy(gameObject);
+        terrain.KillTree(transform.position);
     }
     public void FallDown()
     {
@@ -48,10 +54,6 @@ public class TreeComponent : MonoBehaviour
         isDiseased = true;
         anim.SetBool("Diseased", true);
         StartCoroutine(TurnToDiseased());
-    }
-    private void SpreadDisease()
-    {
-
     }
     public void TurnSickly()
     {
@@ -73,6 +75,35 @@ public class TreeComponent : MonoBehaviour
         isSickly = false;
 
     }
+    public void AddSeed()
+    {
+        seedCount++;
+        if(!isPlantingSeed)
+        {
+            StartCoroutine("PlantSeed");
+        }
+    }
+    public void CutDown()
+    {
+        Die();
+    }
+    void SpreadDisease()
+    {
+        terrain.SpreadInfection(transform.position);
+    }
+    IEnumerator PlantSeed()
+    {
+        isPlantingSeed = true;
+        for (int i = 0; i < seedCount; i++)
+        {
+            float plantingTime = Random.Range(minimumSeedPlantTime, maximumSeedPlantTime);
+            yield return new WaitForSeconds(plantingTime);
+            terrain.SpreadSeed(transform.position);
+        }
+        isPlantingSeed = false;
+        
+        
+    }
     IEnumerator TurnToDiseased()
     {
 
@@ -82,7 +113,7 @@ public class TreeComponent : MonoBehaviour
             mr.materials[BARK_MAT_INDEX].color = newColor;
             newColor = Color.Lerp(mr.materials[LEAVES_MAT_INDEX].color, diseasedLeavesColor, i/20.0f);
             mr.materials[LEAVES_MAT_INDEX].color = newColor;
-            yield return new WaitForSeconds(TimeToTurnDiseased/20);
+            yield return new WaitForSeconds(timeToTurnDiseased/20);
         }
         SpreadDisease();
 
