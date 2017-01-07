@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class TerrainManager : MonoBehaviour
 {
+    // Shall we show the green grid where the trees will spawn?
+    public bool showGizmoGrid = true;
+    public bool showGridRedSquares = true;
+
     public List<GameObject> treePrefabs;
 
     public GameObject seedPrefab;
@@ -170,42 +174,42 @@ public class TerrainManager : MonoBehaviour
 
         if (newState == Tile.TileState.Disease)
         {
-            if (GridHasIndexes(x-1, y-1))
-                InfectTree(gridPosition);
-            if (GridHasIndexes(x,   y-1))
-                InfectTree(gridPosition);
-            if (GridHasIndexes(x+1, y-1))
-                InfectTree(gridPosition);
-            if (GridHasIndexes(x-1, y))
-                InfectTree(gridPosition);
-            if (GridHasIndexes(x+1, y))
-                InfectTree(gridPosition);
             if (GridHasIndexes(x-1, y+1))
-                InfectTree(gridPosition);
+                InfectTree(new Vector2(x-1,y+1));
             if (GridHasIndexes(x,   y+1))
-                InfectTree(gridPosition);
+                InfectTree(new Vector2(x, y+1));
             if (GridHasIndexes(x+1, y+1))
-                InfectTree(gridPosition);
+                InfectTree(new Vector2(x+1, y+1));
+            if (GridHasIndexes(x-1, y))
+                InfectTree(new Vector2(x - 1, y));
+            if (GridHasIndexes(x+1, y))
+                InfectTree(new Vector2(x + 1, y));
+            if (GridHasIndexes(x-1, y-1))
+                InfectTree(new Vector2(x - 1, y-1));
+            if (GridHasIndexes(x,   y-1))
+                InfectTree(new Vector2(x, y-1));
+            if (GridHasIndexes(x+1, y-1))
+                InfectTree(new Vector2(x + 1, y-1));
         }
 
         if (newState == Tile.TileState.Disease)
         {
-            if (GridHasIndexes(x - 1, y - 1))
-                PlantSeed(gridPosition);
-            if (GridHasIndexes(x, y - 1))
-                PlantSeed(gridPosition);
-            if (GridHasIndexes(x + 1, y - 1))
-                PlantSeed(gridPosition);
+            if (GridHasIndexes(x - 1, y+1))
+                PlantSeed(new Vector2(x - 1, y+1));
+            if (GridHasIndexes(x, y+1))
+                PlantSeed(new Vector2(x, y+1));
+            if (GridHasIndexes(x + 1, y+1))
+                PlantSeed(new Vector2(x + 1, y+1));
             if (GridHasIndexes(x - 1, y))
-                PlantSeed(gridPosition);
+                PlantSeed(new Vector2(x - 1, y));
             if (GridHasIndexes(x + 1, y))
-                PlantSeed(gridPosition);
+                PlantSeed(new Vector2(x + 1, y));
             if (GridHasIndexes(x - 1, y + 1))
-                PlantSeed(gridPosition);
-            if (GridHasIndexes(x, y + 1))
-                PlantSeed(gridPosition);
-            if (GridHasIndexes(x + 1, y + 1))
-                PlantSeed(gridPosition);
+                PlantSeed(new Vector2(x - 1, y-1));
+            if (GridHasIndexes(x, y-1))
+                PlantSeed(new Vector2(x, y-1));
+            if (GridHasIndexes(x + 1, y-1))
+                PlantSeed(new Vector2(x + 1, y-1));
         }
     }
 
@@ -223,8 +227,8 @@ public class TerrainManager : MonoBehaviour
     // Returns true if these are legal indexes in this.grid
     bool GridHasIndexes(int x, int y)
     {
-        if (0 <= x && x < grid.GetLength(1) &&
-            0 <= y && y < grid.GetLength(0))
+        if (0 <= x && x < grid.GetLength(0) &&
+            0 <= y && y < grid.GetLength(1))
             return true;
         return false;
     }
@@ -334,32 +338,45 @@ public class TerrainManager : MonoBehaviour
         bool condition3 = selected.GetState() == Tile.TileState.Disease;
 
         if (condition1 || condition2 || condition3)
-            RemoveTree(worldPosition);
-    }
+        {
+            this.trees_disease.Remove(selected);
+            this.trees_seed.Remove(selected);
+            this.trees_healthy.Remove(selected);
 
-    public void KillTree(Vector3 worldPosition)
-    {
+            DestroyImmediate(selected.GetCurrentObject());
+        }
+
         // Sets the gameobject of the tile at this position to null
         // Sets the state of this tile to Empty
         // Remove the tree from the diseased trees list
-
         UpdateNatureLevel();
     }
 
     // For debugging purposes, showing the grid.
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-
-        if (grid != null)
+        if (this.showGizmoGrid)
         {
-            for (int i = 0; i < this.grid.GetLength(0); i++)
+            if (grid != null)
             {
-                for (int j = 0; j < this.grid.GetLength(1); j++)
+                for (int i = 0; i < this.grid.GetLength(0); i++)
                 {
-                    // Only draw a wire cube if a tree can be spawned there
-                    if (!(this.grid[i,j].GetState() == Tile.TileState.UnWalkable))
-                        Gizmos.DrawWireCube(this.grid[i, j].GetWorldPosition(), Vector3.one*this.squareLength);
+                    for (int j = 0; j < this.grid.GetLength(1); j++)
+                    {
+                        bool drawWireCube = true;
+
+                        if ((this.grid[i, j].GetState() == Tile.TileState.UnWalkable))
+                        {
+                            Gizmos.color = Color.red;
+                            if (!this.showGridRedSquares)
+                                drawWireCube = false;
+                        }
+                        else
+                            Gizmos.color = Color.green;
+
+                        if (drawWireCube)
+                            Gizmos.DrawWireCube(this.grid[i, j].GetWorldPosition(), Vector3.one * this.squareLength);                      
+                    }
                 }
             }
         }
@@ -382,8 +399,8 @@ public class TerrainManager : MonoBehaviour
         float xPosClamped = Mathf.Clamp(localPosition.x, 0, this.gridMinLength.x);
         float yPosClamped = Mathf.Clamp(localPosition.z, 0, this.gridMinLength.y);
 
-        gridPosition.x = (int)(xPosClamped-1 / squareLength);
-        gridPosition.y = (int)(yPosClamped-1 / squareLength);
+        gridPosition.x = (int)(xPosClamped / squareLength);
+        gridPosition.y = (int)(yPosClamped / squareLength);
 
         return gridPosition;
     }
