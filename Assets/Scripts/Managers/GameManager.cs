@@ -99,12 +99,15 @@ public class GameManager : MonoBehaviour
     {
         state = GM_InGame_State.Initialising;
 
-        terrainManager = FindObjectOfType<TerrainManager>();
+        if (terrainManager)
+        {
+            terrainManager = FindObjectOfType<TerrainManager>();
 
-        terrainManager.Initialise();
-        terrainManager.GenerateGrid();
+            terrainManager.Initialise();
+            terrainManager.GenerateGrid();
+        }
 
-        StartCoroutine(callThisABitLater());
+       StartCoroutine(callThisABitLater());
     }
 
     // Test code
