@@ -23,9 +23,7 @@ GameObject:
   - 54: {fileID: 54000010912714080}
   - 136: {fileID: 136000014151464120}
   - 114: {fileID: 114000011535195830}
-  - 114: {fileID: 114000013082743302}
-  - 114: {fileID: 114000013829583588}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LumberJack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,7 +656,7 @@ GameObject:
   - 137: {fileID: 137000012271979140}
   m_Layer: 0
   m_Name: Tuque
-  m_TagString: Untagged
+  m_TagString: PlayerModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -857,8 +855,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010016158758}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.12124, y: 1, z: 7.99}
-  m_LocalScale: {x: 2.5852156, y: 2.5852177, z: 2.5852177}
+  m_LocalPosition: {x: 0.080057, y: 0.34619, z: 8.1998}
+  m_LocalScale: {x: 2.0467558, y: 2.0467575, z: 2.0467575}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012135723680}
@@ -1337,11 +1335,11 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!95 &95000012806846528
 Animator:
@@ -1371,49 +1369,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7dee27194c21924bb208ac76d78e8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000013082743302
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010016158758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 521b611700410be45810047f0a74e899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114000013829583588
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010016158758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce7a80d520cacc042b5fe14f373d8173, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MovingTurnSpeed: 360
-  m_StationaryTurnSpeed: 180
-  m_JumpPower: 12
-  m_GravityMultiplier: 2
-  m_RunCycleLegOffset: 0.2
-  m_MoveSpeedMultiplier: 1
-  m_AnimSpeedMultiplier: 1
-  m_GroundCheckDistance: 0.1
+  curMaxSpeed: 10
 --- !u!136 &136000014151464120
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010016158758}
-  m_Material: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.91
-  m_Height: 2.97
+  m_Radius: 0.49
+  m_Height: 2.52
   m_Direction: 1
-  m_Center: {x: 0, y: 1.11, z: 0}
+  m_Center: {x: 0, y: 1.35, z: 0}
 --- !u!137 &137000012271979140
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
