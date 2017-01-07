@@ -20,6 +20,8 @@ public class TerrainManager : MonoBehaviour
     private Vector2 gridMinLength;
     // How big each square inside the grid will be
     private float squareLength;
+    // How many walkable tiles there are
+    private int walkableTiles;
 
     // How many trees we shall start with (percentage)
     float treePercentage;
@@ -44,6 +46,9 @@ public class TerrainManager : MonoBehaviour
 
     public void Initialise()
     {
+        // Will be counted inside the GenerateGrid() function
+        walkableTiles = 0;
+
         gridMinLength = new Vector2(50, 80);
         squareLength = 3f;
 
@@ -86,6 +91,8 @@ public class TerrainManager : MonoBehaviour
                 // If this tile doesn't collide with a mountain, water etc. it will be walkable
                 if (!Physics.CheckSphere(worldPosition, squareLength/2, unwalkableMask))
                 {
+                    this.walkableTiles++;
+
                     float probability = Random.Range(0f, 1f);
 
                     // In this case Random chose to spawn a tree here
@@ -139,6 +146,7 @@ public class TerrainManager : MonoBehaviour
             Tile newSeedTile = this.trees_healthy[you];
 
             newSeedTile.GetCurrentObject().GetComponent<TreeComponent>().AddSeed();
+
 
             // Remove this tile from the healthy list
             //this.trees_healthy.Remove(newSeedTile);
@@ -255,6 +263,8 @@ public class TerrainManager : MonoBehaviour
         Vector2 gridPos = WorldPosToGridPos(worldPosition);
 
         Tile selected = grid[(int)gridPos.x, (int)gridPos.y];
+        // In the case this was a seed that turned into a tree
+        this.trees_seed.Remove(selected);
 
         selected.SetCurrentObject(newTree);
         selected.SetState(Tile.TileState.Tree);
@@ -301,7 +311,7 @@ public class TerrainManager : MonoBehaviour
 
     void UpdateNatureLevel()
     {                                                                    //Actual Tree Percent                        minus Ideal Tree Percent
-        this.natureLevel = Mathf.Clamp((trees_healthy.Count + trees_disease.Count) / (grid.GetLength(0) * grid.GetLength(1)) - treePercentage+0.5f,0,1);
+        this.natureLevel = Mathf.Clamp((1f * trees_healthy.Count + trees_disease.Count) / this.walkableTiles, 0, 1);// - treePercentage+0.5f,0,1);
     }
 
 
@@ -424,4 +434,12 @@ public class TerrainManager : MonoBehaviour
     //    }
         
     //}
+
+    void Update()
+    {
+        Debug.Log("Nature level: " + this.natureLevel);
+        Debug.Log("Healthy trees: " + this.trees_healthy.Count);
+        Debug.Log("Diseased trees: " + this.trees_disease.Count);
+        Debug.Log("walkableTiles: " + this.walkableTiles);
+    }
 }
