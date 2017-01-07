@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-public enum GM_InGame_State { Playing, Starting, Paused }
+public enum GM_InGame_State { Playing, Starting, Paused ,Ending}
 public enum GM_Nature_State { Equilibrium, LowNatureLevel, HighNatureLevel }
 public class GameManager : MonoBehaviour
 {
@@ -51,6 +51,14 @@ public class GameManager : MonoBehaviour
     }
     public void StartGame()
     {
-
+        state = GM_InGame_State.Playing;
+    }
+    public void EndGame()
+    {
+        state = GM_InGame_State.Ending;
+    }
+    public void PauseGame()
+    {
+        state = GM_InGame_State.Paused;
     }
 }
