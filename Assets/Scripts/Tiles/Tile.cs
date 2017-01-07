@@ -26,6 +26,11 @@ public class Tile
         return this.currentState;
     }
 
+    public void SetState(TileState newState)
+    {
+        this.currentState = newState;
+    }
+
     public Vector2 GetGridPosition()
     {
         return this.gridPosition;
@@ -39,5 +44,10 @@ public class Tile
     public void SetCurrentObject(GameObject currentObject)
     {
         this.currentObject = currentObject;
+    }
+
+    public GameObject GetCurrentObject()
+    {
+        return this.currentObject;
     }
 }
