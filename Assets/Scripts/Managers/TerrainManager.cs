@@ -33,7 +33,7 @@ public class TerrainManager : MonoBehaviour
     public void Initialise()
     {
         gridMinLength = new Vector2(30, 30);
-        squareLength = 1f;
+        squareLength = 3f;
 
         treePercentage = 0.5f;
         natureLevel = 0.5f;
@@ -77,7 +77,10 @@ public class TerrainManager : MonoBehaviour
                     if (probability < treePercentage)
                     {
                         newTileState = Tile.TileState.Tree;
-                        currentObject = Instantiate(treePrefabs[0], worldPosition, Quaternion.identity) as GameObject;
+                        // Spawn the tree and keep a reference to it in the Tile
+                        currentObject = Instantiate(treePrefabs[0],
+                            new Vector3(worldPosition.x, 0, worldPosition.z),
+                            Quaternion.identity) as GameObject;
                     }
                     else
                         newTileState = Tile.TileState.Empty;
