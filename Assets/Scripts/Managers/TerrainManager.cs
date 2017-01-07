@@ -244,7 +244,7 @@ public class TerrainManager : MonoBehaviour
     }
 
     // For debugging purposes, showing the grid.
-    /*void OnDrawGizmos()
+    void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
 
@@ -260,7 +260,7 @@ public class TerrainManager : MonoBehaviour
                 }
             }
         }
-    }*/
+    }
 
     // Returns a float between 0 and 1 which tells us where on the equilibrium bar we are now
     public float GetNatureLevel()

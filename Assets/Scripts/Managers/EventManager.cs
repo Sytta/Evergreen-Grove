@@ -10,6 +10,7 @@ public class EventManager : MonoBehaviour
     public float magnitude = 1;     //how large the event can be
     public float spread = 0.75f;    //the ratio of seed to disease or vice versa
     public float severity = 1;      //how much it is affected by the nature level
+    public float timeLimit = 10;    //how long an event last before switching
     public bool wait = false;       //indicates if event manager is currently doing nothing
     public bool disease = true;     //indicates direction of nature level the event manager wants to go towards
 
@@ -50,7 +51,7 @@ public class EventManager : MonoBehaviour
         {
             GameManager.instance.terrainManager.InfectRandomTree();
         }
-    }
+    }   
 
     void Create_Disease()
     {
