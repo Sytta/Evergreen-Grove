@@ -97,7 +97,10 @@ public class GameManager : MonoBehaviour
     {
         state = GM_InGame_State.Initialising;
         terrainManager = FindObjectOfType<TerrainManager>();
+        terrainManager.Initialise();
         terrainManager.GenerateGrid();
+
+        terrainManager.WorldPosToGridPos(new Vector3(-13, 0, -14));
 
         // This will eventually become a loop where either of those two are called once in a while
         // This loop will be placed in the EventManager.

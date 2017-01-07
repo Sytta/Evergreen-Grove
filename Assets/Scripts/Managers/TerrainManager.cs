@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TerrainManager : MonoBehaviour
 {
@@ -21,14 +22,22 @@ public class TerrainManager : MonoBehaviour
     // The final Grid
     private Tile[,] grid;
 
-    // Use this for initialization
-    void Start()
+    // A list of healthy trees
+    List<Tile> trees;
+
+    // A list of diseased trees
+    List<Tile> diseasedTrees;
+
+    public void Initialise()
     {
         gridMinLength = new Vector2(30, 30);
-        squareLength = 1;
+        squareLength = 1f;
 
         treePercentage = 0.5f;
         natureLevel = 0.5f;
+
+        trees = new List<Tile>();
+        diseasedTrees = new List<Tile>();
     }
 
 
@@ -78,12 +87,12 @@ public class TerrainManager : MonoBehaviour
         //Call ReceiveDisease() on the tree
 
     }
-    public void SpreadInfection(Vector2 gridPosition)
+    public void SpreadInfection(Vector2 worldPosition)
     {
         //Sets all adjacent tiles to infected if there is a healthy tree
 
     }
-    public void SpreadSeed(Vector2 gridPosition)
+    public void SpreadSeed(Vector2 worldPosition)
     {
         //Sets all adjacent tiles to seeds if there is a healthy tree
     }
@@ -91,17 +100,17 @@ public class TerrainManager : MonoBehaviour
     {
         //Add random seed to a tree (integer)
     }
-    public void PlantTree(Vector2 gridPosition)
+    public void PlantTree(Vector2 worldPosition)
     {
         //Spawns a tree and add it to the healthy tree list, change the tile from seed to tree
 
         UpdateNatureLevel();
     }
-    void InfectTree(Vector2 gridPosition)
+    void InfectTree(Vector2 worldPosition)
     {
         //Check if the tile is a healthy tree, then infect it . Remove it from the healthy tree list
     }
-    void PlantSeed(Vector2 gridPosition)
+    void PlantSeed(Vector2 worldPosition)
     {
         //Check if the tile is empty, then plant a seed on it
     }
@@ -109,7 +118,19 @@ public class TerrainManager : MonoBehaviour
     {
 
     }
-    public void KillTree(Vector2 gridPosition)
+
+    // Wisp picks up a seed at a worldPosition
+    void PickUpSeed()
+    {
+
+    }
+    // The lumberjack calls this function when he is finished cutting the tree
+    void RemoveTree()
+    {
+
+    }
+
+    public void KillTree(Vector2 worldPosition)
     {
         // Sets the gameobject of the tile at this position to null
         // Sets the state of this tile to Empty
@@ -117,22 +138,21 @@ public class TerrainManager : MonoBehaviour
 
         UpdateNatureLevel();
     }
+
     // For debugging purposes, showing the grid.
     void OnDrawGizmos()
     {
+        Gizmos.color = Color.green;
+
         if (grid != null)
         {
             for (int i = 0; i < this.grid.GetLength(0); i++)
             {
                 for (int j = 0; j < this.grid.GetLength(1); j++)
                 {
-                    // Unwalkable tiles will be rendered red, walkable tiles green.
-                    if (this.grid[i, j].GetState() == Tile.TileState.UnWalkable)
-                        Gizmos.color = Color.red;
-                    else
-                        Gizmos.color = Color.green;
-
-                    Gizmos.DrawWireCube(this.grid[i, j].GetWorldPosition(), Vector3.one*this.squareLength);
+                    // Only draw a wire cube if a tree can be spawned there
+                    if (!(this.grid[i,j].GetState() == Tile.TileState.UnWalkable))
+                        Gizmos.DrawWireCube(this.grid[i, j].GetWorldPosition(), Vector3.one*this.squareLength);
                 }
             }
         }
@@ -142,5 +162,22 @@ public class TerrainManager : MonoBehaviour
     public float GetNatureLevel()
     {
         return this.natureLevel;
+    }
+
+
+    public Vector2 WorldPosToGridPos(Vector3 worldPosition)
+    {
+        Vector3 localPosition = worldPosition - transform.position;
+
+        Vector2 gridPosition = new Vector2(0, 0);
+
+        // Make sure our new gridPosition wont be out of bounds
+        float xPosClamped = Mathf.Clamp(localPosition.x, 0, this.gridMinLength.x);
+        float yPosClamped = Mathf.Clamp(localPosition.z, 0, this.gridMinLength.y);
+
+        gridPosition.x = (int)(xPosClamped-1 / squareLength);
+        gridPosition.y = (int)(yPosClamped-1 / squareLength);
+
+        return gridPosition;
     }
 }
