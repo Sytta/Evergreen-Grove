@@ -6,14 +6,23 @@ public class LumberJackPlayer : PlayerCharacter {
     private TerrainManager terrainManager;
 
 	// Use this for initialization
-	void Start () {
+	 protected override void Start () {
+        base.Start();
         terrainManager = GameObject.FindGameObjectWithTag("TerrainManager").GetComponent<TerrainManager>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
-	}
+	protected override void Update () {
+        base.Update();
+        if(Input.GetButton("CutDownTree"))
+        {
+            anim.SetBool("Chopping",true);
+        }
+        else
+        {
+            anim.SetBool("Chopping", false);
+        }
+    }
 
     //
     public override void ExecuteAction()

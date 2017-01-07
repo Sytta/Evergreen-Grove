@@ -39,10 +39,10 @@ using UnityEngine;
 
         private void Update()
         {
-            if (!m_Jump)
-            {
-                m_Jump = Input.GetButtonDown("Jump");
-            }
+            //if (!m_Jump)
+            //{
+            //    m_Jump = Input.GetButtonDown("Jump");
+            //}
         }
 
 
