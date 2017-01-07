@@ -13,18 +13,21 @@ public class SeedComponent : MonoBehaviour {
         StartCoroutine("CountDown");
 	}
 	
-    // Called when a seed on an emtpy tile wants to become a tree
+    // Called when a seed on an empty tile wants to become a tree
     void GrowTree()
     {
-        terrain.SpawnTree(transform.position);
+        TreeComponent newTree = terrain.SpawnTree(transform.position);
+        newTree.AddSeed();
+
         Destroy(gameObject);
     }
     IEnumerator CountDown()
     {
-        for(int i=0;i<timeToGrow/pulseRate; i++)
+        yield return new WaitForSeconds(timeToGrow);
+        /*for(int i=0;i<timeToGrow/pulseRate; i++)
         {
             yield return new WaitForSeconds(timeToGrow*pulseRate);
-        }
+        }*/
         GrowTree();
     }
 }
