@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EventGenerator : MonoBehaviour {
+public class GameInstance : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
