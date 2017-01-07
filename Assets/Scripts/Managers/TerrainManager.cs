@@ -40,7 +40,7 @@ public class TerrainManager : MonoBehaviour
 
     public void Initialise()
     {
-        gridMinLength = new Vector2(30, 30);
+        gridMinLength = new Vector2(50, 80);
         squareLength = 3f;
 
         treePercentage = 0.5f;
@@ -59,7 +59,7 @@ public class TerrainManager : MonoBehaviour
     {
         // Figure out how many x and y squares there will be in this grid.
         int xAmount = (int)Mathf.Ceil(this.gridMinLength.x / this.squareLength);
-        int yAmount = (int)Mathf.Ceil(this.gridMinLength.x / this.squareLength);
+        int yAmount = (int)Mathf.Ceil(this.gridMinLength.y / this.squareLength);
 
         this.grid = new Tile[xAmount,yAmount];
 
@@ -222,7 +222,7 @@ public class TerrainManager : MonoBehaviour
     }
 
     // For debugging purposes, showing the grid.
-    void OnDrawGizmos()
+    /*void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
 
@@ -238,7 +238,7 @@ public class TerrainManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
     // Returns a float between 0 and 1 which tells us where on the equilibrium bar we are now
     public float GetNatureLevel()
