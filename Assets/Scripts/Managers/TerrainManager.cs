@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Grid : MonoBehaviour
+public class TerrainManager : MonoBehaviour
 {
     // The LayerMask where the players should not be able to walk
     public LayerMask unwalkableMask;
@@ -31,17 +31,9 @@ public class Grid : MonoBehaviour
         natureLevel = 0.5f;
     }
 
-    // Returns an array of Tiles for the map
-    public Tile[,] GetGrid()
-    {
-        if (this.grid == null)
-            GenerateGrid();
-
-        return this.grid;
-    }
 
     // Instantiates the internal grid variable
-    private void GenerateGrid()
+    public void GenerateGrid()
     {
         // Figure out how many x and y squares there will be in this grid.
         int xAmount = (int)Mathf.Ceil(this.gridMinLength.x / this.squareLength);
@@ -80,6 +72,51 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public void InfectRandomTree()
+    {
+        //Goes through the list of healthy trees and pick one at random
+        //Call ReceiveDisease() on the tree
+
+    }
+    public void SpreadInfection(Vector2 gridPosition)
+    {
+        //Sets all adjacent tiles to infected if there is a healthy tree
+
+    }
+    public void SpreadSeed(Vector2 gridPosition)
+    {
+        //Sets all adjacent tiles to seeds if there is a healthy tree
+    }
+    public void AddRandomSeed()
+    {
+        //Add random seed to a tree (integer)
+    }
+    public void PlantTree(Vector2 gridPosition)
+    {
+        //Spawns a tree and add it to the healthy tree list, change the tile from seed to tree
+
+        UpdateNatureLevel();
+    }
+    void InfectTree(Vector2 gridPosition)
+    {
+        //Check if the tile is a healthy tree, then infect it . Remove it from the healthy tree list
+    }
+    void PlantSeed(Vector2 gridPosition)
+    {
+        //Check if the tile is empty, then plant a seed on it
+    }
+    void UpdateNatureLevel()
+    {
+
+    }
+    public void KillTree(Vector2 gridPosition)
+    {
+        // Sets the gameobject of the tile at this position to null
+        // Sets the state of this tile to Empty
+        // Remove the tree from the diseased trees list
+
+        UpdateNatureLevel();
+    }
     // For debugging purposes, showing the grid.
     void OnDrawGizmos()
     {

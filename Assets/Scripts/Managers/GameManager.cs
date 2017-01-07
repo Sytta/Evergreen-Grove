@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-public enum GM_InGame_State { Playing, Starting, Paused ,Ending}
+public enum GM_InGame_State { Initialising , Playing, Paused ,Ending}
 public enum GM_Nature_State { Equilibrium, LowNatureLevel, HighNatureLevel }
 public class GameManager : MonoBehaviour
 {
@@ -8,9 +8,10 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public float gameTimer = 0;
     public float equilibriumRange = .2f;
+    public int seeds=0;
+    public TerrainManager terrainManager;
     public GM_InGame_State state;
     public const float EQUILIBRIUM_LEVEL=0.5F;
-
     private float deltaNatureLevel;
     private GM_Nature_State deltaNatureState;
     // Use this for initialization
@@ -24,10 +25,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        state = GM_InGame_State.Starting;
-
-        StartGame();
-
+        Initialise();
     }
 
     // Update is called once per frame
@@ -94,5 +92,16 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         state = GM_InGame_State.Paused;
+    }
+    public void Initialise()
+    {
+        state = GM_InGame_State.Initialising;
+        terrainManager = FindObjectOfType<TerrainManager>();
+        terrainManager.GenerateGrid();
+
+        // This will eventually become a loop where either of those two are called once in a while
+        // This loop will be placed in the EventManager.
+        terrainManager.AddRandomSeed();
+        terrainManager.InfectRandomTree();
     }
 }
