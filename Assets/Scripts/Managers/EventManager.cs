@@ -10,15 +10,16 @@ public class EventManager : MonoBehaviour
     public float magnitude = 2;     //how large the event can be
     public float spread = 0.75f;    //the ratio of seed to disease or vice versa
     public float severity = 1;      //how much it is affected by the nature level
-    public float timeLimit = 20;    //how long an event last before switching
+    public float timeLimit = 20;    //how long an event last before EXTREME MODE
     public bool wait = false;       //indicates if event manager is currently doing nothing
     public bool disease = true;     //indicates direction of nature level the event manager wants to go towards
 
     float eventTimer = 0;
     float stateTimer = 0;
     EM_Goal goal;
-    bool firstTimeEquilibrium = true;      //indicates if it is the first time entering the equilibirum break loop
-    
+    bool firstTimeEquilibrium = true;   //indicates if it is the first time entering the equilibirum break loop
+    bool IsStateTimerStarted = false;   //indicates if the extreme mode event timer started
+
     //Functions to be used
     void Break_Equilibrium(bool firstTime)
     {
@@ -56,7 +57,7 @@ public class EventManager : MonoBehaviour
 
     void Create_Seed(float magnitude)
     {
-        eventTimer = frequency/magnitude; //set the event timer, which is now smaller due to higher magnitude
+        eventTimer = frequency / magnitude; //set the event timer, which is now smaller due to higher magnitude
         //determines ratio of seed to disease
         if (Random.value <= spread)
         {
@@ -87,7 +88,7 @@ public class EventManager : MonoBehaviour
 
     void Create_Disease(float magnitude)
     {
-        eventTimer = frequency/magnitude; //set the event timer
+        eventTimer = frequency / magnitude; //set the event timer
         //determines ratio of seed to disease
         if (Random.value <= spread)
         {
@@ -118,6 +119,8 @@ public class EventManager : MonoBehaviour
             {
                 wait = false;
                 //checks game state and does the appropriate decision ( breaks equilibirum, adds trees, adds diseases)
+
+                //equilibrium breaker
                 if (GameManager.instance.GetNatureState() == GM_Nature_State.Equilibrium)
                 {
                     if (goal != EM_Goal.Break_Equilibrium)
@@ -128,19 +131,57 @@ public class EventManager : MonoBehaviour
                     Break_Equilibrium(firstTimeEquilibrium);
                     firstTimeEquilibrium = false;
                 }
-                else if (GameManager.instance.GetNatureState() == GM_Nature_State.HighNatureLevel || GameManager.instance.GetNatureState() == GM_Nature_State.HighNatureLevel)
+
+                //High Nature
+                else if (GameManager.instance.GetNatureState() == GM_Nature_State.HighNatureLevel || GameManager.instance.GetNatureState() == GM_Nature_State.VeryHighNatureLevel)
                 {
                     goal = EM_Goal.Create_Seed;
                     Create_Seed();
-
+                    //if you're not in high danger zone, ignore timer
+                    if (GameManager.instance.GetNatureState() == GM_Nature_State.HighNatureLevel)
+                    {
+                        IsStateTimerStarted = false;
+                    }
+                    //if in high danger zone, start timer
+                    else if (!IsStateTimerStarted && GameManager.instance.GetNatureState() == GM_Nature_State.VeryHighNatureLevel)
+                    {
+                        stateTimer = timeLimit;
+                        IsStateTimerStarted = true;
+                    }
                 }
+
+                //Low nature
                 else
                 {
                     goal = EM_Goal.Create_Disease;
                     Create_Disease();
+                    //if you're not in high danger zone, ignore timer
+                    if (GameManager.instance.GetNatureState() == GM_Nature_State.LowNatureLevel)
+                    {
+                        IsStateTimerStarted = false;
+                    }
+                    //if in high danger zone, start timer
+                    else if (!IsStateTimerStarted && GameManager.instance.GetNatureState() == GM_Nature_State.VeryLowNatureLevel)
+                    {
+                        stateTimer = timeLimit;
+                        IsStateTimerStarted = true;
+                    }
                 }
             }
+
+            //if danger timer is started, time is at 0 or less, and in very high nature level, go to EXTREME DISEASE MODE!
+            if (IsStateTimerStarted && stateTimer <= 0 && GameManager.instance.GetNatureState() == GM_Nature_State.VeryHighNatureLevel)
+            {
+                Create_Disease(magnitude);
+            }
+            //if danger timer is started, time is at 0 or less, and in very low nature level, go to EXTREME SEED MODE!
+            if (IsStateTimerStarted && stateTimer <= 0 && GameManager.instance.GetNatureState() == GM_Nature_State.VeryLowNatureLevel)
+            {
+                Create_Seed(magnitude);
+            }
+
             eventTimer -= Time.deltaTime;
+            stateTimer -= Time.deltaTime;
             wait = true;
         }
     }

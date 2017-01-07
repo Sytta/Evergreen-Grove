@@ -13,9 +13,10 @@ public class SeedComponent : MonoBehaviour {
         StartCoroutine("CountDown");
 	}
 	
+    // Called when a seed on an emtpy tile wants to become a tree
     void GrowTree()
     {
-        //terrain.PlantTree(transform.position);
+        terrain.SpawnTree(transform.position);
         Destroy(gameObject);
     }
     IEnumerator CountDown()

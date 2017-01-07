@@ -33,7 +33,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(GetNatureLevel()<=0 || GetNatureLevel()>=1)
+        {
+            EndGame();
+        }
         if (state == GM_InGame_State.Playing)
         {
             //Was there a change in the nature level
@@ -99,6 +102,10 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         state = GM_InGame_State.Paused;
+    }
+    public void UnPauseGame()
+    {
+        state = GM_InGame_State.Playing;
     }
     public void Initialise()
     {
