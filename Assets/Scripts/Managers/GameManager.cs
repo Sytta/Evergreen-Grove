@@ -107,11 +107,11 @@ public class GameManager : MonoBehaviour
             terrainManager.GenerateGrid();
         }
 
-       StartCoroutine(callThisABitLater());
+       //StartCoroutine(callThisABitLater());
     }
 
     // Test code
-    IEnumerator callThisABitLater()
+    /*IEnumerator callThisABitLater()
     {
         Debug.Log(terrainManager.WorldPosToGridPos(new Vector3(-11, 0, -12)));
         Debug.Log(terrainManager.WorldPosToGridPos(new Vector3(-2, 0, -14)));
@@ -123,5 +123,5 @@ public class GameManager : MonoBehaviour
         // This loop will be placed in the EventManager.
         //terrainManager.AddRandomSeed();
         //terrainManager.InfectRandomTree();
-    }
+    }*/
 }
