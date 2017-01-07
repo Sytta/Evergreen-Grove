@@ -5,7 +5,6 @@ public enum GM_InGame_State { Initialising , Playing, Paused ,Ending}
 public enum GM_Nature_State { Equilibrium, LowNatureLevel, HighNatureLevel }
 public class GameManager : MonoBehaviour
 {
-    public float debugNatureLevel=0.5f;
     public static GameManager instance = null;
     public float gameTimer = 0;
     public float equilibriumRange = .2f;
@@ -70,7 +69,7 @@ public class GameManager : MonoBehaviour
     }
     public float GetNatureLevel()
     {
-        return debugNatureLevel;
+        return terrainManager.GetNatureLevel();
     }
     public GM_Nature_State GetNatureState()
     {
