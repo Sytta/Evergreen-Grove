@@ -141,7 +141,7 @@ public class TerrainManager : MonoBehaviour
 
             Vector3 spawnLocation = spawnPosition + new Vector3(0, this.heightOfSeed, 0);
 
-            SpawnSeed(spawnLocation);
+            GameObject newSeed = SpawnSeed(spawnLocation);
 
             newSeedTile.SetCurrentObject(newSeed);
             newSeedTile.SetState(Tile.TileState.Seed);
@@ -210,12 +210,14 @@ public class TerrainManager : MonoBehaviour
     }
 
     // Spawns a seed at the given location
-    void SpawnSeed(Vector3 spawnLocation)
+    GameObject SpawnSeed(Vector3 spawnLocation)
     {
         // Instantiate a random seed to that tree's tile
         GameObject newSeed = Instantiate(seedPrefab,
             spawnLocation,
             Quaternion.identity) as GameObject;
+
+        return newSeed;
     }
 
     // Returns true if these are legal indexes in this.grid
