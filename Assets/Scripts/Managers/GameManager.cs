@@ -105,20 +105,23 @@ public class GameManager : MonoBehaviour
     // Test code
     IEnumerator callThisABitLater()
     {
-        terrainManager = FindObjectOfType<TerrainManager>();
+        if (terrainManager)
+        {
+            terrainManager = FindObjectOfType<TerrainManager>();
 
-        terrainManager.Initialise();
-        terrainManager.GenerateGrid();
-        
-        Debug.Log(terrainManager.WorldPosToGridPos(new Vector3(-11, 0, -12)));
-        Debug.Log(terrainManager.WorldPosToGridPos(new Vector3(-2, 0, -14)));
-        Debug.Log(terrainManager.WorldPosToGridPos(new Vector3(14.4f, 0, -6)));
+            terrainManager.Initialise();
+            terrainManager.GenerateGrid();
 
-        yield return new WaitForSeconds(2);
+            Debug.Log(terrainManager.WorldPosToGridPos(new Vector3(-11, 0, -12)));
+            Debug.Log(terrainManager.WorldPosToGridPos(new Vector3(-2, 0, -14)));
+            Debug.Log(terrainManager.WorldPosToGridPos(new Vector3(14.4f, 0, -6)));
 
-        // This will eventually become a loop where either of those two are called once in a while
-        // This loop will be placed in the EventManager.
-        //terrainManager.AddRandomSeed();
-        //terrainManager.InfectRandomTree();
+            yield return new WaitForSeconds(2);
+
+            // This will eventually become a loop where either of those two are called once in a while
+            // This loop will be placed in the EventManager.
+            //terrainManager.AddRandomSeed();
+            //terrainManager.InfectRandomTree();
+        }
     }
 }
