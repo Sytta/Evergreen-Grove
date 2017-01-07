@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class TerrainManager : MonoBehaviour
 {
+    public List<GameObject> treePrefabs;
+
     // The LayerMask where the players should not be able to walk
     public LayerMask unwalkableMask;
 
@@ -64,6 +66,8 @@ public class TerrainManager : MonoBehaviour
                 // Now we shall determine the state of this Tile
                 Tile.TileState newTileState = Tile.TileState.UnWalkable;
 
+                GameObject currentObject = null;
+
                 // If this tile doesn't collide with a mountain, water etc. it will be walkable
                 if (!Physics.CheckSphere(worldPosition, squareLength/2, unwalkableMask))
                 {
@@ -71,12 +75,15 @@ public class TerrainManager : MonoBehaviour
 
                     // In this case Random chose to spawn a tree here
                     if (probability < treePercentage)
+                    {
                         newTileState = Tile.TileState.Tree;
+                        currentObject = Instantiate(treePrefabs[0], worldPosition, Quaternion.identity) as GameObject;
+                    }
                     else
                         newTileState = Tile.TileState.Empty;
                 }
 
-                grid[i, j] = new Tile(newTileState, gridPosition, worldPosition);
+                grid[i, j] = new Tile(newTileState, gridPosition, worldPosition, currentObject);
             }
         }
     }
