@@ -76,8 +76,20 @@ using UnityEngine;
             m_Jump = false;
 
         //Map keys to players' actions
-        if (name == "Wisp" && Input.GetButton("PlantTree")) player.ExecuteAction();
-        if (name == "LumberJack" && Input.GetButton("CutDownTree")) player.ExecuteAction();
+        if (name == "Wisp" && Input.GetButton("PlantTree"))
+        {
+            player.ExecuteAction();
+            m_Character.ExecutingAction = true;
+        }
+        else if (name == "LumberJack" && Input.GetButton("CutDownTree"))
+        {
+            player.ExecuteAction();
+            m_Character.ExecutingAction = true;
+        }
+        else
+        {
+            m_Character.ExecutingAction = false;
+        }
 
         }
     }
