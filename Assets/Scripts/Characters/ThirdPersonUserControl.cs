@@ -1,14 +1,13 @@
 using System;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
 
-namespace UnityStandardAssets.Characters.ThirdPerson
-{
+
     [RequireComponent(typeof (ThirdPersonCharacter))]
+
     public class ThirdPersonUserControl : MonoBehaviour
     {
         private string name;
-
+        private PlayerCharacter player;
         private ThirdPersonCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
         private Vector3 m_CamForward;             // The current forward direction of the camera
@@ -19,6 +18,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private void Start()
         {
             name = gameObject.name;
+            player = GetComponent<PlayerCharacter>();
 
             // get the transform of the main camera
             if (Camera.main != null)
@@ -41,7 +41,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         {
             if (!m_Jump)
             {
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+                m_Jump = Input.GetButtonDown("Jump");
             }
         }
 
@@ -50,8 +50,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private void FixedUpdate()
         {
             // read inputs
-            float h = CrossPlatformInputManager.GetAxis("Horizontal " + name);
-            float v = CrossPlatformInputManager.GetAxis("Vertical " + name);
+            float h = Input.GetAxis("Horizontal " + name);
+            float v = Input.GetAxis("Vertical " + name);
             bool crouch = Input.GetKey(KeyCode.C);
 
             // calculate move direction to pass to character
@@ -74,6 +74,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             // pass all parameters to the character control script
             m_Character.Move(m_Move, crouch, m_Jump);
             m_Jump = false;
+
+        //Map keys to players' actions
+        if (name == "Wisp" && Input.GetButton("PlantTree")) player.ExecuteAction();
+        if (name == "LumberJack" && Input.GetButton("CutDownTree")) player.ExecuteAction();
+
         }
     }
-}
