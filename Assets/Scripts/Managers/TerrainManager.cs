@@ -246,11 +246,18 @@ public class TerrainManager : MonoBehaviour
 
         PlaceStateAround(Tile.TileState.Seed, gridPosition);
     }
-    
 
     public void SpawnTree(Vector3 worldPosition)
     {
-        //Spawns a tree and add it to the healthy tree list, change the tile from seed to tree
+        // Spawns a tree and add it to the healthy tree list, change the tile from seed to tree
+        GameObject newTree = Instantiate(this.treePrefabs[0], worldPosition, Quaternion.identity) as GameObject;
+
+        Vector2 gridPos = WorldPosToGridPos(worldPosition);
+
+        Tile selected = grid[(int)gridPos.x, (int)gridPos.y];
+
+        selected.SetCurrentObject(newTree);
+        selected.SetState(Tile.TileState.Tree);
 
         UpdateNatureLevel();
     }
