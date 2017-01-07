@@ -216,7 +216,7 @@ public class TerrainManager : MonoBehaviour
 
         Tile selected = this.grid[(int)gridPosition.y, (int)gridPosition.x];
 
-        if (selected.GetState() == Tile.TileState.)        
+        //if (selected.GetState() == Tile.TileState.)        
     }
 
     // The lumberjack calls this function when he is finished cutting the tree
