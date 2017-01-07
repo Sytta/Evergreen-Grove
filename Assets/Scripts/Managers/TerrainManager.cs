@@ -185,8 +185,8 @@ public class TerrainManager : MonoBehaviour
     }
 
     void UpdateNatureLevel()
-    {                                                                    //Tree Percent                                   minus Ideal Tree Percent
-        this.natureLevel = Mathf.Clamp(Mathf.Abs((trees_healthy.Count + trees_disease.Count) / (grid.GetLength(0) * grid.GetLength(1)) - treePercentage)+0.5f,0,1);
+    {                                                                    //Actual Tree Percent                        minus Ideal Tree Percent
+        this.natureLevel = Mathf.Clamp((trees_healthy.Count + trees_disease.Count) / (grid.GetLength(0) * grid.GetLength(1)) - treePercentage+0.5f,0,1);
     }
 
 
@@ -194,22 +194,44 @@ public class TerrainManager : MonoBehaviour
     // Lumberjack/Wisp call these three functions
     //////////////
 
+    // Wisp calls this function to do its actions.
+    // If the wisp is on a seed tile it will pick up the tile
+    // If the wisp is on an empty tile it will plant a tree
+    public void WispAction(Vector3 worldPosition)
+    {
+        Vector2 gridPos = WorldPosToGridPos(worldPosition);
+
+        Tile selected = this.grid[(int)gridPos.x, (int)gridPos.y];
+
+        if (selected.GetState() == Tile.TileState.Empty)
+            SpawnTree(worldPosition);
+        if (selected.GetState() == Tile.TileState.Seed)
+            PickUpSeed(worldPosition);
+    }
+
     // Wisp picks up a seed at a worldPosition
     public void PickUpSeed(Vector3 worldPosition)
     {
+        Vector2 gridPosition = WorldPosToGridPos(worldPosition);
 
-    }
+        Tile selected = this.grid[(int)gridPosition.y, (int)gridPosition.x];
 
-    // Wisp plants a tree
-    public void PlantTree(Vector3 worldPosition)
-    {
-
+        if (selected.GetState() == Tile.TileState.)        
     }
 
     // The lumberjack calls this function when he is finished cutting the tree
     public void RemoveTree(Vector3 worldPosition)
     {
+        Vector2 gridPos = WorldPosToGridPos(worldPosition);
 
+        Tile selected = this.grid[(int)gridPos.x, (int)gridPos.y];
+
+        bool condition1 = selected.GetState() == Tile.TileState.Seed;
+        bool condition2 = selected.GetState() == Tile.TileState.Tree;
+        bool condition3 = selected.GetState() == Tile.TileState.Disease;
+
+        if (condition1 || condition2 || condition3)
+            RemoveTree(worldPosition);
     }
 
     public void KillTree(Vector3 worldPosition)

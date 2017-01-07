@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 public enum GM_InGame_State { Initialising , Playing, Paused ,Ending}
-public enum GM_Nature_State { Equilibrium, LowNatureLevel, HighNatureLevel }
+public enum GM_Nature_State { Equilibrium, LowNatureLevel, HighNatureLevel,VeryHighNatureLevel,VeryLowNatureLevel }
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int seeds=0;
     public TerrainManager terrainManager;
     public GM_InGame_State state;
+    public bool isTutorialMode;
     //public List<PlayerCharacter> players;
     public const float EQUILIBRIUM_LEVEL=0.5F;
     private float deltaNatureLevel;
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (state == GM_InGame_State.Playing)
         {
             //Was there a change in the nature level
@@ -75,10 +77,14 @@ public class GameManager : MonoBehaviour
     {
         if (GetNatureLevel()<= EQUILIBRIUM_LEVEL-(equilibriumRange/2))
         {
+            if(GetNatureLevel()<=0.1)
+                return GM_Nature_State.VeryLowNatureLevel;
             return GM_Nature_State.LowNatureLevel;
         }
         if(GetNatureLevel() >= EQUILIBRIUM_LEVEL + (equilibriumRange / 2))
         {
+            if (GetNatureLevel() >= 0.9)
+                return GM_Nature_State.VeryHighNatureLevel;
             return GM_Nature_State.HighNatureLevel;
         }
         return GM_Nature_State.Equilibrium;
