@@ -17,9 +17,9 @@ InputManager:
     dead: 0
     sensitivity: 1
     snap: 0
-    invert: 0
+    invert: 1
     type: 2
-    axis: 0
+    axis: 1
     joyNum: 1
   - serializedVersion: 3
     m_Name: Vertical Wisp
@@ -35,7 +35,7 @@ InputManager:
     snap: 0
     invert: 1
     type: 2
-    axis: 1
+    axis: 0
     joyNum: 1
   - serializedVersion: 3
     m_Name: Horizontal LumberJack
@@ -49,9 +49,9 @@ InputManager:
     dead: 0
     sensitivity: 1
     snap: 0
-    invert: 0
+    invert: 1
     type: 2
-    axis: 0
+    axis: 1
     joyNum: 2
   - serializedVersion: 3
     m_Name: Vertical LumberJack
@@ -67,7 +67,7 @@ InputManager:
     snap: 0
     invert: 1
     type: 2
-    axis: 1
+    axis: 0
     joyNum: 2
   - serializedVersion: 3
     m_Name: Fire3
@@ -153,8 +153,8 @@ InputManager:
     m_Name: Horizontal LumberJack
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: a
-    positiveButton: d
+    negativeButton: s
+    positiveButton: w
     altNegativeButton: 
     altPositiveButton: 
     gravity: 30
@@ -169,8 +169,8 @@ InputManager:
     m_Name: Vertical LumberJack
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: s
-    positiveButton: w
+    negativeButton: d
+    positiveButton: a
     altNegativeButton: 
     altPositiveButton: 
     gravity: 30
@@ -186,7 +186,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: return
+    positiveButton: right shift
     altNegativeButton: 
     altPositiveButton: joystick 1 button 0
     gravity: 1000
@@ -297,8 +297,8 @@ InputManager:
     m_Name: Horizontal Wisp
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: left
-    positiveButton: right
+    negativeButton: down
+    positiveButton: up
     altNegativeButton: 
     altPositiveButton: 
     gravity: 30
@@ -313,8 +313,8 @@ InputManager:
     m_Name: Vertical Wisp
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: down
-    positiveButton: up
+    negativeButton: right
+    positiveButton: left
     altNegativeButton: 
     altPositiveButton: 
     gravity: 30

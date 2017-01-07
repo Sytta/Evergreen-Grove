@@ -6,18 +6,19 @@ public class EventManager : MonoBehaviour
 {
     public static EventManager instance = null;
 
-    public float frequency = 1;     //how often an event can occurs
-    public float magnitude = 1;     //how large the event can be
+    public float frequency = 6;     //how often an event can occurs
+    public float magnitude = 2;     //how large the event can be
     public float spread = 0.75f;    //the ratio of seed to disease or vice versa
     public float severity = 1;      //how much it is affected by the nature level
-    public float timeLimit = 10;    //how long an event last before switching
+    public float timeLimit = 20;    //how long an event last before switching
     public bool wait = false;       //indicates if event manager is currently doing nothing
     public bool disease = true;     //indicates direction of nature level the event manager wants to go towards
 
     float eventTimer = 0;
+    float stateTimer = 0;
     EM_Goal goal;
     bool firstTimeEquilibrium = true;      //indicates if it is the first time entering the equilibirum break loop
-
+    
     //Functions to be used
     void Break_Equilibrium(bool firstTime)
     {
@@ -51,11 +52,42 @@ public class EventManager : MonoBehaviour
         {
             GameManager.instance.terrainManager.InfectRandomTree();
         }
-    }   
+    }
+
+    void Create_Seed(float magnitude)
+    {
+        eventTimer = frequency/magnitude; //set the event timer, which is now smaller due to higher magnitude
+        //determines ratio of seed to disease
+        if (Random.value <= spread)
+        {
+            //creates the majority type
+            GameManager.instance.terrainManager.AddRandomSeed();
+        }
+        else
+        {
+            GameManager.instance.terrainManager.InfectRandomTree();
+        }
+    }
 
     void Create_Disease()
     {
         eventTimer = frequency; //set the event timer
+        //determines ratio of seed to disease
+        if (Random.value <= spread)
+        {
+            //creates the majority type
+            GameManager.instance.terrainManager.InfectRandomTree();
+
+        }
+        else
+        {
+            GameManager.instance.terrainManager.AddRandomSeed();
+        }
+    }
+
+    void Create_Disease(float magnitude)
+    {
+        eventTimer = frequency/magnitude; //set the event timer
         //determines ratio of seed to disease
         if (Random.value <= spread)
         {
@@ -96,7 +128,7 @@ public class EventManager : MonoBehaviour
                     Break_Equilibrium(firstTimeEquilibrium);
                     firstTimeEquilibrium = false;
                 }
-                else if (GameManager.instance.GetNatureState() == GM_Nature_State.HighNatureLevel)
+                else if (GameManager.instance.GetNatureState() == GM_Nature_State.HighNatureLevel || GameManager.instance.GetNatureState() == GM_Nature_State.HighNatureLevel)
                 {
                     goal = EM_Goal.Create_Seed;
                     Create_Seed();
