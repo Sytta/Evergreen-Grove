@@ -52,8 +52,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         state = GM_InGame_State.Playing;
-    }
-    public void EndGame()
+    }    public void EndGame()
     {
         state = GM_InGame_State.Ending;
     }
