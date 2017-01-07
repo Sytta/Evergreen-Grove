@@ -15,7 +15,7 @@ public class SeedComponent : MonoBehaviour {
 	
     void GrowTree()
     {
-        terrain.PlantTree(transform.position);
+        //terrain.PlantTree(transform.position);
         Destroy(gameObject);
     }
     IEnumerator CountDown()
