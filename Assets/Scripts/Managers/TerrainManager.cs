@@ -185,8 +185,8 @@ public class TerrainManager : MonoBehaviour
     }
 
     void UpdateNatureLevel()
-    {                                                                    //Tree Percent                                   minus Ideal Tree Percent
-        this.natureLevel = Mathf.Clamp(Mathf.Abs((trees_healthy.Count + trees_disease.Count) / (grid.GetLength(0) * grid.GetLength(1)) - treePercentage)+0.5f,0,1);
+    {                                                                    //Actual Tree Percent                        minus Ideal Tree Percent
+        this.natureLevel = Mathf.Clamp((trees_healthy.Count + trees_disease.Count) / (grid.GetLength(0) * grid.GetLength(1)) - treePercentage+0.5f,0,1);
     }
 
 
