@@ -449,11 +449,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60058dd57522c5f47b7a974214d2e3ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diseasedLeavesColor: {r: 0.066176474, g: 0.066176474, b: 0.066176474, a: 0}
+  diseasedLeavesColor: {r: 0.26161256, g: 0, b: 0.49264705, a: 0}
   sicklyLeavesColor: {r: 0.80112165, g: 0.86764705, b: 0.17863323, a: 0}
   diseasedBarkColor: {r: 0.066176474, g: 0.045739617, b: 0.023842994, a: 0}
   sicklyBarkColor: {r: 0.28676468, g: 0.24674559, b: 0.19609644, a: 0}
-  TimeToTurnDiseased: 1
+  minimumSeedPlantTime: 0
+  maximumSeedPlantTime: 0
+  timeToTurnDiseased: 2
 --- !u!137 &137000011403192246
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

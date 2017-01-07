@@ -139,10 +139,9 @@ public class TerrainManager : MonoBehaviour
             Vector3 spawnPosition = newSeedTile.GetWorldPosition();
             spawnPosition.y = 0;
 
-            // Instantiate a random seed to that tree's tile
-            GameObject newSeed = Instantiate(seedPrefab,
-                spawnPosition + new Vector3(0, this.heightOfSeed, 0),
-                Quaternion.identity) as GameObject;
+            Vector3 spawnLocation = spawnPosition + new Vector3(0, this.heightOfSeed, 0);
+
+            GameObject newSeed = SpawnSeed(spawnLocation);
 
             newSeedTile.SetCurrentObject(newSeed);
             newSeedTile.SetState(Tile.TileState.Seed);
@@ -157,6 +156,77 @@ public class TerrainManager : MonoBehaviour
     public void SpreadInfection(Vector3 worldPosition)
     {
         //Sets all adjacent tiles to infected if there is a healthy tree
+
+        Vector2 gridPosition = WorldPosToGridPos(worldPosition);
+
+        PlaceStateAround(Tile.TileState.Disease, gridPosition);
+    }
+
+    // newState can only be TileState.Disease or TileState.Seed
+    void PlaceStateAround(Tile.TileState newState, Vector2 gridPosition)
+    {
+        int x = (int)gridPosition.x;
+        int y = (int)gridPosition.y;
+
+        if (newState == Tile.TileState.Disease)
+        {
+            if (GridHasIndexes(x-1, y-1))
+                InfectTree(gridPosition);
+            if (GridHasIndexes(x,   y-1))
+                InfectTree(gridPosition);
+            if (GridHasIndexes(x+1, y-1))
+                InfectTree(gridPosition);
+            if (GridHasIndexes(x-1, y))
+                InfectTree(gridPosition);
+            if (GridHasIndexes(x+1, y))
+                InfectTree(gridPosition);
+            if (GridHasIndexes(x-1, y+1))
+                InfectTree(gridPosition);
+            if (GridHasIndexes(x,   y+1))
+                InfectTree(gridPosition);
+            if (GridHasIndexes(x+1, y+1))
+                InfectTree(gridPosition);
+        }
+
+        if (newState == Tile.TileState.Disease)
+        {
+            if (GridHasIndexes(x - 1, y - 1))
+                PlantSeed(gridPosition);
+            if (GridHasIndexes(x, y - 1))
+                PlantSeed(gridPosition);
+            if (GridHasIndexes(x + 1, y - 1))
+                PlantSeed(gridPosition);
+            if (GridHasIndexes(x - 1, y))
+                PlantSeed(gridPosition);
+            if (GridHasIndexes(x + 1, y))
+                PlantSeed(gridPosition);
+            if (GridHasIndexes(x - 1, y + 1))
+                PlantSeed(gridPosition);
+            if (GridHasIndexes(x, y + 1))
+                PlantSeed(gridPosition);
+            if (GridHasIndexes(x + 1, y + 1))
+                PlantSeed(gridPosition);
+        }
+    }
+
+    // Spawns a seed at the given location
+    GameObject SpawnSeed(Vector3 spawnLocation)
+    {
+        // Instantiate a random seed to that tree's tile
+        GameObject newSeed = Instantiate(seedPrefab,
+            spawnLocation,
+            Quaternion.identity) as GameObject;
+
+        return newSeed;
+    }
+
+    // Returns true if these are legal indexes in this.grid
+    bool GridHasIndexes(int x, int y)
+    {
+        if (0 <= x && x < grid.GetLength(1) &&
+            0 <= y && y < grid.GetLength(0))
+            return true;
+        return false;
     }
 
     // A TreeComponent script calls this function when a seed on a tree
@@ -164,6 +234,10 @@ public class TerrainManager : MonoBehaviour
     public void SpreadSeed(Vector3 worldPosition)
     {
         //Sets all adjacent tiles to seeds if there is a healthy tree
+
+        Vector2 gridPosition = WorldPosToGridPos(worldPosition);
+
+        PlaceStateAround(Tile.TileState.Seed, gridPosition);
     }
     
 
@@ -174,19 +248,44 @@ public class TerrainManager : MonoBehaviour
         UpdateNatureLevel();
     }
 
-    void InfectTree(Vector3 worldPosition)
+    void InfectTree(Vector2 gridPosition)
     {
         //Check if the tile is a healthy tree, then infect it . Remove it from the healthy tree list
+
+        Tile selected = grid[(int)gridPosition.x, (int)gridPosition.y];
+
+        if (selected.GetState() == Tile.TileState.Seed ||
+            selected.GetState() == Tile.TileState.Tree)
+        {
+            selected.SetState(Tile.TileState.Disease);
+            selected.GetCurrentObject().GetComponent<TreeComponent>().ReceiveDisease();
+
+            // Remove this tree from the healthy trees (it will either be in seeds or trees
+            this.trees_healthy.Remove(selected);
+            this.trees_seed.Remove(selected);
+
+            // Add to the disease list
+            this.trees_disease.Add(selected);
+        }
     }
 
-    void PlantSeed(Vector3 worldPosition)
+    void PlantSeed(Vector2 gridPosition)
     {
         //Check if the tile is empty, then plant a seed on it
+
+        Tile selected = grid[(int)gridPosition.x, (int)gridPosition.y];
+
+        if (selected.GetState() == Tile.TileState.Empty)
+        {
+            SpawnSeed(selected.GetWorldPosition());
+        }
+
+        this.trees_seed.Add(selected);
     }
 
     void UpdateNatureLevel()
-    {                                                                    //Tree Percent                                   minus Ideal Tree Percent
-        this.natureLevel = Mathf.Clamp(Mathf.Abs((trees_healthy.Count + trees_disease.Count) / (grid.GetLength(0) * grid.GetLength(1)) - treePercentage)+0.5f,0,1);
+    {                                                                    //Actual Tree Percent                        minus Ideal Tree Percent
+        this.natureLevel = Mathf.Clamp((trees_healthy.Count + trees_disease.Count) / (grid.GetLength(0) * grid.GetLength(1)) - treePercentage+0.5f,0,1);
     }
 
 
@@ -194,22 +293,48 @@ public class TerrainManager : MonoBehaviour
     // Lumberjack/Wisp call these three functions
     //////////////
 
+    // Wisp calls this function to do its actions.
+    // If the wisp is on a seed tile it will pick up the tile
+    // If the wisp is on an empty tile it will plant a tree
+    public void WispAction(Vector3 worldPosition)
+    {
+        Vector2 gridPos = WorldPosToGridPos(worldPosition);
+
+        Tile selected = this.grid[(int)gridPos.x, (int)gridPos.y];
+
+        if (selected.GetState() == Tile.TileState.Empty)
+            SpawnTree(worldPosition);
+        if (selected.GetState() == Tile.TileState.Seed)
+            PickUpSeed(worldPosition);
+    }
+
     // Wisp picks up a seed at a worldPosition
     public void PickUpSeed(Vector3 worldPosition)
     {
+        Vector2 gridPosition = WorldPosToGridPos(worldPosition);
 
-    }
+        Tile selected = this.grid[(int)gridPosition.y, (int)gridPosition.x];
 
-    // Wisp plants a tree
-    public void PlantTree(Vector3 worldPosition)
-    {
-
+        if (selected.GetState() == Tile.TileState.Seed)
+        {
+            this.trees_seed.Remove(selected);
+            selected.SetCurrentObject(null);
+        }
     }
 
     // The lumberjack calls this function when he is finished cutting the tree
     public void RemoveTree(Vector3 worldPosition)
     {
+        Vector2 gridPos = WorldPosToGridPos(worldPosition);
 
+        Tile selected = this.grid[(int)gridPos.x, (int)gridPos.y];
+
+        bool condition1 = selected.GetState() == Tile.TileState.Seed;
+        bool condition2 = selected.GetState() == Tile.TileState.Tree;
+        bool condition3 = selected.GetState() == Tile.TileState.Disease;
+
+        if (condition1 || condition2 || condition3)
+            RemoveTree(worldPosition);
     }
 
     public void KillTree(Vector3 worldPosition)
@@ -222,7 +347,7 @@ public class TerrainManager : MonoBehaviour
     }
 
     // For debugging purposes, showing the grid.
-    /*void OnDrawGizmos()
+    void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
 
@@ -238,7 +363,7 @@ public class TerrainManager : MonoBehaviour
                 }
             }
         }
-    }*/
+    }
 
     // Returns a float between 0 and 1 which tells us where on the equilibrium bar we are now
     public float GetNatureLevel()
