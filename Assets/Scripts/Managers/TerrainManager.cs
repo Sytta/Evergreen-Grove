@@ -36,9 +36,11 @@ public class TerrainManager : MonoBehaviour
     // A list of diseased trees
     List<Tile> trees_disease;
 
+    
+
     public void Initialise()
     {
-        gridMinLength = new Vector2(30, 30);
+        gridMinLength = new Vector2(50, 80);
         squareLength = 3f;
 
         treePercentage = 0.5f;
@@ -57,7 +59,7 @@ public class TerrainManager : MonoBehaviour
     {
         // Figure out how many x and y squares there will be in this grid.
         int xAmount = (int)Mathf.Ceil(this.gridMinLength.x / this.squareLength);
-        int yAmount = (int)Mathf.Ceil(this.gridMinLength.x / this.squareLength);
+        int yAmount = (int)Mathf.Ceil(this.gridMinLength.y / this.squareLength);
 
         this.grid = new Tile[xAmount,yAmount];
 
@@ -150,42 +152,62 @@ public class TerrainManager : MonoBehaviour
         }
     }
 
+    // A TreeComponent script calls this function when the tree dies and spreads
+    // its disease.
     public void SpreadInfection(Vector3 worldPosition)
     {
         //Sets all adjacent tiles to infected if there is a healthy tree
-
     }
+
+    // A TreeComponent script calls this function when a seed on a tree
+    // bursts.
     public void SpreadSeed(Vector3 worldPosition)
     {
         //Sets all adjacent tiles to seeds if there is a healthy tree
     }
     
-    public void PlantTree(Vector3 worldPosition)
+
+    public void SpawnTree(Vector3 worldPosition)
     {
         //Spawns a tree and add it to the healthy tree list, change the tile from seed to tree
 
         UpdateNatureLevel();
     }
+
     void InfectTree(Vector3 worldPosition)
     {
         //Check if the tile is a healthy tree, then infect it . Remove it from the healthy tree list
     }
+
     void PlantSeed(Vector3 worldPosition)
     {
         //Check if the tile is empty, then plant a seed on it
     }
-    void UpdateNatureLevel()
-    {
 
+    void UpdateNatureLevel()
+    {                                                                    //Tree Percent                                   minus Ideal Tree Percent
+        this.natureLevel = Mathf.Clamp(Mathf.Abs((trees_healthy.Count + trees_disease.Count) / (grid.GetLength(0) * grid.GetLength(1)) - treePercentage)+0.5f,0,1);
     }
+
+
+    //////////////
+    // Lumberjack/Wisp call these three functions
+    //////////////
 
     // Wisp picks up a seed at a worldPosition
-    void PickUpSeed()
+    public void PickUpSeed(Vector3 worldPosition)
     {
 
     }
+
+    // Wisp plants a tree
+    public void PlantTree(Vector3 worldPosition)
+    {
+
+    }
+
     // The lumberjack calls this function when he is finished cutting the tree
-    void RemoveTree()
+    public void RemoveTree(Vector3 worldPosition)
     {
 
     }
@@ -200,7 +222,7 @@ public class TerrainManager : MonoBehaviour
     }
 
     // For debugging purposes, showing the grid.
-    void OnDrawGizmos()
+    /*void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
 
@@ -216,7 +238,7 @@ public class TerrainManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
     // Returns a float between 0 and 1 which tells us where on the equilibrium bar we are now
     public float GetNatureLevel()
@@ -240,4 +262,13 @@ public class TerrainManager : MonoBehaviour
 
         return gridPosition;
     }
+    //void HighlightTiles()
+    //{
+    //    foreach (PlayerCharacter player in GameManager.instance.players)
+    //    {
+    //        Vector2 gridPos = WorldPosToGridPos(player.transform.position);
+    //        grid[gridPos.x,gridPos.y].
+    //    }
+        
+    //}
 }
