@@ -99,17 +99,17 @@ public class GameManager : MonoBehaviour
     {
         state = GM_InGame_State.Initialising;
 
+        terrainManager = FindObjectOfType<TerrainManager>();
+
+        terrainManager.Initialise();
+        terrainManager.GenerateGrid();
+
         StartCoroutine(callThisABitLater());
     }
 
     // Test code
     IEnumerator callThisABitLater()
     {
-        terrainManager = FindObjectOfType<TerrainManager>();
-
-        terrainManager.Initialise();
-        terrainManager.GenerateGrid();
-        
         Debug.Log(terrainManager.WorldPosToGridPos(new Vector3(-11, 0, -12)));
         Debug.Log(terrainManager.WorldPosToGridPos(new Vector3(-2, 0, -14)));
         Debug.Log(terrainManager.WorldPosToGridPos(new Vector3(14.4f, 0, -6)));
