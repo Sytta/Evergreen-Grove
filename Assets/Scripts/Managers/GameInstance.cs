@@ -1,9 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class GameInstance : MonoBehaviour {
-	// Use this for initialization
-	void Start () {
+    public static GameInstance instance = null;
+    void Awake()
+    {
+        if (!instance)
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+        // Use this for initialization
+        void Start () {
 	
 	}
 	
@@ -13,11 +26,11 @@ public class GameInstance : MonoBehaviour {
 	}
     public void ToMainMenu()
     {
-
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
     public void ToMainGame()
     {
-
+        SceneManager.LoadScene("Main", LoadSceneMode.Single);
     }
     public void ToEndScreen()
     {
