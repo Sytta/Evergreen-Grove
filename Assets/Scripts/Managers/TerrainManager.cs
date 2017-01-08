@@ -55,7 +55,7 @@ public class TerrainManager : MonoBehaviour
         treePercentage = 0.5f;
         natureLevel = 0.5f;
 
-        heightOfSeed = -3.7f;
+        heightOfSeed = 0.16f;
 
         trees_healthy = new List<Tile>();
         trees_seed    = new List<Tile>();
@@ -233,9 +233,6 @@ public class TerrainManager : MonoBehaviour
 
         Tile selected = grid[(int)gridPosition.x, (int)gridPosition.y];
 
-        Vector3 bla = spawnLocation + new Vector3(0, heightOfSeed, 0);
-            int k = 0;
-
         if (selected.GetState() == Tile.TileState.Empty)
         {
             // Instantiate a random seed to that tree's tile
@@ -245,6 +242,7 @@ public class TerrainManager : MonoBehaviour
 
             selected.SetState(Tile.TileState.Seed);
             this.trees_seed.Add(selected);
+            selected.SetCurrentObject(newSeed);
         }
     }
 
@@ -404,12 +402,15 @@ public class TerrainManager : MonoBehaviour
     {
         Vector2 gridPosition = WorldPosToGridPos(worldPosition);
 
-        Tile selected = this.grid[(int)gridPosition.y, (int)gridPosition.x];
+        Tile selected = this.grid[(int)gridPosition.x, (int)gridPosition.y];
 
         if (selected.GetState() == Tile.TileState.Seed)
         {
             this.trees_seed.Remove(selected);
-            selected.SetCurrentObject(null);
+            // Destroy the seed object
+            DestroyImmediate(selected.GetCurrentObject());
+            // Reset the state of the tile
+            selected.SetState(Tile.TileState.Empty);
         }
     }
 
