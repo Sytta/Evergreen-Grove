@@ -28,13 +28,16 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         Initialise();
-        isTutorialMode=GameInstance.instance.isTutorialMode ;
-
-
+        
 
 
     }
+    void Start()
+    {
+        isTutorialMode = GameInstance.instance.isTutorialMode;
 
+
+    }
     // Update is called once per frame
     void Update()
     {

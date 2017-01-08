@@ -56,6 +56,7 @@ public class InGameUI : MonoBehaviour {
     public void PauseGame()
     {
         GameManager.instance.PauseGame();
+        waitingToUnpause = true;
     }
     public void WaitToQuit()
     {
