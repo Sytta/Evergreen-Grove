@@ -37,7 +37,7 @@ public class ScoreManager : MonoBehaviour
             IntScore = (int)score;
             //Update the score every frame
             scoreText.text = "Score: " + IntScore.ToString();
-            multiplierText.text = "Multiplier: " + multiplier.ToString();
+            multiplierText.text = multiplier.ToString() + "X";
         }
     }
 }
