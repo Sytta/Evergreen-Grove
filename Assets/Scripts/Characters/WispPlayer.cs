@@ -6,7 +6,11 @@ public class WispPlayer : PlayerCharacter {
     private TerrainManager terrainManager;
 
 	// Use this for initialization
-	void Awake () {
+	protected override void Start () {
+        base.Start();
+
+        characterName = "Player1";
+
         GameObject tm = GameObject.FindGameObjectWithTag("TerrainManager");
 
         if (tm != null)
