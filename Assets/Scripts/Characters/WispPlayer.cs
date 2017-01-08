@@ -39,6 +39,7 @@ public class WispPlayer : PlayerCharacter {
         /*if (actionCoolDownTimer >= actionCoolDownTime)
         {
             actionCoolDownTimer = 0;*/
+           if(terrainManager != null)
             terrainManager.WispAction(gameObject.transform.position);
         //}
     }

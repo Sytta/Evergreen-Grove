@@ -294,6 +294,11 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 157.442
       objectReference: {fileID: 0}
+    - target: {fileID: 54000012499228748, guid: b4a10be355ae14647a33c82ed00af5a0,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b4a10be355ae14647a33c82ed00af5a0, type: 2}
   m_IsPrefabParent: 0
@@ -537,7 +542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.41105476, g: 0.61764705, b: 0.17711936, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -875,7 +880,7 @@ Prefab:
     - target: {fileID: 54000010912714080, guid: 86c1ca5167287924d9f1351b5f56c883,
         type: 2}
       propertyPath: m_Constraints
-      value: 0
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 54000010912714080, guid: 86c1ca5167287924d9f1351b5f56c883,
         type: 2}
