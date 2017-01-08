@@ -25,7 +25,7 @@ public class InGameUI : MonoBehaviour {
         {
             GameInstance.instance.ToMainMenu();
         }
-        if(waitingToUnpause && (Input.GetButton("Player1Action") || Input.GetButton("Player2Action")))
+        if(waitingToUnpause && (Input.GetButton("Player1PickupSeed") || Input.GetButton("Player2Action")))
         {
             GameManager.instance.UnPauseGame();
             if(seedTutorialPlaying)

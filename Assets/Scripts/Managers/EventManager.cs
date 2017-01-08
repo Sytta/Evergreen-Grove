@@ -53,13 +53,22 @@ public class EventManager : MonoBehaviour
                 }
 
                 //High Nature
-                else if (GameManager.instance.GetNatureState() == GM_Nature_State.HighNatureLevel || GameManager.instance.GetNatureState() == GM_Nature_State.VeryHighNatureLevel)
+                else if (GameManager.instance.GetNatureState() == GM_Nature_State.HighNatureLevel /* || GameManager.instance.GetNatureState() == GM_Nature_State.VeryHighNatureLevel*/)
                 {
                     //spread = initialSpread;
                     goal = EM_Goal.Create_Seed;
                     Create_Seed();
                     firstSeed = true;
                 }
+                // Very High Nature
+                else if (GameManager.instance.GetNatureState() == GM_Nature_State.VeryHighNatureLevel)
+                {
+                    spread = 0.9f;
+                    goal = EM_Goal.Create_Seed;
+                    Create_Seed();
+                    firstSeed = true;
+                }
+
 
                 //Low nature
                 else
