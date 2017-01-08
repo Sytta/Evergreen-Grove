@@ -84,7 +84,7 @@ public class MainMenu : MonoBehaviour {
             if (Input.GetButton("Player1Action") || Input.GetButton("Player2Action"))
             {
                 if (buttonSelected.Equals("Tutorial"))
-                    GameManager.instance.isTutorialMode = true;
+                    GameInstance.instance.isTutorialMode = true;
 
                 GameInstance.instance.ToMainGame();
             }
@@ -121,6 +121,6 @@ public class MainMenu : MonoBehaviour {
         if (player2Ready && Input.GetButtonUp("Player2Action"))
             playerButtonUpDown[1]++;
 
-        bothPlayersAreReady = playerButtonUpDown[0] == 2 && playerButtonUpDown[1] == 2;
+        bothPlayersAreReady = playerButtonUpDown[0] >= 2 && playerButtonUpDown[1] >= 2;
     }
 }
