@@ -4,6 +4,8 @@ using System.Collections;
 public class InGameUI : MonoBehaviour {
     public PauseMenu pauseMenu;
     public EquilibriumGauge gauge;
+    public GameObject congratsText;
+    public GameObject loseText;
     // Use this for initialization
     void Start () {
 	

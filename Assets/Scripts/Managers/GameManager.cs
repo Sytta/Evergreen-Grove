@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public float gameTimer = 0;
     public float equilibriumRange = .01f;
     public TerrainManager terrainManager;
+    public InGameUI ui;
     public GM_InGame_State state;
     public bool isTutorialMode;
     //public List<PlayerCharacter> players;
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
     {
         if(GetNatureLevel()<=0 || GetNatureLevel()>=1)
         {
-            EndGame();
+            EndGame(false);
         }
         if (state == GM_InGame_State.Playing)
         {
@@ -97,10 +98,14 @@ public class GameManager : MonoBehaviour
     {
         state = GM_InGame_State.Playing;
     }
-    public void EndGame()
+    public void EndGame(bool win)
     {
         state = GM_InGame_State.Ending;
-        GameInstance.instance.ToMainMenu();
+        if(win)
+            ui.congratsText.gameObject.SetActive(true);
+        else
+            ui.loseText.gameObject.SetActive(true);
+
     }
     public void PauseGame()
     {
