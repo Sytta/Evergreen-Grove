@@ -13,12 +13,14 @@ public class TreeComponent : MonoBehaviour
     public Color sicklyLeavesColor;
     public Color diseasedBarkColor;
     public Color sicklyBarkColor;
+    public ParticleSystem diseaseMarker;
     public float minimumSeedPlantTime;
     public float maximumSeedPlantTime;
     public float timeToTurnDiseased = 6;
     public float timeToDieCutDown = 3;
+    public float timeBeforeTurningDiseased=5;
     private int seedCount;
-
+    private bool isInvulnerable = false;
     TerrainManager terrain;
     Color healthyBarkColor;
     Color healthyLeavesColor;
@@ -89,7 +91,7 @@ public class TreeComponent : MonoBehaviour
     }
     public void CutDown()
     {
-        if (!isCutDown)
+        if (!isCutDown && !isInvulnerable)
         {
             //Play Particle System & animation
             GetComponent<ParticleSystem>().Play();
@@ -122,8 +124,21 @@ public class TreeComponent : MonoBehaviour
     }
     IEnumerator TurnToDiseased()
     {
-        
+        isInvulnerable = true;
+        if(diseaseMarker)
+        {
+            diseaseMarker.Play();
+        }
         for (int i = 0; i < 20; i++)
+        {
+            while (GameManager.instance.state == GM_InGame_State.Paused)
+            {
+                yield return new WaitForSeconds(0.2f);
+            }
+            yield return new WaitForSeconds(timeBeforeTurningDiseased / 20f);
+        }
+        isInvulnerable = false;
+            for (int i = 0; i < 20; i++)
         {
             while (GameManager.instance.state == GM_InGame_State.Paused)
             {
