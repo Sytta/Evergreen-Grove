@@ -348,7 +348,7 @@ InputManager:
     negativeButton: 
     positiveButton: joystick 2 button 0
     altNegativeButton: 
-    altPositiveButton: 
+    altPositiveButton: left shift
     gravity: 30
     dead: 0
     sensitivity: 2
@@ -438,22 +438,6 @@ InputManager:
     axis: 1
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Player2ActionKeyboard
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: left shift
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 30
-    dead: 0
-    sensitivity: 2
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 1
-    joyNum: 2
-  - serializedVersion: 3
     m_Name: nothing
     descriptiveName: 
     descriptiveNegativeName: 
@@ -474,7 +458,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: 
+    positiveButton: m
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
