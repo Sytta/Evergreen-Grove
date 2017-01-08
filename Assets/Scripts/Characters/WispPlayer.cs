@@ -24,23 +24,22 @@ public class WispPlayer : PlayerCharacter {
     {
         base.Update();
 
-        if (Input.GetButtonDown(characterName+"Action") || Input.GetButtonDown(characterName + "ActionKeyboard"))
+        if (terrainManager != null)
         {
-            ExecuteAction();
-        }
+            if (Input.GetButtonDown(characterName + "AddTree") || Input.GetButtonDown(characterName + "AddTreeKeyboard"))
+            {
+                terrainManager.WispAction(gameObject.transform.position, "AddTree");
+            }
 
-        //actionCoolDownTimer += Time.deltaTime;
+            if (Input.GetButtonDown(characterName + "PickupSeed") || Input.GetButtonDown(characterName + "PickupSeedKeyboard"))
+            {
+                terrainManager.WispAction(gameObject.transform.position, "PickupSeed");
+            }
+        }   
     }
 
     //Plant a tree/Pick up a seed at the player's current position
     public override void ExecuteAction(){
-        //play the animation
-
-        /*if (actionCoolDownTimer >= actionCoolDownTime)
-        {
-            actionCoolDownTimer = 0;*/
-           if(terrainManager != null)
-            terrainManager.WispAction(gameObject.transform.position);
-        //}
+        
     }
 }
