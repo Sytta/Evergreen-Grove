@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public const float EQUILIBRIUM_LEVEL=0.5F;
     private float deltaNatureLevel;
     private GM_Nature_State deltaNatureState=GM_Nature_State.Equilibrium;
+
     // Use this for initialization
     void Awake()
     {
