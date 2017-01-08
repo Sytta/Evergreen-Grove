@@ -455,7 +455,7 @@ MonoBehaviour:
   sicklyBarkColor: {r: 0.28676468, g: 0.24674559, b: 0.19609644, a: 0}
   minimumSeedPlantTime: 0
   maximumSeedPlantTime: 0
-  timeToTurnDiseased: 2
+  timeToTurnDiseased: 6
 --- !u!137 &137000011403192246
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

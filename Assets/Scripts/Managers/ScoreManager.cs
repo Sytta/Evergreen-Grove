@@ -21,20 +21,23 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.GetNatureState() == GM_Nature_State.Equilibrium)
-            multiplier = 4;
+        if (GameManager.instance.state == GM_InGame_State.Playing)
+        {
+            if (GameManager.instance.GetNatureState() == GM_Nature_State.Equilibrium)
+                multiplier = 4;
 
-        else if (GameManager.instance.GetNatureState() == GM_Nature_State.LowNatureLevel || GameManager.instance.GetNatureState() == GM_Nature_State.HighNatureLevel)
-            multiplier = 2;
+            else if (GameManager.instance.GetNatureState() == GM_Nature_State.LowNatureLevel || GameManager.instance.GetNatureState() == GM_Nature_State.HighNatureLevel)
+                multiplier = 2;
 
-        else if (GameManager.instance.GetNatureState() == GM_Nature_State.VeryLowNatureLevel || GameManager.instance.GetNatureState() == GM_Nature_State.VeryHighNatureLevel)
-            multiplier = 1;
+            else if (GameManager.instance.GetNatureState() == GM_Nature_State.VeryLowNatureLevel || GameManager.instance.GetNatureState() == GM_Nature_State.VeryHighNatureLevel)
+                multiplier = 1;
 
-        score += multiplier * Time.deltaTime;
+            score += multiplier * Time.deltaTime;
 
-        IntScore = (int)score;
-        //Update the score every frame
-        scoreText.text = "Score: " + IntScore.ToString();
-        multiplierText.text = "Multiplier: " + multiplier.ToString();
+            IntScore = (int)score;
+            //Update the score every frame
+            scoreText.text = "Score: " + IntScore.ToString();
+            multiplierText.text = "Multiplier: " + multiplier.ToString();
+        }
     }
 }
