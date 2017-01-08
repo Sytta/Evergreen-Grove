@@ -62,8 +62,10 @@ public class MainMenu : MonoBehaviour {
             //////////////////////////
             // Menu up and down input
             //////////////////////////
-            float vertical1 = -Input.GetAxis("Player1Horizontal");
-            float vertical2 = -Input.GetAxis("Player2Horizontal");
+            float vertical1 = -Input.GetAxis("Player1Horizontal") + Input.GetAxis("Player1VerticalKeyboard");
+            float vertical2 = -Input.GetAxis("Player2Horizontal") + Input.GetAxis("Player2VerticalKeyboard");
+
+            Debug.Log(vertical1 + " " + vertical2);
 
             if (vertical1 < 0 || vertical2 < 0)
             {
@@ -81,7 +83,7 @@ public class MainMenu : MonoBehaviour {
             /////////////////
             // Select option
             /////////////////
-            if (Input.GetButton("Player1PickupSeed") || Input.GetButton("Player2Action"))
+            if (Input.GetButton("Player1PickupSeed") || Input.GetButton("Player2Action") || Input.GetKey(KeyCode.Return))
             {
                 if (buttonSelected.Equals("Tutorial"))
                     GameInstance.instance.isTutorialMode = true;
