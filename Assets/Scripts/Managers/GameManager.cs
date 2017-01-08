@@ -98,14 +98,17 @@ public class GameManager : MonoBehaviour
     }    public void EndGame()
     {
         state = GM_InGame_State.Ending;
+        GameInstance.instance.ToMainMenu();
     }
     public void PauseGame()
     {
         state = GM_InGame_State.Paused;
+        Time.timeScale = 0;
     }
     public void UnPauseGame()
     {
         state = GM_InGame_State.Playing;
+        Time.timeScale = 1;
     }
     public void Initialise()
     {
