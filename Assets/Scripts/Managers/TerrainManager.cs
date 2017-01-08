@@ -239,7 +239,7 @@ public class TerrainManager : MonoBehaviour
             // Instantiate a random seed to that tree's tile
             GameObject newSeed = Instantiate(seedPrefab,
                 spawnLocation + new Vector3(0, heightOfSeed, 0),
-                Quaternion.identity) as GameObject;
+                Quaternion.Euler(0, Random.Range(0, 359), 0)) as GameObject;
 
             selected.SetState(Tile.TileState.Seed);
             this.trees_seed.Add(selected);
@@ -286,6 +286,7 @@ public class TerrainManager : MonoBehaviour
 
             // Now the pivot is in the center
             worldPositionOfGridLocation += new Vector3(squareLength / 2f, 0, squareLength / 2f);
+            worldPositionOfGridLocation.y = 0;
 
             // Spawns a tree in the center of the current grid square.
             GameObject newTree = Instantiate(this.treePrefabs[0],
