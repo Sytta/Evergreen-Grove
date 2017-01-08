@@ -269,7 +269,8 @@ public class TerrainManager : MonoBehaviour
 
         Tile selected = grid[(int)gridPosition.x, (int)gridPosition.y];
 
-        if (selected.GetState() == Tile.TileState.Seed)
+        if (selected.GetState() == Tile.TileState.Empty ||
+            selected.GetState() == Tile.TileState.Seed)
         {
             // Spawns a tree and add it to the healthy tree list, change the tile from seed to tree
             GameObject newTree = Instantiate(this.treePrefabs[0],
@@ -343,7 +344,11 @@ public class TerrainManager : MonoBehaviour
         Tile selected = this.grid[(int)gridPos.x, (int)gridPos.y];
 
         if (selected.GetState() == Tile.TileState.Empty)
-            SpawnTree(worldPosition);
+        {
+            TreeComponent treeComp = SpawnTree(worldPosition);
+            treeComp.Spawn();
+        }
+            
         if (selected.GetState() == Tile.TileState.Seed)
             PickUpSeed(worldPosition);
     }
