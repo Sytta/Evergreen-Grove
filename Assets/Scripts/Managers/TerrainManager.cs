@@ -234,7 +234,9 @@ public class TerrainManager : MonoBehaviour
         if (selected.GetState() == Tile.TileState.Empty)
         {
             // Instantiate a random seed to that tree's tile
-            Instantiate(seedPrefab, spawnLocation, Quaternion.identity);
+            GameObject newSeed = Instantiate(seedPrefab,
+                spawnLocation,
+                Quaternion.identity) as GameObject;
 
             selected.SetState(Tile.TileState.Seed);
             this.trees_seed.Add(selected);
@@ -388,6 +390,24 @@ public class TerrainManager : MonoBehaviour
         // Sets the state of this tile to Empty
         // Remove the tree from the diseased trees list
         UpdateNatureLevel();
+    }
+
+    public void CutTree(Vector3 worldPosition)
+    {
+        Vector2 gridPos = WorldPosToGridPos(worldPosition);
+
+        Tile selected = this.grid[(int)gridPos.x, (int)gridPos.y];
+
+        bool condition1 = selected.GetState() == Tile.TileState.Tree;
+        bool condition2 = selected.GetState() == Tile.TileState.Disease;
+
+        if (condition1 || condition2)
+        {
+            this.trees_disease.Remove(selected);
+            this.trees_healthy.Remove(selected);
+
+            selected.GetCurrentObject().GetComponent<TreeComponent>().CutDown();
+        }
     }
 
     // For debugging purposes, showing the grid.
