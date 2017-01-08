@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
 
+    private Color buttonDisabled;
+    private Color buttonEnabled;
+
     private float Timer;
     private float toggleTimerAt;
     private float blinkInterval = 1;
@@ -17,9 +20,13 @@ public class MainMenu : MonoBehaviour {
     public Text player1Text;
     public Text player2Text;
 
-    public Text readyToStart;
+    public Transform buttons;
+    public Transform buttonPlay;
+    public Transform buttonTutorial;
 
-    public Text text;
+    public string buttonSelected;
+
+    public Text readyToStart;
 
     // Use this for initialization
     void Start () {
@@ -31,7 +38,18 @@ public class MainMenu : MonoBehaviour {
         readyToStart = transform.FindChild("ReadyToStart").GetComponent<Text>();
         readyToStart.enabled = false;
 
+        buttonDisabled = Color.white;
+        buttonEnabled = Color.red;
+        buttonSelected = "Play";
+
+        buttons = transform.FindChild("Buttons");
+
+        ButtonsEnabled(false);
+
         playerButtonUpDown = new int[2];
+
+        buttonPlay = buttons.FindChild("Play");
+        buttonTutorial = buttons.FindChild("Tutorial");
     }
 	
 	// Update is called once per frame
@@ -39,27 +57,48 @@ public class MainMenu : MonoBehaviour {
         CheckInitialInput();
 
         if (bothPlayersAreReady) {
-            BlinkReadyText();
+            ButtonsEnabled(true);
 
-            if (Input.anyKeyDown)
+            //////////////////////////
+            // Menu up and down input
+            //////////////////////////
+            float vertical1 = -Input.GetAxis("Player1Vertical");
+            float vertical2 = -Input.GetAxis("Player2Vertical");
+
+            if (vertical1 < 0 || vertical2 < 0)
+            {
+                buttonPlay.GetComponent<Image>().color = buttonDisabled;
+                buttonTutorial.GetComponent<Image>().color = buttonEnabled;
+                buttonSelected = "Tutorial";
+            }
+            if (vertical1 > 0 || vertical2 > 0)
+            {
+                buttonPlay.GetComponent<Image>().color = buttonEnabled;
+                buttonTutorial.GetComponent<Image>().color = buttonDisabled;
+                buttonSelected = "Play";
+            }
+
+            /////////////////
+            // Select option
+            /////////////////
+            if (Input.GetButton("Player1Action") || Input.GetButton("Player2Action"))
+            {
+                if (buttonSelected.Equals("Tutorial"))
+                    GameManager.instance.isTutorialMode = true;
+
                 GameInstance.instance.ToMainGame();
+            }
         }
-    }
-
-    void BlinkReadyText()
-    {
-        Timer += Time.deltaTime;
-
-        if (Timer >= toggleTimerAt)
-        {
-            readyToStart.enabled = !readyToStart.enabled;
-            toggleTimerAt += blinkInterval;
-        }            
     }
 
     //End the game
     void Quit() {
         Application.Quit();
+    }
+
+    void ButtonsEnabled(bool enabled)
+    {
+        buttons.gameObject.SetActive(enabled);
     }
 
     void CheckInitialInput()
