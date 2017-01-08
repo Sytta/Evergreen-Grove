@@ -386,15 +386,16 @@ public class TerrainManager : MonoBehaviour
     // Wisp calls this function to do its actions.
     // If the wisp is on a seed tile it will pick up the tile
     // If the wisp is on an empty tile it will plant a tree
-    public void WispAction(Vector3 worldPosition)
+    // action is either "PickupSeed" or "AddTree"
+    public void WispAction(Vector3 worldPosition, string action)
     {
         Vector2 gridPos = WorldPosToGridPos(worldPosition);
 
         Tile selected = this.grid[(int)gridPos.x, (int)gridPos.y];
 
-        if (selected.GetState() == Tile.TileState.Empty)
+        if (action.Equals("AddTree") && selected.GetState() == Tile.TileState.Empty)
             SmoothlySpawnTree(worldPosition);
-        if (selected.GetState() == Tile.TileState.Seed)
+        if (action.Equals("PickupSeed") && selected.GetState() == Tile.TileState.Seed)
             PickUpSeed(worldPosition);
     }
 

@@ -310,7 +310,7 @@ InputManager:
     axis: 0
     joyNum: 1
   - serializedVersion: 3
-    m_Name: Player1Action
+    m_Name: Player1PickupSeed
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -422,11 +422,11 @@ InputManager:
     axis: 1
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Player1ActionKeyboard
+    m_Name: Player1PickupSeedKeyboard
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: left shift
+    positiveButton: enter
     altNegativeButton: 
     altPositiveButton: 
     gravity: 30
@@ -443,6 +443,54 @@ InputManager:
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: enter
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 30
+    dead: 0
+    sensitivity: 2
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 1
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: nothing
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: enter
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 30
+    dead: 0
+    sensitivity: 2
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 1
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: Player1AddTree
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 30
+    dead: 0
+    sensitivity: 2
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 2
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: Player1AddTreeKeyboard
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: +
     altNegativeButton: 
     altPositiveButton: 
     gravity: 30
