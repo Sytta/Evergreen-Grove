@@ -1387,6 +1387,46 @@ Prefab:
         should try to plant trees far away from the disease.\n\n Lumberjack? It's
         quarantine time!"
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013825163906, guid: 2763deb163f5952458086371379cf387,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013825163906, guid: 2763deb163f5952458086371379cf387,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013825163906, guid: 2763deb163f5952458086371379cf387,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012785645980, guid: 2763deb163f5952458086371379cf387,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012785645980, guid: 2763deb163f5952458086371379cf387,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012785645980, guid: 2763deb163f5952458086371379cf387,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012785645980, guid: 2763deb163f5952458086371379cf387,
+        type: 2}
+      propertyPath: m_Text
+      value: Press X to continue
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013825163906, guid: 2763deb163f5952458086371379cf387,
+        type: 2}
+      propertyPath: m_Text
+      value: Press X to continue
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2763deb163f5952458086371379cf387, type: 2}
   m_IsPrefabParent: 0
@@ -7737,8 +7777,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1892410613}
-  m_LocalRotation: {x: -0.43503153, y: 0.55744743, z: 0.43503135, w: 0.55744755}
-  m_LocalPosition: {x: -11.57, y: -43.68, z: -3.02}
+  m_LocalRotation: {x: -0.0898256, y: 0.72172785, z: 0.095384285, w: 0.67966324}
+  m_LocalPosition: {x: 1.2857456, y: -6.3790183, z: 10.081858}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []

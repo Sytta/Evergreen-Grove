@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         isTutorialMode = GameInstance.instance.isTutorialMode;
         if(isTutorialMode)
         {
-            //do image
+            FindObjectOfType<InGameUI>().ShowIntroTutorial();
         }
         else
         {
@@ -50,6 +50,10 @@ public class GameManager : MonoBehaviour
     {
         if(GetNatureLevel() <= 0.15 || GetNatureLevel() >= 0.85)
         {
+            //if(GetNatureLevel() >= 0.85)
+            //{
+            //    StartCoroutine("KillAllTrees");
+            //}
             EndGame(false);
         }
         if (state == GM_InGame_State.Playing)
@@ -70,6 +74,14 @@ public class GameManager : MonoBehaviour
             gameTimer += Time.deltaTime;
         }
         
+    }
+    IEnumerator KillAllTrees()
+    {
+        foreach (TreeComponent tree in FindObjectsOfType<TreeComponent>())
+        {
+            tree.CutDown();
+        }
+        return null;
     }
     IEnumerator TurnAllTreesHealthy()
     {
@@ -144,8 +156,6 @@ public class GameManager : MonoBehaviour
 
         terrainManager.Initialise();
         terrainManager.GenerateGrid();
-
-        state = GM_InGame_State.Starting;
 
        //StartCoroutine(callThisABitLater());
     }

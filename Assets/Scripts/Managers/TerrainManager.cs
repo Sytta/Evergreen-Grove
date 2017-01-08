@@ -378,7 +378,7 @@ public class TerrainManager : MonoBehaviour
     }
 
     void UpdateNatureLevel()
-    {                                                                    //Actual Tree Percent                        minus Ideal Tree Percent
+    {      if(GameManager.instance.state==GM_InGame_State.Playing)                                                              //Actual Tree Percent                        minus Ideal Tree Percent
         this.natureLevel = Mathf.Clamp((1f * trees_healthy.Count + trees_disease.Count) / this.walkableTiles, 0, 1);// - treePercentage+0.5f,0,1);
     }
 
