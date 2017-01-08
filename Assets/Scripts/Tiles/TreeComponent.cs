@@ -107,17 +107,22 @@ public class TreeComponent : MonoBehaviour
     }
     IEnumerator TurnToDiseased()
     {
-
+        
         for (int i = 0; i < 20; i++)
         {
+            while (GameManager.instance.state == GM_InGame_State.Paused)
+            {
+                yield return new WaitForSeconds(0.2f);
+            }
+
             Color newColor = Color.Lerp(mr.materials[BARK_MAT_INDEX].color, diseasedBarkColor, i/20.0f);
             mr.materials[BARK_MAT_INDEX].color = newColor;
             newColor = Color.Lerp(mr.materials[LEAVES_MAT_INDEX].color, diseasedLeavesColor, i/20.0f);
             mr.materials[LEAVES_MAT_INDEX].color = newColor;
             yield return new WaitForSeconds(timeToTurnDiseased/20f);
         }
-        SpreadDisease();
 
+        SpreadDisease();
     }
 
 }
