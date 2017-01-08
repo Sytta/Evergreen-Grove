@@ -18,7 +18,7 @@ public class TreeComponent : MonoBehaviour
     public float maximumSeedPlantTime;
     public float timeToTurnDiseased = 6;
     public float timeToDieCutDown = 3;
-    public float timeBeforeTurningDiseased=5;
+    public float timeBeforeTurningDiseased=10;
     private int seedCount;
     public bool isFirstDiseased=false;
     private bool isInvulnerable = false;
@@ -151,14 +151,30 @@ public class TreeComponent : MonoBehaviour
         {
             for (int i = 0; i < 20; i++)
             {
+
                 while (GameManager.instance.state == GM_InGame_State.Paused)
                 {
                     yield return new WaitForSeconds(0.2f);
                 }
+                if(i==5)
+                {
+                    diseaseMarker.emissionRate = 0;
+                }
                 yield return new WaitForSeconds(timeBeforeTurningDiseased / 20f);
             }
+            anim.SetBool("Diseased", true);
+
+            for (int i = 0; i < 20; i++)
+            {        
+                while (GameManager.instance.state == GM_InGame_State.Paused)
+                {
+                    yield return new WaitForSeconds(0.2f);
+                }
+                yield return new WaitForSeconds(2 / 20f);
+
+            }
         }
-        anim.SetBool("Diseased", true);
+      
         isInvulnerable = false;
         if (!isCutDown)
             SpreadDisease();
