@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SeedComponent : MonoBehaviour {
     //Time it takes before creating a tree
-    public float timeToGrow = 3;
+    public float timeToGrow = 6f;
     //The pulsation rate of the seed (Visuals only)
     public float pulseRate = 0.2f;
     TerrainManager terrain;
@@ -17,7 +17,8 @@ public class SeedComponent : MonoBehaviour {
     void GrowTree()
     {
         TreeComponent newTree = terrain.SpawnTree(transform.position);
-        newTree.AddSeed();
+        if (newTree != null)
+            newTree.AddSeed();
 
         Destroy(gameObject);
     }

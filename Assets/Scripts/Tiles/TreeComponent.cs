@@ -15,7 +15,7 @@ public class TreeComponent : MonoBehaviour
     public Color sicklyBarkColor;
     public float minimumSeedPlantTime;
     public float maximumSeedPlantTime;
-    public float timeToTurnDiseased=2;
+    public float timeToTurnDiseased=6;
     private int seedCount;
 
     TerrainManager terrain;
@@ -114,7 +114,7 @@ public class TreeComponent : MonoBehaviour
             mr.materials[BARK_MAT_INDEX].color = newColor;
             newColor = Color.Lerp(mr.materials[LEAVES_MAT_INDEX].color, diseasedLeavesColor, i/20.0f);
             mr.materials[LEAVES_MAT_INDEX].color = newColor;
-            yield return new WaitForSeconds(timeToTurnDiseased/20);
+            yield return new WaitForSeconds(timeToTurnDiseased/20f);
         }
         SpreadDisease();
 
