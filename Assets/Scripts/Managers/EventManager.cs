@@ -7,7 +7,7 @@ public class EventManager : MonoBehaviour
     public static EventManager instance = null;
 
     public float frequency = 6;     //how often an event can occurs
-    public float initialSpread = 0.75f;    //the ratio of seed to disease or vice versa
+    public float initialSpread = 1;    //the ratio of seed to disease or vice versa
     public float severity = 1;      //The higher the severity, the more frequent the events at further nature levels
     bool wait = false;       //indicates if event manager is currently doing nothing
     bool disease = true;     //indicates direction of nature level the event manager wants to go towards
@@ -40,7 +40,7 @@ public class EventManager : MonoBehaviour
                 //equilibrium breaker
                 if (GameManager.instance.GetNatureState() == GM_Nature_State.Equilibrium)
                 {
-                    spread = initialSpread;
+                    //spread = initialSpread;
                     if (goal != EM_Goal.Break_Equilibrium)
                     {
                         firstTimeEquilibrium = true;
@@ -53,7 +53,7 @@ public class EventManager : MonoBehaviour
                 //High Nature
                 else if (GameManager.instance.GetNatureState() == GM_Nature_State.HighNatureLevel || GameManager.instance.GetNatureState() == GM_Nature_State.VeryHighNatureLevel)
                 {
-                    spread = initialSpread;
+                    //spread = initialSpread;
                     goal = EM_Goal.Create_Seed;
                     Create_Seed();
                 }
@@ -62,7 +62,7 @@ public class EventManager : MonoBehaviour
                 else
                 {
                     goal = EM_Goal.Create_Disease;
-                    spread = 1;
+                    //spread = 1;
                     Create_Disease();
                 }
             }

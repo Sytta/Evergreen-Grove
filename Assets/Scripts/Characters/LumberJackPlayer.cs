@@ -19,7 +19,7 @@ public class LumberJackPlayer : PlayerCharacter {
 	// Update is called once per frame
 	protected override void Update () {
         base.Update();
-        if(Input.GetButton("CutDownTree") && !cuttingTree)
+        if((Input.GetButton(characterName+"Action") || Input.GetButton(characterName + "ActionKeyboard")) && !cuttingTree)
         {
             anim.SetBool("Chopping", true);
             StartCoroutine(CutTree());

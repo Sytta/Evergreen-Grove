@@ -35,18 +35,18 @@ public class EquilibriumGauge : MonoBehaviour {
         switch (GameManager.instance.GetNatureState())
         {
             case GM_Nature_State.Equilibrium:
-                BottomBar.fillAmount = 0;
-                TopBar.fillAmount = 0;
+                BottomBar.fillAmount = 0.02f;
+                TopBar.fillAmount = 0.02f;
                 break;
             case GM_Nature_State.HighNatureLevel:
             case GM_Nature_State.VeryHighNatureLevel:
-                BottomBar.fillAmount = 0;
-                TopBar.fillAmount = Mathf.Lerp(TopBar.fillAmount,2 * (GameManager.instance.GetNatureLevel() - 0.5f),Time.deltaTime);
+                BottomBar.fillAmount = 0.02f;
+                TopBar.fillAmount = Mathf.Lerp(TopBar.fillAmount,2 * (GameManager.instance.GetNatureLevel() - 0.5f)+ 0.2f,Time.deltaTime*2);
                 break;
             case GM_Nature_State.LowNatureLevel:
             case GM_Nature_State.VeryLowNatureLevel:
-                TopBar.fillAmount = 0;
-                BottomBar.fillAmount = Mathf.Lerp(BottomBar.fillAmount, 2 * (0.5f-GameManager.instance.GetNatureLevel()), Time.deltaTime);
+                TopBar.fillAmount = 0.02f;
+                BottomBar.fillAmount = Mathf.Lerp(BottomBar.fillAmount, 2 * (0.5f-GameManager.instance.GetNatureLevel())+ 0.2f, Time.deltaTime*2);
                 break;
         }
 	}
