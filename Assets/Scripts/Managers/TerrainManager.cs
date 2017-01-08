@@ -52,7 +52,7 @@ public class TerrainManager : MonoBehaviour
         gridMinLength = new Vector2(50, 86);
         squareLength = 3f;
 
-        treePercentage = 0.2f;
+        treePercentage = 0.5f;
         natureLevel = 0.5f;
 
         heightOfSeed = -3.7f;
