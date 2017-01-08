@@ -129,6 +129,7 @@ public class TerrainManager : MonoBehaviour
             this.trees_healthy.Remove(newSeedTile);
 
             newSeedTile.SetState(Tile.TileState.Disease);
+            newSeedTile.currentObject.GetComponent<TreeComponent>().isFirstDiseased = true;
             newSeedTile.GetCurrentObject().GetComponent<TreeComponent>().ReceiveDisease();
 
             // Place this Tile in the disease list
