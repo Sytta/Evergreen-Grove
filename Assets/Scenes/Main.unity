@@ -2304,13 +2304,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bcae07f8df22b7448587848701f760e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 12
+  frequency: 10
   initialSpread: 0.9
   severity: 10
-  wait: 0
-  disease: 1
   eventTimer: 0
-  spread: 0
 --- !u!4 &714038834
 Transform:
   m_ObjectHideFlags: 0
@@ -3636,6 +3633,11 @@ Prefab:
     - target: {fileID: 1000010060568880, guid: 6d18efe100f48f0468e52c6a6221f04f, type: 2}
       propertyPath: m_TagString
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012541351500, guid: 6d18efe100f48f0468e52c6a6221f04f,
+        type: 2}
+      propertyPath: equilibriumRange
+      value: 0.04
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d18efe100f48f0468e52c6a6221f04f, type: 2}
