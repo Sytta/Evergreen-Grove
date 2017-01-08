@@ -16,7 +16,8 @@ public class EventManager : MonoBehaviour
     float spread = 0;
     EM_Goal goal;
     bool firstTimeEquilibrium = true;   //indicates if it is the first time entering the equilibirum break loop
-
+    public bool firstDisease = false;
+    public bool firstSeed = false;
 
     // Use this for initializations
     void Awake()
@@ -48,6 +49,7 @@ public class EventManager : MonoBehaviour
                     goal = EM_Goal.Break_Equilibrium;
                     Break_Equilibrium(firstTimeEquilibrium);
                     firstTimeEquilibrium = false;
+                    
                 }
 
                 //High Nature
@@ -56,6 +58,7 @@ public class EventManager : MonoBehaviour
                     //spread = initialSpread;
                     goal = EM_Goal.Create_Seed;
                     Create_Seed();
+                    firstSeed = true;
                 }
 
                 //Low nature
@@ -64,6 +67,7 @@ public class EventManager : MonoBehaviour
                     goal = EM_Goal.Create_Disease;
                     //spread = 1;
                     Create_Disease();
+                    firstDisease = true;
                 }
             }
 
@@ -105,6 +109,7 @@ public class EventManager : MonoBehaviour
         else
         {
             Create_Seed();
+
         }
     }
 
@@ -128,6 +133,7 @@ public class EventManager : MonoBehaviour
 
     void Create_Disease()
     {
+        firstDisease = true;
         SeverityCalculator();
         //determines ratio of seed to disease
         if (Random.value <= spread)

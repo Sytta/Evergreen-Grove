@@ -30,7 +30,7 @@ public class PauseMenu : MonoBehaviour {
         {
             EnableMenu();
         }
-        else if (GameManager.instance.state == GM_InGame_State.Paused && Input.anyKeyDown)
+        else if (GameManager.instance.state == GM_InGame_State.Paused && Input.anyKeyDown && enabledMenu)
         {
             GameManager.instance.UnPauseGame();
             DisableMenu();
