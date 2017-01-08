@@ -2,6 +2,7 @@
 using System.Collections;
 
 public abstract class PlayerCharacter : MonoBehaviour {
+    protected string characterName;
     protected float horAxis,verAxis;
     protected bool isMoving;
     public float curMaxSpeed;
@@ -20,8 +21,8 @@ public abstract class PlayerCharacter : MonoBehaviour {
 	
 	// Update is called once per frame
 	virtual protected void Update () {
-        horAxis = Input.GetAxis("Horizontal " + name);
-        verAxis = Input.GetAxis("Vertical " + name);
+        horAxis = Input.GetAxis(characterName+"Horizontal");
+        verAxis = Input.GetAxis(characterName+"Vertical");
         ManagePlayerModelRotation();
         if (Mathf.Abs(horAxis) > 0 || Mathf.Abs(verAxis) > 0)
         {
