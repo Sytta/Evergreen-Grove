@@ -1202,6 +1202,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 82000011168576016, guid: 00b184c1c7a3c1d4c8854ed92efe7b86,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 82000011168576016, guid: 00b184c1c7a3c1d4c8854ed92efe7b86,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82000011168576016, guid: 00b184c1c7a3c1d4c8854ed92efe7b86,
+        type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 00b184c1c7a3c1d4c8854ed92efe7b86, type: 2}
   m_IsPrefabParent: 0
