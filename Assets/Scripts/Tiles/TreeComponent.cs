@@ -13,12 +13,15 @@ public class TreeComponent : MonoBehaviour
     public Color sicklyLeavesColor;
     public Color diseasedBarkColor;
     public Color sicklyBarkColor;
+    public ParticleSystem diseaseMarker;
     public float minimumSeedPlantTime;
     public float maximumSeedPlantTime;
     public float timeToTurnDiseased = 6;
     public float timeToDieCutDown = 3;
+    public float timeBeforeTurningDiseased=10;
     private int seedCount;
-
+    public bool isFirstDiseased=false;
+    private bool isInvulnerable = false;
     TerrainManager terrain;
     Color healthyBarkColor;
     Color healthyLeavesColor;
@@ -51,7 +54,6 @@ public class TreeComponent : MonoBehaviour
     public void ReceiveDisease()
     {
         isDiseased = true;
-        anim.SetBool("Diseased", true);
         StartCoroutine(TurnToDiseased());
     }
     public void TurnSickly()
@@ -89,7 +91,7 @@ public class TreeComponent : MonoBehaviour
     }
     public void CutDown()
     {
-        if (!isCutDown)
+        if (!isCutDown && !isInvulnerable)
         {
             //Play Particle System & animation
             GetComponent<ParticleSystem>().Play();
@@ -122,8 +124,17 @@ public class TreeComponent : MonoBehaviour
     }
     IEnumerator TurnToDiseased()
     {
-        
-        for (int i = 0; i < 20; i++)
+        isInvulnerable = isFirstDiseased;
+        if(diseaseMarker && isInvulnerable)
+        {
+            diseaseMarker.Play();
+        }
+        else if(!isInvulnerable)
+        {
+            anim.SetBool("Diseased", true);
+        }
+
+            for (int i = 0; i < 20; i++)
         {
             while (GameManager.instance.state == GM_InGame_State.Paused)
             {
@@ -136,7 +147,36 @@ public class TreeComponent : MonoBehaviour
             mr.materials[LEAVES_MAT_INDEX].color = newColor;
             yield return new WaitForSeconds(timeToTurnDiseased/20f);
         }
-        if(!isCutDown)
+        if (isInvulnerable)
+        {
+            for (int i = 0; i < 20; i++)
+            {
+
+                while (GameManager.instance.state == GM_InGame_State.Paused)
+                {
+                    yield return new WaitForSeconds(0.2f);
+                }
+                if(i==5)
+                {
+                    diseaseMarker.emissionRate = 0;
+                }
+                yield return new WaitForSeconds(timeBeforeTurningDiseased / 20f);
+            }
+            anim.SetBool("Diseased", true);
+
+            for (int i = 0; i < 20; i++)
+            {        
+                while (GameManager.instance.state == GM_InGame_State.Paused)
+                {
+                    yield return new WaitForSeconds(0.2f);
+                }
+                yield return new WaitForSeconds(2 / 20f);
+
+            }
+        }
+      
+        isInvulnerable = false;
+        if (!isCutDown)
             SpreadDisease();
            
     }
