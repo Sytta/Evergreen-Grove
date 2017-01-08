@@ -7,4 +7,8 @@ public class CameraUI : MonoBehaviour {
     {
         GetComponent<Animation>().Play("CameraEndAnim");
     }
+    public void StartGame()
+    {
+        GameManager.instance.StartGame();
+    }
 }
