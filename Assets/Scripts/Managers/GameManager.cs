@@ -11,12 +11,11 @@ public class GameManager : MonoBehaviour
     public TerrainManager terrainManager;
     public InGameUI ui;
     public GM_InGame_State state;
-    public bool isTutorialMode;
+    public bool isTutorialMode =false;
     //public List<PlayerCharacter> players;
     public const float EQUILIBRIUM_LEVEL=0.5F;
     private float deltaNatureLevel;
     private GM_Nature_State deltaNatureState=GM_Nature_State.Equilibrium;
-
     // Use this for initialization
     void Awake()
     {
@@ -29,6 +28,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         Initialise();
+        isTutorialMode=GameInstance.instance.isTutorialMode ;
+
+
+
+
     }
 
     // Update is called once per frame
