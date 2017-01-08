@@ -15,7 +15,8 @@ public class TreeComponent : MonoBehaviour
     public Color sicklyBarkColor;
     public float minimumSeedPlantTime;
     public float maximumSeedPlantTime;
-    public float timeToTurnDiseased=6;
+    public float timeToTurnDiseased = 6;
+    public float timeToDieCutDown = 3;
     private int seedCount;
 
     TerrainManager terrain;
@@ -23,9 +24,9 @@ public class TreeComponent : MonoBehaviour
     Color healthyLeavesColor;
     SkinnedMeshRenderer mr;
     Animator anim;
-    bool isDiseased = false;
+    public bool isDiseased = false;
     bool isSickly = false;
-    bool isPlantingSeed=false;
+    bool isPlantingSeed = false;
     const int LEAVES_MAT_INDEX = 0;
     const int BARK_MAT_INDEX = 1;
     // Use this for initialization
@@ -45,10 +46,6 @@ public class TreeComponent : MonoBehaviour
     {
         terrain.RemoveTree(transform.position);
     }
-    public void FallDown()
-    {
-        Die();
-    }
     public void ReceiveDisease()
     {
         isDiseased = true;
@@ -63,7 +60,7 @@ public class TreeComponent : MonoBehaviour
         newColor = Color.Lerp(healthyLeavesColor, sicklyLeavesColor, (GameManager.instance.GetNatureLevel() - 0.5f) / 0.5f);
         mr.materials[LEAVES_MAT_INDEX].color = newColor;
         isSickly = true;
-        
+
     }
     public void TurnHealthy()
     {
@@ -78,14 +75,17 @@ public class TreeComponent : MonoBehaviour
     public void AddSeed()
     {
         seedCount++;
-        if(!isPlantingSeed)
+        if (!isPlantingSeed)
         {
             StartCoroutine("PlantSeed");
         }
     }
     public void CutDown()
     {
-        Die();
+        //Play Particle System & animation
+        GetComponent<ParticleSystem>().Play();
+        anim.SetBool("CutDown", true);
+        StartCoroutine("CutTree");
     }
     void SpreadDisease()
     {
@@ -103,7 +103,11 @@ public class TreeComponent : MonoBehaviour
         }
         isPlantingSeed = false;
         
-        
+    }
+    IEnumerator CutTree()
+    {
+        yield return new WaitForSeconds(timeToDieCutDown);
+        Die();
     }
     IEnumerator TurnToDiseased()
     {

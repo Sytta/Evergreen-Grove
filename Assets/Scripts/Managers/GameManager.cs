@@ -60,7 +60,8 @@ public class GameManager : MonoBehaviour
     {
         foreach (TreeComponent tree in FindObjectsOfType<TreeComponent>())
         {
-            tree.TurnHealthy();
+            if (!tree.isDiseased)
+                tree.TurnHealthy();
         }
         return null;
     }
@@ -68,7 +69,8 @@ public class GameManager : MonoBehaviour
     {
         foreach (TreeComponent tree in FindObjectsOfType<TreeComponent>())
         {
-            tree.TurnSickly();
+            if(!tree.isDiseased)
+                tree.TurnSickly();
         }
         return null;
     }

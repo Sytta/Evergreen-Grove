@@ -30,11 +30,11 @@ public class LumberJackPlayer : PlayerCharacter {
         }
     }
 
-    //
+    //Cut down Tree
     public override void ExecuteAction()
     {
         Debug.Log("Cut Down Tree");
-        terrainManager.RemoveTree(transform.position);
+        terrainManager.CutTree(transform.position);
     }
 
     IEnumerator CutTree()
@@ -42,7 +42,7 @@ public class LumberJackPlayer : PlayerCharacter {
         cuttingTree = true;
         Vector3 cutPosition = transform.position;
         yield return new WaitForSeconds(0.5f);
-        terrainManager.RemoveTree(cutPosition);
+        terrainManager.CutTree(cutPosition);
         cuttingTree = false;
     }
 }
