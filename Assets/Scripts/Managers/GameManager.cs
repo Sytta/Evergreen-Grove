@@ -8,10 +8,10 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public float gameTimer = 0;
     public float equilibriumRange = .01f;
-    public int seeds=0;
     public TerrainManager terrainManager;
+    public InGameUI ui;
     public GM_InGame_State state;
-    public bool isTutorialMode;
+    public bool isTutorialMode =false;
     //public List<PlayerCharacter> players;
     public const float EQUILIBRIUM_LEVEL=0.5F;
     private float deltaNatureLevel;
@@ -28,14 +28,22 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         Initialise();
-    }
+        
 
+
+    }
+    void Start()
+    {
+        isTutorialMode = GameInstance.instance.isTutorialMode;
+
+
+    }
     // Update is called once per frame
     void Update()
     {
-        if(GetNatureLevel()<=0 || GetNatureLevel()>=1)
+        if(GetNatureLevel() <= 0.15 || GetNatureLevel() >= 0.85)
         {
-            EndGame();
+            EndGame(false);
         }
         if (state == GM_InGame_State.Playing)
         {
@@ -43,11 +51,11 @@ public class GameManager : MonoBehaviour
             if(deltaNatureLevel != GetNatureLevel())
             {
                 deltaNatureLevel = GetNatureLevel();
-                if (GetNatureState()== GM_Nature_State.HighNatureLevel)//Trees are sickly, update them
+                if (GetNatureState()== GM_Nature_State.HighNatureLevel || GetNatureState()== GM_Nature_State.VeryHighNatureLevel)//Trees are sickly, update them
                 {
                     StartCoroutine("TurnAllTreesSickly");
                 }
-                else if(deltaNatureState == GM_Nature_State.HighNatureLevel)//Trees were sickly but now arent, update them
+                else if(deltaNatureState == GM_Nature_State.HighNatureLevel && GetNatureState()!= GM_Nature_State.HighNatureLevel && GetNatureState() !=  GM_Nature_State.VeryHighNatureLevel)//Trees were sickly but now arent, update them
                 {
                     StartCoroutine("TurnAllTreesHealthy");
                 }
@@ -98,10 +106,14 @@ public class GameManager : MonoBehaviour
     {
         state = GM_InGame_State.Playing;
     }
-    public void EndGame()
+    public void EndGame(bool win)
     {
         state = GM_InGame_State.Ending;
-       // GameInstance.instance.ToMainMenu();
+        if(win)
+            ui.congratsText.gameObject.SetActive(true);
+        else
+            ui.loseText.gameObject.SetActive(true);
+
     }
     public void PauseGame()
     {

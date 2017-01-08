@@ -25,6 +25,7 @@ public class TreeComponent : MonoBehaviour
     SkinnedMeshRenderer mr;
     Animator anim;
     public bool isDiseased = false;
+    bool isCutDown=false;
     bool isSickly = false;
     bool isPlantingSeed = false;
     const int LEAVES_MAT_INDEX = 0;
@@ -56,12 +57,17 @@ public class TreeComponent : MonoBehaviour
     public void TurnSickly()
     {
         Color newColor = Color.Lerp(healthyBarkColor, sicklyBarkColor, (GameManager.instance.GetNatureLevel() - 0.5f) / 0.5f);
-        mr.materials[BARK_MAT_INDEX].color = newColor;
 
-        newColor = Color.Lerp(healthyLeavesColor, sicklyLeavesColor, (GameManager.instance.GetNatureLevel() - 0.5f) / 0.5f);
-        mr.materials[LEAVES_MAT_INDEX].color = newColor;
-        isSickly = true;
+        if (mr != null)
+        {
+            mr = GetComponentInChildren<SkinnedMeshRenderer>();
+        }
+            mr.materials[BARK_MAT_INDEX].color = newColor;
 
+            newColor = Color.Lerp(healthyLeavesColor, sicklyLeavesColor, (GameManager.instance.GetNatureLevel() - 0.5f) / 0.5f);
+            mr.materials[LEAVES_MAT_INDEX].color = newColor;
+            isSickly = true;
+        
     }
     public void TurnHealthy()
     {
@@ -83,10 +89,14 @@ public class TreeComponent : MonoBehaviour
     }
     public void CutDown()
     {
-        //Play Particle System & animation
-        GetComponent<ParticleSystem>().Play();
-        anim.SetBool("CutDown", true);
-        StartCoroutine("CutTree");
+        if (!isCutDown)
+        {
+            //Play Particle System & animation
+            GetComponent<ParticleSystem>().Play();
+            anim.SetBool("CutDown", true);
+            StartCoroutine("CutTree");
+        }
+        isCutDown = true;
     }
     void SpreadDisease()
     {
@@ -126,8 +136,9 @@ public class TreeComponent : MonoBehaviour
             mr.materials[LEAVES_MAT_INDEX].color = newColor;
             yield return new WaitForSeconds(timeToTurnDiseased/20f);
         }
-
-        SpreadDisease();
+        if(!isCutDown)
+            SpreadDisease();
+           
     }
 
 }

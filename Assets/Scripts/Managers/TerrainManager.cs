@@ -49,13 +49,13 @@ public class TerrainManager : MonoBehaviour
         // Will be counted inside the GenerateGrid() function
         walkableTiles = 0;
 
-        gridMinLength = new Vector2(50, 80);
+        gridMinLength = new Vector2(50, 86);
         squareLength = 3f;
 
         treePercentage = 0.5f;
         natureLevel = 0.5f;
 
-        heightOfSeed = 0.9f;
+        heightOfSeed = 0.16f;
 
         trees_healthy = new List<Tile>();
         trees_seed    = new List<Tile>();
@@ -227,6 +227,8 @@ public class TerrainManager : MonoBehaviour
     // Spawns a seed at the given location
     void SpawnSeed(Vector3 spawnLocation)
     {
+        spawnLocation.y = 0;
+
         Vector2 gridPosition = WorldPosToGridPos(spawnLocation);
 
         Tile selected = grid[(int)gridPosition.x, (int)gridPosition.y];
@@ -235,11 +237,12 @@ public class TerrainManager : MonoBehaviour
         {
             // Instantiate a random seed to that tree's tile
             GameObject newSeed = Instantiate(seedPrefab,
-                spawnLocation,
+                spawnLocation + new Vector3(0, heightOfSeed, 0),
                 Quaternion.identity) as GameObject;
 
             selected.SetState(Tile.TileState.Seed);
             this.trees_seed.Add(selected);
+            selected.SetCurrentObject(newSeed);
         }
     }
 
@@ -263,17 +266,64 @@ public class TerrainManager : MonoBehaviour
         PlaceStateAround(Tile.TileState.Seed, gridPosition);
     }
 
-    public TreeComponent SpawnTree(Vector3 worldPosition)
+    // The wisp calls this function
+    public void SmoothlySpawnTree(Vector3 worldPosition)
     {
+        worldPosition.y = 0;
+
         Vector2 gridPosition = WorldPosToGridPos(worldPosition);
 
         Tile selected = grid[(int)gridPosition.x, (int)gridPosition.y];
 
-        if (selected.GetState() == Tile.TileState.Empty ||
-            selected.GetState() == Tile.TileState.Seed)
+        if (selected.GetState() == Tile.TileState.Empty)
+        {
+            // World units away from terrainManager's transform.position
+            Vector2 worldUnits = squareLength * gridPosition;
+
+            // Now the pivot is in the cornet of the grid square we want to spawn on
+            Vector3 worldPositionOfGridLocation = transform.position + new Vector3(worldUnits.x, 0, worldUnits.y);
+
+            // Now the pivot is in the center
+            worldPositionOfGridLocation += new Vector3(squareLength / 2f, 0, squareLength / 2f);
+
+            // Spawns a tree in the center of the current grid square.
+            GameObject newTree = Instantiate(this.treePrefabs[0],
+                worldPositionOfGridLocation,
+                Quaternion.Euler(0, Random.Range(0, 359), 0)) as GameObject;
+
+            // In the case this was a seed that turned into a tree
+            this.trees_seed.Remove(selected);
+
+            // Set the tile's new state
+            selected.SetCurrentObject(newTree);
+            selected.SetState(Tile.TileState.Tree);
+
+            // The smooth animation for the tree
+            newTree.GetComponent<TreeComponent>().Spawn();
+
+            // Add it to the healthy tree list
+            this.trees_healthy.Add(selected);
+
+            UpdateNatureLevel();
+        }
+    }
+
+    // Called by a seed that is bursting
+    public TreeComponent SpawnTree(Vector3 worldPosition)
+    {
+        worldPosition.y = 0;
+
+        Vector2 gridPosition = WorldPosToGridPos(worldPosition);
+
+        Tile selected = grid[(int)gridPosition.x, (int)gridPosition.y];
+
+        GameObject newTree;
+
+        // In case the Wisp wants to spawn a tree or this was a seed that is bursting
+        if (selected.GetState() == Tile.TileState.Seed)
         {
             // Spawns a tree and add it to the healthy tree list, change the tile from seed to tree
-            GameObject newTree = Instantiate(this.treePrefabs[0],
+            newTree = Instantiate(this.treePrefabs[0],
                 worldPosition,
                 Quaternion.Euler(0, Random.Range(0, 359), 0)) as GameObject;
 
@@ -286,8 +336,6 @@ public class TerrainManager : MonoBehaviour
             this.trees_healthy.Add(selected);
 
             UpdateNatureLevel();
-
-            return newTree.GetComponent<TreeComponent>();
         }
 
         return null;
@@ -337,19 +385,16 @@ public class TerrainManager : MonoBehaviour
     // Wisp calls this function to do its actions.
     // If the wisp is on a seed tile it will pick up the tile
     // If the wisp is on an empty tile it will plant a tree
-    public void WispAction(Vector3 worldPosition)
+    // action is either "PickupSeed" or "AddTree"
+    public void WispAction(Vector3 worldPosition, string action)
     {
         Vector2 gridPos = WorldPosToGridPos(worldPosition);
 
         Tile selected = this.grid[(int)gridPos.x, (int)gridPos.y];
 
-        if (selected.GetState() == Tile.TileState.Empty)
-        {
-            TreeComponent treeComp = SpawnTree(worldPosition);
-            treeComp.Spawn();
-        }
-            
-        if (selected.GetState() == Tile.TileState.Seed)
+        if (action.Equals("AddTree") && selected.GetState() == Tile.TileState.Empty)
+            SmoothlySpawnTree(worldPosition);
+        if (action.Equals("PickupSeed") && selected.GetState() == Tile.TileState.Seed)
             PickUpSeed(worldPosition);
     }
 
@@ -358,12 +403,15 @@ public class TerrainManager : MonoBehaviour
     {
         Vector2 gridPosition = WorldPosToGridPos(worldPosition);
 
-        Tile selected = this.grid[(int)gridPosition.y, (int)gridPosition.x];
+        Tile selected = this.grid[(int)gridPosition.x, (int)gridPosition.y];
 
         if (selected.GetState() == Tile.TileState.Seed)
         {
             this.trees_seed.Remove(selected);
-            selected.SetCurrentObject(null);
+            // Destroy the seed object
+            DestroyImmediate(selected.GetCurrentObject());
+            // Reset the state of the tile
+            selected.SetState(Tile.TileState.Empty);
         }
     }
 
