@@ -24,7 +24,7 @@ public class WispPlayer : PlayerCharacter {
     {
         base.Update();
 
-        if (Input.GetButtonDown(characterName+"Action"))
+        if (Input.GetButtonDown(characterName+"Action") || Input.GetButtonDown(characterName + "ActionKeyboard"))
         {
             ExecuteAction();
         }
