@@ -20,6 +20,7 @@ public class TreeComponent : MonoBehaviour
     public float timeToDieCutDown = 3;
     public float timeBeforeTurningDiseased=5;
     private int seedCount;
+    public bool isFirstDiseased=false;
     private bool isInvulnerable = false;
     TerrainManager terrain;
     Color healthyBarkColor;
@@ -124,7 +125,7 @@ public class TreeComponent : MonoBehaviour
     }
     IEnumerator TurnToDiseased()
     {
-        isInvulnerable = true;
+        isInvulnerable = isFirstDiseased;
         if(diseaseMarker)
         {
             diseaseMarker.Play();
