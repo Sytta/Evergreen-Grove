@@ -455,7 +455,7 @@ public class TerrainManager : MonoBehaviour
         UpdateNatureLevel();
     }
 
-    public void CutTree(Vector3 worldPosition)
+    public bool CutTree(Vector3 worldPosition)
     {
         Vector2 gridPos = WorldPosToGridPos(worldPosition);
 
@@ -470,7 +470,11 @@ public class TerrainManager : MonoBehaviour
             this.trees_healthy.Remove(selected);
 
             selected.GetCurrentObject().GetComponent<TreeComponent>().CutDown();
+
+            return true;
         }
+
+        return false;
     }
 
     // For debugging purposes, showing the grid.
