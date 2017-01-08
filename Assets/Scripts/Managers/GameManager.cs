@@ -90,13 +90,13 @@ public class GameManager : MonoBehaviour
     {
         if (GetNatureLevel()<= EQUILIBRIUM_LEVEL-(equilibriumRange/2))
         {
-            if(GetNatureLevel()<=0.1)
+            if(GetNatureLevel()<=0.25)
                 return GM_Nature_State.VeryLowNatureLevel;
             return GM_Nature_State.LowNatureLevel;
         }
         if(GetNatureLevel() >= EQUILIBRIUM_LEVEL + (equilibriumRange / 2))
         {
-            if (GetNatureLevel() >= 0.9)
+            if (GetNatureLevel() >= 0.75)
                 return GM_Nature_State.VeryHighNatureLevel;
             return GM_Nature_State.HighNatureLevel;
         }

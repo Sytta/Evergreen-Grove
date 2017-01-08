@@ -328,6 +328,9 @@ public class TerrainManager : MonoBehaviour
                 worldPosition,
                 Quaternion.Euler(0, Random.Range(0, 359), 0)) as GameObject;
 
+            // Adds the smooth spawning animation
+            newTree.GetComponent<TreeComponent>().Spawn();
+
             // In the case this was a seed that turned into a tree
             this.trees_seed.Remove(selected);
 

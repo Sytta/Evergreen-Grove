@@ -290,15 +290,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 4000010760114026, guid: b4a10be355ae14647a33c82ed00af5a0, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 157.442
-      objectReference: {fileID: 0}
-    - target: {fileID: 54000012499228748, guid: b4a10be355ae14647a33c82ed00af5a0,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 14
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b4a10be355ae14647a33c82ed00af5a0, type: 2}
   m_IsPrefabParent: 0
@@ -728,7 +719,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 2800000, guid: 909d4c0dafae34f4199e2e6608d11435, type: 3}
+  m_Texture: {fileID: 2800000, guid: 82432a0af6e4b2f44b5dfcfc5c1ad36c, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -811,6 +802,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 137000012271979140, guid: 86c1ca5167287924d9f1351b5f56c883,
+        type: 2}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010865282810, guid: 86c1ca5167287924d9f1351b5f56c883, type: 2}
       propertyPath: m_LocalPosition.x
       value: 2.5016198
@@ -896,12 +892,17 @@ Prefab:
         type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4300000, guid: b5f66f001facf664db8eaa658a4e5b4b, type: 3}
+      objectReference: {fileID: 4300000, guid: f77c6af6ecfcc474a8753469179f6735, type: 3}
     - target: {fileID: 137000012271979140, guid: 86c1ca5167287924d9f1351b5f56c883,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f7f5b8320070d2f46898ef8d92e0a888, type: 2}
+    - target: {fileID: 137000012271979140, guid: 86c1ca5167287924d9f1351b5f56c883,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: c72340022bdc12f44b7023a66108b3fe, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 86c1ca5167287924d9f1351b5f56c883, type: 2}
   m_IsPrefabParent: 0
