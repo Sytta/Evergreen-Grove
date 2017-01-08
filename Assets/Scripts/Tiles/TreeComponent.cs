@@ -57,12 +57,17 @@ public class TreeComponent : MonoBehaviour
     public void TurnSickly()
     {
         Color newColor = Color.Lerp(healthyBarkColor, sicklyBarkColor, (GameManager.instance.GetNatureLevel() - 0.5f) / 0.5f);
-        mr.materials[BARK_MAT_INDEX].color = newColor;
 
-        newColor = Color.Lerp(healthyLeavesColor, sicklyLeavesColor, (GameManager.instance.GetNatureLevel() - 0.5f) / 0.5f);
-        mr.materials[LEAVES_MAT_INDEX].color = newColor;
-        isSickly = true;
+        if (mr != null)
+        {
+            mr = GetComponentInChildren<SkinnedMeshRenderer>();
+        }
+            mr.materials[BARK_MAT_INDEX].color = newColor;
 
+            newColor = Color.Lerp(healthyLeavesColor, sicklyLeavesColor, (GameManager.instance.GetNatureLevel() - 0.5f) / 0.5f);
+            mr.materials[LEAVES_MAT_INDEX].color = newColor;
+            isSickly = true;
+        
     }
     public void TurnHealthy()
     {

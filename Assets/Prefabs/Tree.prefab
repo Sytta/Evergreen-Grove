@@ -452,7 +452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diseasedLeavesColor: {r: 0.26161256, g: 0, b: 0.49264705, a: 0}
-  sicklyLeavesColor: {r: 0.80112165, g: 0.86764705, b: 0.17863323, a: 0}
+  sicklyLeavesColor: {r: 0.9117647, g: 0.69797164, b: 0, a: 0}
   diseasedBarkColor: {r: 0.066176474, g: 0.045739617, b: 0.023842994, a: 0}
   sicklyBarkColor: {r: 0.28676468, g: 0.24674559, b: 0.19609644, a: 0}
   minimumSeedPlantTime: 0

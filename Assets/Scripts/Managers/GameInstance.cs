@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 public class GameInstance : MonoBehaviour {
     public static GameInstance instance = null;
+    public bool isTutorialMode=false;
     void Awake()
     {
         if (!instance)

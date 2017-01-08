@@ -11,12 +11,11 @@ public class GameManager : MonoBehaviour
     public TerrainManager terrainManager;
     public InGameUI ui;
     public GM_InGame_State state;
-    public bool isTutorialMode;
+    public bool isTutorialMode =false;
     //public List<PlayerCharacter> players;
     public const float EQUILIBRIUM_LEVEL=0.5F;
     private float deltaNatureLevel;
     private GM_Nature_State deltaNatureState=GM_Nature_State.Equilibrium;
-
     // Use this for initialization
     void Awake()
     {
@@ -29,12 +28,20 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         Initialise();
-    }
+        
 
+
+    }
+    void Start()
+    {
+        isTutorialMode = GameInstance.instance.isTutorialMode;
+
+
+    }
     // Update is called once per frame
     void Update()
     {
-        if(GetNatureLevel()<=0 || GetNatureLevel()>=1)
+        if(GetNatureLevel() <= 0.15 || GetNatureLevel() >= 0.85)
         {
             EndGame(false);
         }
@@ -44,11 +51,11 @@ public class GameManager : MonoBehaviour
             if(deltaNatureLevel != GetNatureLevel())
             {
                 deltaNatureLevel = GetNatureLevel();
-                if (GetNatureState()== GM_Nature_State.HighNatureLevel)//Trees are sickly, update them
+                if (GetNatureState()== GM_Nature_State.HighNatureLevel || GetNatureState()== GM_Nature_State.VeryHighNatureLevel)//Trees are sickly, update them
                 {
                     StartCoroutine("TurnAllTreesSickly");
                 }
-                else if(deltaNatureState == GM_Nature_State.HighNatureLevel)//Trees were sickly but now arent, update them
+                else if(deltaNatureState == GM_Nature_State.HighNatureLevel && GetNatureState()!= GM_Nature_State.HighNatureLevel && GetNatureState() !=  GM_Nature_State.VeryHighNatureLevel)//Trees were sickly but now arent, update them
                 {
                     StartCoroutine("TurnAllTreesHealthy");
                 }
