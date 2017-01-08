@@ -4,6 +4,7 @@ using System.Collections;
 public class LumberJackPlayer : PlayerCharacter {
 
     private TerrainManager terrainManager;
+    bool cuttingTree = false;
 
 	// Use this for initialization
 	 protected override void Start () {
@@ -14,9 +15,10 @@ public class LumberJackPlayer : PlayerCharacter {
 	// Update is called once per frame
 	protected override void Update () {
         base.Update();
-        if(Input.GetButton("CutDownTree"))
+        if(Input.GetButton("CutDownTree") && !cuttingTree)
         {
-            anim.SetBool("Chopping",true);
+            anim.SetBool("Chopping", true);
+            StartCoroutine(CutTree());
         }
         else
         {
@@ -29,5 +31,14 @@ public class LumberJackPlayer : PlayerCharacter {
     {
         Debug.Log("Cut Down Tree");
         terrainManager.RemoveTree(transform.position);
+    }
+
+    IEnumerator CutTree()
+    {
+        cuttingTree = true;
+        Vector3 cutPosition = transform.position;
+        yield return new WaitForSeconds(0.5f);
+        terrainManager.RemoveTree(cutPosition);
+        cuttingTree = false;
     }
 }

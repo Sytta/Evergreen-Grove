@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c042336ec7ad0b4f848392f59bb2e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToGrow: 3
+  timeToGrow: 6
   pulseRate: 0.2
 --- !u!135 &135000013340305910
 SphereCollider:

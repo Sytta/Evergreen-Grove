@@ -20,6 +20,8 @@ public class TerrainManager : MonoBehaviour
     private Vector2 gridMinLength;
     // How big each square inside the grid will be
     private float squareLength;
+    // How many walkable tiles there are
+    private int walkableTiles;
 
     // How many trees we shall start with (percentage)
     float treePercentage;
@@ -44,6 +46,9 @@ public class TerrainManager : MonoBehaviour
 
     public void Initialise()
     {
+        // Will be counted inside the GenerateGrid() function
+        walkableTiles = 0;
+
         gridMinLength = new Vector2(50, 80);
         squareLength = 3f;
 
@@ -86,6 +91,8 @@ public class TerrainManager : MonoBehaviour
                 // If this tile doesn't collide with a mountain, water etc. it will be walkable
                 if (!Physics.CheckSphere(worldPosition, squareLength/2, unwalkableMask))
                 {
+                    this.walkableTiles++;
+
                     float probability = Random.Range(0f, 1f);
 
                     // In this case Random chose to spawn a tree here
@@ -139,6 +146,7 @@ public class TerrainManager : MonoBehaviour
             Tile newSeedTile = this.trees_healthy[you];
 
             newSeedTile.GetCurrentObject().GetComponent<TreeComponent>().AddSeed();
+
 
             // Remove this tile from the healthy list
             //this.trees_healthy.Remove(newSeedTile);
@@ -217,14 +225,22 @@ public class TerrainManager : MonoBehaviour
     }
 
     // Spawns a seed at the given location
-    GameObject SpawnSeed(Vector3 spawnLocation)
+    void SpawnSeed(Vector3 spawnLocation)
     {
-        // Instantiate a random seed to that tree's tile
-        GameObject newSeed = Instantiate(seedPrefab,
-            spawnLocation,
-            Quaternion.identity) as GameObject;
+        Vector2 gridPosition = WorldPosToGridPos(spawnLocation);
 
-        return newSeed;
+        Tile selected = grid[(int)gridPosition.x, (int)gridPosition.y];
+
+        if (selected.GetState() == Tile.TileState.Empty)
+        {
+            // Instantiate a random seed to that tree's tile
+            GameObject newSeed = Instantiate(seedPrefab,
+                spawnLocation,
+                Quaternion.identity) as GameObject;
+
+            selected.SetState(Tile.TileState.Seed);
+            this.trees_seed.Add(selected);
+        }
     }
 
     // Returns true if these are legal indexes in this.grid
@@ -249,19 +265,31 @@ public class TerrainManager : MonoBehaviour
 
     public TreeComponent SpawnTree(Vector3 worldPosition)
     {
-        // Spawns a tree and add it to the healthy tree list, change the tile from seed to tree
-        GameObject newTree = Instantiate(this.treePrefabs[0], worldPosition, Quaternion.identity) as GameObject;
+        Vector2 gridPosition = WorldPosToGridPos(worldPosition);
 
-        Vector2 gridPos = WorldPosToGridPos(worldPosition);
+        Tile selected = grid[(int)gridPosition.x, (int)gridPosition.y];
 
-        Tile selected = grid[(int)gridPos.x, (int)gridPos.y];
+        if (selected.GetState() == Tile.TileState.Seed)
+        {
+            // Spawns a tree and add it to the healthy tree list, change the tile from seed to tree
+            GameObject newTree = Instantiate(this.treePrefabs[0],
+                worldPosition,
+                Quaternion.Euler(0, Random.Range(0, 359), 0)) as GameObject;
 
-        selected.SetCurrentObject(newTree);
-        selected.SetState(Tile.TileState.Tree);
+            // In the case this was a seed that turned into a tree
+            this.trees_seed.Remove(selected);
 
-        UpdateNatureLevel();
+            selected.SetCurrentObject(newTree);
+            selected.SetState(Tile.TileState.Tree);
 
-        return newTree.GetComponent<TreeComponent>();
+            this.trees_healthy.Add(selected);
+
+            UpdateNatureLevel();
+
+            return newTree.GetComponent<TreeComponent>();
+        }
+
+        return null;
     }
 
     void InfectTree(Vector2 gridPosition)
@@ -270,15 +298,13 @@ public class TerrainManager : MonoBehaviour
 
         Tile selected = grid[(int)gridPosition.x, (int)gridPosition.y];
 
-        if (selected.GetState() == Tile.TileState.Seed ||
-            selected.GetState() == Tile.TileState.Tree)
+        if (selected.GetState() == Tile.TileState.Tree)
         {
             selected.SetState(Tile.TileState.Disease);
             selected.GetCurrentObject().GetComponent<TreeComponent>().ReceiveDisease();
 
             // Remove this tree from the healthy trees (it will either be in seeds or trees
             this.trees_healthy.Remove(selected);
-            this.trees_seed.Remove(selected);
 
             // Add to the disease list
             this.trees_disease.Add(selected);
@@ -295,13 +321,11 @@ public class TerrainManager : MonoBehaviour
         {
             SpawnSeed(selected.GetWorldPosition() + new Vector3(0, this.heightOfSeed, 0));
         }
-
-        this.trees_seed.Add(selected);
     }
 
     void UpdateNatureLevel()
     {                                                                    //Actual Tree Percent                        minus Ideal Tree Percent
-        this.natureLevel = Mathf.Clamp((trees_healthy.Count + trees_disease.Count) / (grid.GetLength(0) * grid.GetLength(1)) - treePercentage+0.5f,0,1);
+        this.natureLevel = Mathf.Clamp((1f * trees_healthy.Count + trees_disease.Count) / this.walkableTiles, 0, 1);// - treePercentage+0.5f,0,1);
     }
 
 
@@ -351,10 +375,10 @@ public class TerrainManager : MonoBehaviour
         if (condition1 || condition2)
         {
             this.trees_disease.Remove(selected);
-            this.trees_seed.Remove(selected);
             this.trees_healthy.Remove(selected);
 
             DestroyImmediate(selected.GetCurrentObject());
+            selected.SetState(Tile.TileState.Empty);
         }
 
         // Sets the gameobject of the tile at this position to null

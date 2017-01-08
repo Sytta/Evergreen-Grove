@@ -163,6 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d31ed08983d614f8234ef79837e4c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TopBar: {fileID: 114000011273412902}
+  BottomBar: {fileID: 114000012350334496}
+  EquilibriumGlow: {fileID: 114000014046637470}
 --- !u!114 &114000013574406166
 MonoBehaviour:
   m_ObjectHideFlags: 1
