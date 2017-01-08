@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GetNatureLevel()<=0 || GetNatureLevel()>=1)
+        if(GetNatureLevel() <= 0.15 || GetNatureLevel() >= 0.85)
         {
             EndGame(false);
         }

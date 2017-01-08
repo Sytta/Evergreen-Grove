@@ -2272,7 +2272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequency: 10
-  initialSpread: 0.9
+  initialSpread: 1
   severity: 10
   eventTimer: 0
   firstDisease: 0

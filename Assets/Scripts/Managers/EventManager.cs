@@ -105,6 +105,7 @@ public class EventManager : MonoBehaviour
         if (disease)
         {
             Create_Disease();
+            Create_Disease();
         }
         else
         {
@@ -122,6 +123,8 @@ public class EventManager : MonoBehaviour
         if (Random.value <= spread)
         {
             //creates the majority type
+            GameManager.instance.terrainManager.AddRandomSeed();
+            GameManager.instance.terrainManager.AddRandomSeed();
             GameManager.instance.terrainManager.AddRandomSeed();
         }
         else

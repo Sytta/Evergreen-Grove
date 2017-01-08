@@ -39,7 +39,7 @@ public class MainMenu : MonoBehaviour {
         readyToStart.enabled = false;
 
         buttonDisabled = Color.white;
-        buttonEnabled = new Color(105, 158,45);
+        buttonEnabled = Color.green;//new Color(105, 158,45);
         buttonSelected = "Play";
 
         buttons = transform.FindChild("Buttons");
@@ -62,8 +62,8 @@ public class MainMenu : MonoBehaviour {
             //////////////////////////
             // Menu up and down input
             //////////////////////////
-            float vertical1 = -Input.GetAxis("Player1Vertical");
-            float vertical2 = -Input.GetAxis("Player2Vertical");
+            float vertical1 = -Input.GetAxis("Player1Horizontal");
+            float vertical2 = -Input.GetAxis("Player2Horizontal");
 
             if (vertical1 < 0 || vertical2 < 0)
             {
