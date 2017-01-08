@@ -55,7 +55,7 @@ public class TerrainManager : MonoBehaviour
         treePercentage = 0.5f;
         natureLevel = 0.5f;
 
-        heightOfSeed = 0.9f;
+        heightOfSeed = -3.7f;
 
         trees_healthy = new List<Tile>();
         trees_seed    = new List<Tile>();
@@ -227,15 +227,20 @@ public class TerrainManager : MonoBehaviour
     // Spawns a seed at the given location
     void SpawnSeed(Vector3 spawnLocation)
     {
+        spawnLocation.y = 0;
+
         Vector2 gridPosition = WorldPosToGridPos(spawnLocation);
 
         Tile selected = grid[(int)gridPosition.x, (int)gridPosition.y];
+
+        Vector3 bla = spawnLocation + new Vector3(0, heightOfSeed, 0);
+            int k = 0;
 
         if (selected.GetState() == Tile.TileState.Empty)
         {
             // Instantiate a random seed to that tree's tile
             GameObject newSeed = Instantiate(seedPrefab,
-                spawnLocation,
+                spawnLocation + new Vector3(0, heightOfSeed, 0),
                 Quaternion.identity) as GameObject;
 
             selected.SetState(Tile.TileState.Seed);
@@ -265,6 +270,8 @@ public class TerrainManager : MonoBehaviour
 
     public TreeComponent SpawnTree(Vector3 worldPosition)
     {
+        worldPosition.y = 0;
+
         Vector2 gridPosition = WorldPosToGridPos(worldPosition);
 
         Tile selected = grid[(int)gridPosition.x, (int)gridPosition.y];
