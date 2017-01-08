@@ -6,6 +6,8 @@ public class LumberJackPlayer : PlayerCharacter {
     private TerrainManager terrainManager;
     bool cuttingTree = false;
 
+    private AudioSource audioSource;
+
 	// Use this for initialization
 	 protected override void Start () {
         base.Start();
@@ -14,6 +16,8 @@ public class LumberJackPlayer : PlayerCharacter {
 
         if (tm != null)
             terrainManager = tm.GetComponent<TerrainManager>();
+
+        audioSource = transform.GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -34,7 +38,9 @@ public class LumberJackPlayer : PlayerCharacter {
     public override void ExecuteAction()
     {
         Debug.Log("Cut Down Tree");
-        terrainManager.CutTree(transform.position);
+        bool treeCut = terrainManager.CutTree(transform.position);
+        /*//if (treeCut)
+            audioSource.Play();*/
     }
 
     IEnumerator CutTree()
@@ -42,7 +48,11 @@ public class LumberJackPlayer : PlayerCharacter {
         cuttingTree = true;
         Vector3 cutPosition = transform.position;
         if(terrainManager)
-            terrainManager.CutTree(cutPosition);
+        {
+            bool treeCut = terrainManager.CutTree(cutPosition);
+            if (treeCut)
+                audioSource.Play();
+        }
         cuttingTree = false;
         yield return null;
     }

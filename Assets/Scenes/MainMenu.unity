@@ -1205,7 +1205,7 @@ Prefab:
     - target: {fileID: 82000011168576016, guid: 00b184c1c7a3c1d4c8854ed92efe7b86,
         type: 2}
       propertyPath: m_Volume
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 82000011168576016, guid: 00b184c1c7a3c1d4c8854ed92efe7b86,
         type: 2}
@@ -1215,6 +1215,16 @@ Prefab:
     - target: {fileID: 82000011168576016, guid: 00b184c1c7a3c1d4c8854ed92efe7b86,
         type: 2}
       propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82000011168576016, guid: 00b184c1c7a3c1d4c8854ed92efe7b86,
+        type: 2}
+      propertyPath: BypassListenerEffects
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82000011168576016, guid: 00b184c1c7a3c1d4c8854ed92efe7b86,
+        type: 2}
+      propertyPath: BypassReverbZones
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
