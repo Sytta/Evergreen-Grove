@@ -54,6 +54,7 @@ GameObject:
   - 136: {fileID: 136000010447280744}
   - 96: {fileID: 96000013395687024}
   - 114: {fileID: 114000012700293732}
+  - 122: {fileID: 122000012202767402}
   m_Layer: 11
   m_Name: Wisp
   m_TagString: Untagged
@@ -113,10 +114,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011400537622}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.222, y: 2.9272, z: 20.184}
+  m_LocalRotation: {x: -0, y: 0.9802901, z: -0, w: 0.19756359}
+  m_LocalPosition: {x: -8.99, y: -6.09, z: -165.76}
   m_LocalScale: {x: 6.4268217, y: 6.426815, z: 6.426815}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 157.442, z: 0}
   m_Children:
   - {fileID: 4000010178433718}
   - {fileID: 4000010928214438}
@@ -174,7 +175,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!95 &95000012632072564
 Animator:
@@ -255,6 +256,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curMaxSpeed: 10
+--- !u!122 &122000012202767402
+Halo:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011400537622}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 3767231800
+  m_Size: 4.47
 --- !u!136 &136000010447280744
 CapsuleCollider:
   m_ObjectHideFlags: 1
