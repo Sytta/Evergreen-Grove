@@ -2000,7 +2000,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200.3, y: 216.2}
+  m_SizeDelta: {x: 275.9, y: 89.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &535347937
 MonoBehaviour:
@@ -2023,7 +2023,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 27
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 2
@@ -2034,7 +2034,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press any key to try and keep the balance again
+  m_Text: Press any key and try to keep the balance again
 --- !u!222 &535347938
 CanvasRenderer:
   m_ObjectHideFlags: 0
