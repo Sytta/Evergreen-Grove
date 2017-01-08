@@ -59,7 +59,7 @@ GameObject:
   - 223: {fileID: 223000010808217366}
   - 111: {fileID: 111000011102683640}
   m_Layer: 5
-  m_Name: GaugePanel 1
+  m_Name: GaugePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -280,9 +280,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToFade: 1
-  fadeInOnStart: 0
-  fadeOutOnStart: 0
+  fadeOnStart: 0
+  alphaGoal: 0
   toFade: {fileID: 0}
+  isFading: 0
 --- !u!114 &114000013239217864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -298,6 +299,7 @@ MonoBehaviour:
   BottomBar: {fileID: 114000010849035346}
   EquilibriumGlow1: {fileID: 114000010270258602}
   EquilibriumGlow2: {fileID: 114000011956045658}
+  anim: {fileID: 0}
 --- !u!114 &114000013435607460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -337,9 +339,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToFade: 1
-  fadeInOnStart: 0
-  fadeOutOnStart: 0
+  fadeOnStart: 0
+  alphaGoal: 0
   toFade: {fileID: 0}
+  isFading: 0
 --- !u!222 &222000010471685176
 CanvasRenderer:
   m_ObjectHideFlags: 1

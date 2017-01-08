@@ -5,22 +5,22 @@ public abstract class PlayerCharacter : MonoBehaviour {
     protected float horAxis,verAxis;
     protected bool isMoving;
     public float curMaxSpeed;
-    private Rigidbody rigidbody;
+    private Rigidbody rigidBody;
     protected Animator anim;
-    private Transform _playerModel;
+    //private Transform _playerModel;
 
-    private Vector3 _lastMovingDirection;
+    //private Vector3 _lastMovingDirection;
     // Use this for initialization
     virtual protected void Start () {
-        rigidbody = GetComponent<Rigidbody>();
-        _playerModel = GameObject.FindGameObjectWithTag("PlayerModel").transform;
-        _lastMovingDirection = _playerModel.transform.forward;
+        rigidBody = GetComponent<Rigidbody>();
+        //_playerModel = GameObject.FindGameObjectWithTag("PlayerModel").transform;
+        //_lastMovingDirection = _playerModel.transform.forward;
         anim = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
 	virtual protected void Update () {
-                horAxis = Input.GetAxis("Horizontal " + name);
+        horAxis = Input.GetAxis("Horizontal " + name);
         verAxis = Input.GetAxis("Vertical " + name);
         ManagePlayerModelRotation();
         if (Mathf.Abs(horAxis) > 0 || Mathf.Abs(verAxis) > 0)
@@ -47,7 +47,7 @@ public abstract class PlayerCharacter : MonoBehaviour {
             // Global Z direction is now local z direction.
             // -> Desired and current speeds.
             Vector3 desired = transform.InverseTransformDirection(Vector3.forward);
-            Vector3 current = transform.InverseTransformDirection(rigidbody.velocity);
+            Vector3 current = transform.InverseTransformDirection(rigidBody.velocity);
 
             // Takes care of two things:
             // 1. desired will never become greater than curMaxSpeed (in the case current = 0)
@@ -61,8 +61,8 @@ public abstract class PlayerCharacter : MonoBehaviour {
             // never reach curMaxSpeed completely. If curMaxSpeed = 2, the
             // max velocity we reach is actually about 1.9.
 
-            rigidbody.MovePosition(rigidbody.position + input * Time.deltaTime);
-            _lastMovingDirection = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
+            rigidBody.MovePosition(rigidBody.position + input * Time.deltaTime);
+            //_lastMovingDirection = new Vector3(rigidBody.velocity.x, 0, rigidBody.velocity.z);
         }
         else
         {
