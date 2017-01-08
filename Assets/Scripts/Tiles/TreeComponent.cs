@@ -13,12 +13,15 @@ public class TreeComponent : MonoBehaviour
     public Color sicklyLeavesColor;
     public Color diseasedBarkColor;
     public Color sicklyBarkColor;
+    public ParticleSystem diseaseMarker;
     public float minimumSeedPlantTime;
     public float maximumSeedPlantTime;
     public float timeToTurnDiseased = 6;
     public float timeToDieCutDown = 3;
+    public float timeBeforeTurningDiseased=5;
     private int seedCount;
-
+    public bool isFirstDiseased=false;
+    private bool isInvulnerable = false;
     TerrainManager terrain;
     Color healthyBarkColor;
     Color healthyLeavesColor;
@@ -60,12 +63,14 @@ public class TreeComponent : MonoBehaviour
 
         if (mr != null)
         {
+            mr = GetComponentInChildren<SkinnedMeshRenderer>();
+        }
             mr.materials[BARK_MAT_INDEX].color = newColor;
 
             newColor = Color.Lerp(healthyLeavesColor, sicklyLeavesColor, (GameManager.instance.GetNatureLevel() - 0.5f) / 0.5f);
             mr.materials[LEAVES_MAT_INDEX].color = newColor;
             isSickly = true;
-        }
+        
     }
     public void TurnHealthy()
     {
@@ -87,7 +92,7 @@ public class TreeComponent : MonoBehaviour
     }
     public void CutDown()
     {
-        if (!isCutDown)
+        if (!isCutDown && !isInvulnerable)
         {
             //Play Particle System & animation
             GetComponent<ParticleSystem>().Play();
@@ -120,8 +125,21 @@ public class TreeComponent : MonoBehaviour
     }
     IEnumerator TurnToDiseased()
     {
-        
+        isInvulnerable = isFirstDiseased;
+        if(diseaseMarker)
+        {
+            diseaseMarker.Play();
+        }
         for (int i = 0; i < 20; i++)
+        {
+            while (GameManager.instance.state == GM_InGame_State.Paused)
+            {
+                yield return new WaitForSeconds(0.2f);
+            }
+            yield return new WaitForSeconds(timeBeforeTurningDiseased / 20f);
+        }
+        isInvulnerable = false;
+            for (int i = 0; i < 20; i++)
         {
             while (GameManager.instance.state == GM_InGame_State.Paused)
             {
