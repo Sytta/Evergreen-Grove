@@ -281,7 +281,7 @@ public class TerrainManager : MonoBehaviour
 
             selected.SetCurrentObject(newTree);
             selected.SetState(Tile.TileState.Tree);
-
+            newTree.GetComponent<TreeComponent>().Spawn();
             this.trees_healthy.Add(selected);
 
             UpdateNatureLevel();

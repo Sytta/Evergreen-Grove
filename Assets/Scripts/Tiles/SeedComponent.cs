@@ -19,8 +19,6 @@ public class SeedComponent : MonoBehaviour {
         TreeComponent newTree = terrain.SpawnTree(transform.position);
         if (newTree != null)
             newTree.AddSeed();
-
-        Destroy(gameObject);
     }
     IEnumerator CountDown()
     {
@@ -37,5 +35,11 @@ public class SeedComponent : MonoBehaviour {
             yield return new WaitForSeconds(timeToGrow*pulseRate);
         }*/
         GrowTree();
+        for(int i=0;i<100;i++)
+        {
+            transform.position += Vector3.down*0.01f;
+            yield return new WaitForSeconds(0.01f);
+        }
+        Destroy(gameObject);
     }
 }
