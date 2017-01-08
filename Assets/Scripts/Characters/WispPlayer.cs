@@ -26,7 +26,7 @@ public class WispPlayer : PlayerCharacter {
 
         if (terrainManager != null)
         {
-            if (Input.GetButtonDown(characterName + "AddTree") || Input.GetButtonDown(characterName + "AddTreeKeyboard"))
+            if (Mathf.Abs(Input.GetAxisRaw(characterName + "AddTree")) == 1 || Input.GetButtonDown(characterName + "AddTreeKeyboard"))
             {
                 terrainManager.WispAction(gameObject.transform.position, "AddTree");
             }
