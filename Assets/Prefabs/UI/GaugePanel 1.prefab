@@ -59,7 +59,7 @@ GameObject:
   - 223: {fileID: 223000010808217366}
   - 111: {fileID: 111000011102683640}
   m_Layer: 5
-  m_Name: GaugePanel
+  m_Name: GaugePanel 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

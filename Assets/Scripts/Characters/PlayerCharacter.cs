@@ -21,8 +21,8 @@ public abstract class PlayerCharacter : MonoBehaviour {
 	
 	// Update is called once per frame
 	virtual protected void Update () {
-        horAxis = Input.GetAxis(characterName+"Horizontal");
-        verAxis = Input.GetAxis(characterName+"Vertical");
+        verAxis = -Input.GetAxis(characterName+"Horizontal");
+        horAxis = -Input.GetAxis(characterName+"Vertical");
         ManagePlayerModelRotation();
         if (Mathf.Abs(horAxis) > 0 || Mathf.Abs(verAxis) > 0)
         {
