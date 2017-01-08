@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011515309302}
-  - 111: {fileID: 111000011348764724}
   - 114: {fileID: 114000010381081482}
+  - 95: {fileID: 95000013273937024}
   m_Layer: 0
   m_Name: Seed
   m_TagString: Untagged
@@ -175,21 +175,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013570474744}
   m_Mesh: {fileID: 4300000, guid: 057a6a0f1432db0459ee702b74330fdb, type: 3}
---- !u!111 &111000011348764724
-Animation:
+--- !u!95 &95000013273937024
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011705495854}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: ce2cc9797ca3ac642a02aa87781857ab, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: ce2cc9797ca3ac642a02aa87781857ab, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a523104790905b248b4494d9ba5262b3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114000010381081482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -201,5 +203,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c042336ec7ad0b4f848392f59bb2e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToGrow: 7
+  timeToGrow: 4
   pulseRate: 0.2

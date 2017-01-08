@@ -101,6 +101,7 @@ public class EventManager : MonoBehaviour
         if (disease)
         {
             Create_Disease();
+            Create_Disease();
         }
         else
         {

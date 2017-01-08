@@ -58,7 +58,7 @@ public class TreeComponent : MonoBehaviour
     {
         Color newColor = Color.Lerp(healthyBarkColor, sicklyBarkColor, (GameManager.instance.GetNatureLevel() - 0.5f) / 0.5f);
 
-        if (mr.materials[BARK_MAT_INDEX].color != null)
+        if (mr != null)
         {
             mr.materials[BARK_MAT_INDEX].color = newColor;
 
