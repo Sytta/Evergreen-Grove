@@ -49,7 +49,7 @@ public class TerrainManager : MonoBehaviour
         // Will be counted inside the GenerateGrid() function
         walkableTiles = 0;
 
-        gridMinLength = new Vector2(50, 80);
+        gridMinLength = new Vector2(50, 86);
         squareLength = 3f;
 
         treePercentage = 0.5f;
