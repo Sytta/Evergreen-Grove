@@ -103,7 +103,7 @@ public class MainMenu : MonoBehaviour {
 
     void CheckInitialInput()
     {
-        if (Input.GetButtonDown("Player1PickupSeed") && !player1Ready)
+        if ((Input.GetButtonDown("Player1PickupSeed") || Input.GetButtonDown("Player1PickupSeedKeyboard")) && !player1Ready)
         {
             player1Text.text = "Player 1 ready!";
             player1Ready = true;

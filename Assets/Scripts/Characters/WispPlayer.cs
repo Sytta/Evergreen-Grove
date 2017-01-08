@@ -6,6 +6,7 @@ public class WispPlayer : PlayerCharacter {
     private TerrainManager terrainManager;
     /*float actionCoolDownTimer;
     float actionCoolDownTime;*/
+    private AudioSource audioSource;
 
 	// Use this for initialization
 	protected override void Start () {
@@ -18,6 +19,8 @@ public class WispPlayer : PlayerCharacter {
         characterName = "Player1";
 
         terrainManager = FindObjectOfType<TerrainManager>();
+
+        audioSource = transform.GetComponent<AudioSource>();
     }
 
     protected override void Update()
@@ -28,7 +31,9 @@ public class WispPlayer : PlayerCharacter {
         {
             if (Mathf.Abs(Input.GetAxisRaw(characterName + "AddTree")) == 1 || Input.GetButtonDown(characterName + "AddTreeKeyboard"))
             {
-                terrainManager.WispAction(gameObject.transform.position, "AddTree");
+                bool treeAdded = terrainManager.WispAction(gameObject.transform.position, "AddTree");
+                if (treeAdded)
+                    audioSource.Play();
             }
 
             if (Input.GetButtonDown(characterName + "PickupSeed") || Input.GetButtonDown(characterName + "PickupSeedKeyboard"))

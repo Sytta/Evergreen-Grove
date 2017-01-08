@@ -268,7 +268,7 @@ public class TerrainManager : MonoBehaviour
     }
 
     // The wisp calls this function
-    public void SmoothlySpawnTree(Vector3 worldPosition)
+    public bool SmoothlySpawnTree(Vector3 worldPosition)
     {
         worldPosition.y = 0;
 
@@ -307,7 +307,11 @@ public class TerrainManager : MonoBehaviour
             this.trees_healthy.Add(selected);
 
             UpdateNatureLevel();
+
+            return true;
         }
+
+        return false;
     }
 
     // Called by a seed that is bursting
@@ -391,20 +395,22 @@ public class TerrainManager : MonoBehaviour
     // If the wisp is on a seed tile it will pick up the tile
     // If the wisp is on an empty tile it will plant a tree
     // action is either "PickupSeed" or "AddTree"
-    public void WispAction(Vector3 worldPosition, string action)
+    public bool WispAction(Vector3 worldPosition, string action)
     {
         Vector2 gridPos = WorldPosToGridPos(worldPosition);
 
         Tile selected = this.grid[(int)gridPos.x, (int)gridPos.y];
 
         if (action.Equals("AddTree") && selected.GetState() == Tile.TileState.Empty)
-            SmoothlySpawnTree(worldPosition);
+            return SmoothlySpawnTree(worldPosition);
         if (action.Equals("PickupSeed") && selected.GetState() == Tile.TileState.Seed)
-            PickUpSeed(worldPosition);
+            return PickUpSeed(worldPosition);
+
+        return false;
     }
 
     // Wisp picks up a seed at a worldPosition
-    public void PickUpSeed(Vector3 worldPosition)
+    public bool PickUpSeed(Vector3 worldPosition)
     {
         Vector2 gridPosition = WorldPosToGridPos(worldPosition);
 
@@ -417,7 +423,11 @@ public class TerrainManager : MonoBehaviour
             DestroyImmediate(selected.GetCurrentObject());
             // Reset the state of the tile
             selected.SetState(Tile.TileState.Empty);
+
+            return true;
         }
+
+        return false;
     }
 
     // The lumberjack calls this function when he is finished cutting the tree
