@@ -320,6 +320,12 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224000012493321348, guid: 5d42dbca48d61044e90103c226b640c2,
     type: 2}
   m_PrefabInternal: {fileID: 465951527}
+--- !u!114 &74413573 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000013442769784, guid: 5d42dbca48d61044e90103c226b640c2,
+    type: 2}
+  m_PrefabInternal: {fileID: 465951527}
+  m_Script: {fileID: 11500000, guid: e7d31ed08983d614f8234ef79837e4c7, type: 3}
 --- !u!1 &75653432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1089,6 +1095,12 @@ SkinnedMeshRenderer:
     m_Center: {x: -2.65976, y: -0.11402893, z: 0.24107909}
     m_Extent: {x: 3.3693085, y: 3.2304492, z: 2.312716}
   m_DirtyAABB: 0
+--- !u!114 &336238242 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010818842326, guid: 254f17d471d5b0742b9e51620d7c882c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1027004207}
+  m_Script: {fileID: 11500000, guid: 6aee2b19d6dd489418653533e900b12f, type: 3}
 --- !u!1 &364786477
 GameObject:
   m_ObjectHideFlags: 0
@@ -6153,8 +6165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28eb56d2b6d5bfa438dbc5e94ef1b6d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 0}
-  gauge: {fileID: 0}
+  pauseMenu: {fileID: 336238242}
+  gauge: {fileID: 74413573}
 --- !u!114 &2068862513
 MonoBehaviour:
   m_ObjectHideFlags: 0
