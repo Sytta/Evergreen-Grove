@@ -25,6 +25,7 @@ public class TreeComponent : MonoBehaviour
     SkinnedMeshRenderer mr;
     Animator anim;
     public bool isDiseased = false;
+    bool isCutDown=false;
     bool isSickly = false;
     bool isPlantingSeed = false;
     const int LEAVES_MAT_INDEX = 0;
@@ -38,9 +39,8 @@ public class TreeComponent : MonoBehaviour
         healthyBarkColor = mr.materials[BARK_MAT_INDEX].color;
         healthyLeavesColor = mr.materials[LEAVES_MAT_INDEX].color;
     }
-    public void Spawn()
+    void Spawn()
     {
-        anim = GetComponent<Animator>();
         anim.SetTrigger("PlantTree");
     }
     void Die()
@@ -83,10 +83,14 @@ public class TreeComponent : MonoBehaviour
     }
     public void CutDown()
     {
-        //Play Particle System & animation
-        GetComponent<ParticleSystem>().Play();
-        anim.SetBool("CutDown", true);
-        StartCoroutine("CutTree");
+        if (!isCutDown)
+        {
+            //Play Particle System & animation
+            GetComponent<ParticleSystem>().Play();
+            anim.SetBool("CutDown", true);
+            StartCoroutine("CutTree");
+        }
+        isCutDown = true;
     }
     void SpreadDisease()
     {
@@ -126,8 +130,9 @@ public class TreeComponent : MonoBehaviour
             mr.materials[LEAVES_MAT_INDEX].color = newColor;
             yield return new WaitForSeconds(timeToTurnDiseased/20f);
         }
-
-        SpreadDisease();
+        if(!isCutDown)
+            SpreadDisease();
+           
     }
 
 }
