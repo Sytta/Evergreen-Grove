@@ -28,13 +28,16 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         Initialise();
-        isTutorialMode=GameInstance.instance.isTutorialMode ;
-
-
+        
 
 
     }
+    void Start()
+    {
+        isTutorialMode = GameInstance.instance.isTutorialMode;
 
+
+    }
     // Update is called once per frame
     void Update()
     {
@@ -48,11 +51,11 @@ public class GameManager : MonoBehaviour
             if(deltaNatureLevel != GetNatureLevel())
             {
                 deltaNatureLevel = GetNatureLevel();
-                if (GetNatureState()== GM_Nature_State.HighNatureLevel)//Trees are sickly, update them
+                if (GetNatureState()== GM_Nature_State.HighNatureLevel || GetNatureState()== GM_Nature_State.VeryHighNatureLevel)//Trees are sickly, update them
                 {
                     StartCoroutine("TurnAllTreesSickly");
                 }
-                else if(deltaNatureState == GM_Nature_State.HighNatureLevel)//Trees were sickly but now arent, update them
+                else if(deltaNatureState == GM_Nature_State.HighNatureLevel && GetNatureState()!= GM_Nature_State.HighNatureLevel && GetNatureState() !=  GM_Nature_State.VeryHighNatureLevel)//Trees were sickly but now arent, update them
                 {
                     StartCoroutine("TurnAllTreesHealthy");
                 }
