@@ -9,11 +9,13 @@ public class InGameUI : MonoBehaviour {
     public GameObject wireFrame;
     public GameObject seedPanel;
     public GameObject diseasePanel;
+    public GameObject introTutorialPanel;
     bool waitingToQuit = false;
     bool diseaseTutorialPlayed = false;
     bool seedTutorialPlayed = false;
     bool waitingToUnpause = false;
     bool seedTutorialPlaying=false;
+    bool showingIntroTutorial = false;
     // Use this for initialization
     void Start () {
 	
@@ -50,7 +52,14 @@ public class InGameUI : MonoBehaviour {
                 GetComponent<Animation>().Play("SeedTut");
                 seedTutorialPlaying = true;
             }
+            if (showingIntroTutorial && (Input.GetButton("Player1PickupSeed") || Input.GetButton("Player2Action")))
+            {
+                showingIntroTutorial = false;
+                introTutorialPanel.SetActive(false);
+                GameManager.instance.PlayStartIntro();
+            }
         }
+        
 	
 	}
     public void PauseGame()
@@ -61,6 +70,11 @@ public class InGameUI : MonoBehaviour {
     public void WaitToQuit()
     {
         waitingToQuit = true;
+    }
+    public void ShowIntroTutorial()
+    {
+        showingIntroTutorial = true;
+        introTutorialPanel.SetActive(true);
     }
 
 }

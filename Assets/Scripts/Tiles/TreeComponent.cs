@@ -100,8 +100,9 @@ public class TreeComponent : MonoBehaviour
             GetComponent<ParticleSystem>().Play();
             anim.SetBool("CutDown", true);
             StartCoroutine("CutTree");
+            isCutDown = true;
         }
-        isCutDown = true;
+
     }
     void SpreadDisease()
     {
@@ -122,8 +123,10 @@ public class TreeComponent : MonoBehaviour
     }
     IEnumerator CutTree()
     {
+
         yield return new WaitForSeconds(timeToDieCutDown);
-        Die();
+        if (!isInvulnerable)
+            Die();
     }
     IEnumerator TurnToDiseased()
     {

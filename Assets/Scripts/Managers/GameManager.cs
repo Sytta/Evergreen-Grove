@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public enum GM_InGame_State { Initialising , Playing, Paused ,Ending}
+public enum GM_InGame_State { Initialising ,Starting, Playing, Paused ,Ending}
 public enum GM_Nature_State { Equilibrium, LowNatureLevel, HighNatureLevel,VeryHighNatureLevel,VeryLowNatureLevel }
 public class GameManager : MonoBehaviour
 {
@@ -35,7 +35,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         isTutorialMode = GameInstance.instance.isTutorialMode;
-
+        if(isTutorialMode)
+        {
+            //do image
+        }
+        else
+        {
+            PlayStartIntro();
+        }
 
     }
     // Update is called once per frame
@@ -115,6 +122,10 @@ public class GameManager : MonoBehaviour
             ui.loseText.gameObject.SetActive(true);
 
     }
+    public void PlayStartIntro()
+    {
+        Camera.main.GetComponent<Animation>().Play("CameraIntroAnim");
+    }
     public void PauseGame()
     {
         state = GM_InGame_State.Paused;
@@ -134,7 +145,7 @@ public class GameManager : MonoBehaviour
         terrainManager.Initialise();
         terrainManager.GenerateGrid();
 
-        StartGame();
+        state = GM_InGame_State.Starting;
 
        //StartCoroutine(callThisABitLater());
     }
