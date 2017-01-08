@@ -39,7 +39,7 @@ public class MainMenu : MonoBehaviour {
         readyToStart.enabled = false;
 
         buttonDisabled = Color.white;
-        buttonEnabled = Color.red;
+        buttonEnabled = new Color(105, 158,45);
         buttonSelected = "Play";
 
         buttons = transform.FindChild("Buttons");

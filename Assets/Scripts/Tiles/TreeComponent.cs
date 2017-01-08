@@ -39,8 +39,9 @@ public class TreeComponent : MonoBehaviour
         healthyBarkColor = mr.materials[BARK_MAT_INDEX].color;
         healthyLeavesColor = mr.materials[LEAVES_MAT_INDEX].color;
     }
-    void Spawn()
+    public void Spawn()
     {
+        anim = GetComponent<Animator>();
         anim.SetTrigger("PlantTree");
     }
     void Die()
