@@ -13,7 +13,7 @@ InputManager:
     positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 30
+    gravity: 1000
     dead: 0
     sensitivity: 1
     snap: 0
@@ -29,7 +29,7 @@ InputManager:
     positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 30
+    gravity: 1000
     dead: 0
     sensitivity: 1
     snap: 0
@@ -164,7 +164,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: Vertical LumberJack
     descriptiveName: 
@@ -180,7 +180,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 1
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: PlantTree
     descriptiveName: 
@@ -301,14 +301,14 @@ InputManager:
     positiveButton: up
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 30
+    gravity: 1000
     dead: 0
     sensitivity: 1
     snap: 0
     invert: 0
     type: 0
     axis: 0
-    joyNum: 0
+    joyNum: 1
   - serializedVersion: 3
     m_Name: Vertical Wisp
     descriptiveName: 
@@ -317,14 +317,14 @@ InputManager:
     positiveButton: left
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 30
+    gravity: 1000
     dead: 0
-    sensitivity: 2
+    sensitivity: 1
     snap: 0
     invert: 0
     type: 0
     axis: 1
-    joyNum: 0
+    joyNum: 1
   - serializedVersion: 3
     m_Name: PauseGame
     descriptiveName: 
