@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public float gameTimer = 0;
     public float equilibriumRange = .01f;
-    public int seeds=0;
     public TerrainManager terrainManager;
     public GM_InGame_State state;
     public bool isTutorialMode;

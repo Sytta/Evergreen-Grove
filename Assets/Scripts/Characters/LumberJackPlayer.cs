@@ -9,9 +9,7 @@ public class LumberJackPlayer : PlayerCharacter {
 	// Use this for initialization
 	 protected override void Start () {
         base.Start();
-
         characterName = "Player2";
-
         GameObject tm = GameObject.FindGameObjectWithTag("TerrainManager");
 
         if (tm != null)
@@ -21,10 +19,10 @@ public class LumberJackPlayer : PlayerCharacter {
 	// Update is called once per frame
 	protected override void Update () {
         base.Update();
-        if(Input.GetButton(characterName+"Action") && !cuttingTree)
+        if(Input.GetButton("CutDownTree") && !cuttingTree)
         {
             anim.SetBool("Chopping", true);
-            //StartCoroutine(CutTree());
+            StartCoroutine(CutTree());
         }
         else
         {
@@ -39,15 +37,12 @@ public class LumberJackPlayer : PlayerCharacter {
         terrainManager.CutTree(transform.position);
     }
 
-    /*IEnumerator CutTree()
+    IEnumerator CutTree()
     {
         cuttingTree = true;
         Vector3 cutPosition = transform.position;
-        yield return new WaitForSeconds(0.5f);
-
         terrainManager.CutTree(cutPosition);
-        if (terrainManager != null)
-            terrainManager.RemoveTree(cutPosition);
         cuttingTree = false;
-    }*/
+        yield return null;
+    }
 }
