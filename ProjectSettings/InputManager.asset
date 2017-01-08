@@ -438,7 +438,7 @@ InputManager:
     axis: 1
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Player2Action
+    m_Name: Player2ActionKeyboard
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
