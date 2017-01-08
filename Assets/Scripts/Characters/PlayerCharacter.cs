@@ -31,7 +31,7 @@ public abstract class PlayerCharacter : MonoBehaviour {
             // Global input. w key produces Vector3(0, 0, 1), a key Vector3(-1, 0, 0) etc.
             // Does not take into account in what direction the camera is facing for what
             // direction to move into
-            Vector3 input = new Vector3(horAxis, 0, verAxis);
+            Vector3 input = new Vector3(verAxis, 0, horAxis);
 
             // This happens f.x. when w and a are pressed (Vector(-1, 0, 1).magnitude = sqrt(2) > 1
             // We always want to cap the player to curMaxSpeed so we normalize input to achieve that goal.
@@ -78,7 +78,7 @@ public abstract class PlayerCharacter : MonoBehaviour {
     }
     private void ManagePlayerModelRotation()
     {
-        transform.LookAt(new Vector3(horAxis, 0, verAxis)+transform.position);
+        transform.LookAt(new Vector3(verAxis, 0, horAxis)+transform.position);
     }
     public virtual void ExecuteAction() {
     }
