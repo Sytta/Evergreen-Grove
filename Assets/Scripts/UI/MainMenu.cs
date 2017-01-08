@@ -65,8 +65,6 @@ public class MainMenu : MonoBehaviour {
             float vertical1 = -Input.GetAxis("Player1Horizontal");
             float vertical2 = -Input.GetAxis("Player2Horizontal");
 
-            Debug.Log(vertical1);
-
             if (vertical1 < 0 || vertical2 < 0)
             {
                 buttonPlay.GetComponent<Image>().color = buttonDisabled;
