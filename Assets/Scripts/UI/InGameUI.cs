@@ -33,10 +33,12 @@ public class InGameUI : MonoBehaviour {
             if(seedTutorialPlaying)
             {
                 seedPanel.gameObject.SetActive(false);
+                seedTutorialPlaying = false;
             }
             else
             {
                 diseasePanel.gameObject.SetActive(false);
+                seedTutorialPlaying = true;
             }
         }
         if(GameManager.instance.isTutorialMode)
