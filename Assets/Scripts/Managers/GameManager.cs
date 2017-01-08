@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     public float gameTimer = 0;
-    public float equilibriumRange = .2f;
+    public float equilibriumRange = .01f;
     public int seeds=0;
     public TerrainManager terrainManager;
     public GM_InGame_State state;
@@ -100,14 +100,17 @@ public class GameManager : MonoBehaviour
     }    public void EndGame()
     {
         state = GM_InGame_State.Ending;
+        GameInstance.instance.ToMainMenu();
     }
     public void PauseGame()
     {
         state = GM_InGame_State.Paused;
+        Time.timeScale = 0;
     }
     public void UnPauseGame()
     {
         state = GM_InGame_State.Playing;
+        Time.timeScale = 1;
     }
     public void Initialise()
     {

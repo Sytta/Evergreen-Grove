@@ -10,6 +10,8 @@ public class LumberJackPlayer : PlayerCharacter {
 	 protected override void Start () {
         base.Start();
 
+        characterName = "Player2";
+
         GameObject tm = GameObject.FindGameObjectWithTag("TerrainManager");
 
         if (tm != null)
@@ -37,12 +39,15 @@ public class LumberJackPlayer : PlayerCharacter {
         terrainManager.CutTree(transform.position);
     }
 
-    IEnumerator CutTree()
+    /*IEnumerator CutTree()
     {
         cuttingTree = true;
         Vector3 cutPosition = transform.position;
         yield return new WaitForSeconds(0.5f);
+
         terrainManager.CutTree(cutPosition);
+        if (terrainManager != null)
+            terrainManager.RemoveTree(cutPosition);
         cuttingTree = false;
-    }
+    }*/
 }

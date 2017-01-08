@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Body
-  m_Shader: {fileID: 4800000, guid: 76374158b4c4e5744b394e9290aae693, type: 3}
+  m_Shader: {fileID: 207, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _COLOR_ON _OUTL_ON
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -46,6 +46,9 @@ Material:
     - first:
         name: _DetailTex
       second: 0
+    - first:
+        name: _InvFade
+      second: 1
     - first:
         name: _Outl
       second: 1
