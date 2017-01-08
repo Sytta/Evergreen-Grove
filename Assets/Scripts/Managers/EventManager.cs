@@ -118,6 +118,8 @@ public class EventManager : MonoBehaviour
         {
             //creates the majority type
             GameManager.instance.terrainManager.AddRandomSeed();
+            GameManager.instance.terrainManager.AddRandomSeed();
+            GameManager.instance.terrainManager.AddRandomSeed();
         }
         else
         {
