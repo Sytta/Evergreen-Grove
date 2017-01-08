@@ -9,8 +9,12 @@ public class LumberJackPlayer : PlayerCharacter {
 	// Use this for initialization
 	 protected override void Start () {
         base.Start();
-        terrainManager = GameObject.FindGameObjectWithTag("TerrainManager").GetComponent<TerrainManager>();
-	}
+
+        GameObject tm = GameObject.FindGameObjectWithTag("TerrainManager");
+
+        if (tm != null)
+            terrainManager = tm.GetComponent<TerrainManager>();
+    }
 	
 	// Update is called once per frame
 	protected override void Update () {

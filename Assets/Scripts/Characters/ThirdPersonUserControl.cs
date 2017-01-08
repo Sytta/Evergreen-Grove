@@ -6,7 +6,7 @@ using UnityEngine;
 
     public class ThirdPersonUserControl : MonoBehaviour
     {
-        private string name;
+        private string characterName;
         private PlayerCharacter player;
         private ThirdPersonCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
@@ -17,7 +17,7 @@ using UnityEngine;
         
         private void Start()
         {
-            name = gameObject.name;
+            characterName = gameObject.name;
             player = GetComponent<PlayerCharacter>();
 
             // get the transform of the main camera
@@ -50,8 +50,8 @@ using UnityEngine;
         private void FixedUpdate()
         {
             // read inputs
-            float h = Input.GetAxis("Horizontal " + name);
-            float v = Input.GetAxis("Vertical " + name);
+            float h = Input.GetAxis("Horizontal " + characterName);
+            float v = Input.GetAxis("Vertical " + characterName);
             bool crouch = Input.GetKey(KeyCode.C);
 
             // calculate move direction to pass to character
@@ -76,12 +76,12 @@ using UnityEngine;
             m_Jump = false;
 
         //Map keys to players' actions
-        if (name == "Wisp" && Input.GetButton("PlantTree"))
+        if (characterName == "Wisp" && Input.GetButton("PlantTree"))
         {
             player.ExecuteAction();
             m_Character.ExecutingAction = true;
         }
-        else if (name == "LumberJack" && Input.GetButton("CutDownTree"))
+        else if (characterName == "LumberJack" && Input.GetButton("CutDownTree"))
         {
             player.ExecuteAction();
             m_Character.ExecutingAction = true;

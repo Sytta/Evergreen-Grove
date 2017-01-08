@@ -234,9 +234,7 @@ public class TerrainManager : MonoBehaviour
         if (selected.GetState() == Tile.TileState.Empty)
         {
             // Instantiate a random seed to that tree's tile
-            GameObject newSeed = Instantiate(seedPrefab,
-                spawnLocation,
-                Quaternion.identity) as GameObject;
+            Instantiate(seedPrefab, spawnLocation, Quaternion.identity);
 
             selected.SetState(Tile.TileState.Seed);
             this.trees_seed.Add(selected);
