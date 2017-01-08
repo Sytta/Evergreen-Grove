@@ -81,7 +81,7 @@ public class MainMenu : MonoBehaviour {
             /////////////////
             // Select option
             /////////////////
-            if (Input.GetButton("Player1Action") || Input.GetButton("Player2Action"))
+            if (Input.GetButton("Player1PickupSeed") || Input.GetButton("Player2Action"))
             {
                 if (buttonSelected.Equals("Tutorial"))
                     GameInstance.instance.isTutorialMode = true;
@@ -103,13 +103,13 @@ public class MainMenu : MonoBehaviour {
 
     void CheckInitialInput()
     {
-        if (Input.GetButtonDown("Player1Action") && !player1Ready)
+        if (Input.GetButtonDown("Player1PickupSeed") && !player1Ready)
         {
             player1Text.text = "Player 1 ready!";
             player1Ready = true;
             playerButtonUpDown[0]++;
         }
-        if (player1Ready && Input.GetButtonUp("Player1Action"))
+        if (player1Ready && Input.GetButtonUp("Player1PickupSeed"))
             playerButtonUpDown[0]++;
 
         if (Input.GetButtonDown("Player2Action") && !player2Ready)
