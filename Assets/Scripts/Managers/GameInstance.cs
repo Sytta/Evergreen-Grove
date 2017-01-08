@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 public class GameInstance : MonoBehaviour {
     public static GameInstance instance = null;
     public bool isTutorialMode=false;
+    public GameObject MenuMusic;
+    public GameObject MainMusic;
     void Awake()
     {
         if (!instance)
@@ -28,10 +30,14 @@ public class GameInstance : MonoBehaviour {
     public void ToMainMenu()
     {
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        MenuMusic.GetComponent<AudioSource>().Play();
+        MainMusic.GetComponent<AudioSource>().Stop();
     }
     public void ToMainGame()
     {
         SceneManager.LoadScene("Main", LoadSceneMode.Single);
+        MenuMusic.GetComponent<AudioSource>().Stop();
+        MainMusic.GetComponent<AudioSource>().Play();
     }
     public void ToEndScreen()
     {
