@@ -626,8 +626,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 182671522}
-  m_LocalRotation: {x: 0.044291917, y: 0.06498433, z: 0.0028874248, w: -0.9968987}
-  m_LocalPosition: {x: -35.355194, y: -3.3910563, z: -86.02788}
+  m_LocalRotation: {x: 0.15433805, y: 0.07402733, z: 0.011597737, w: -0.9851727}
+  m_LocalPosition: {x: -15.522184, y: -6.789348, z: -52.469128}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -2386,7 +2386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequency: 10
-  initialSpread: 0.9
+  initialSpread: 1
   severity: 10
   eventTimer: 0
 --- !u!4 &714038834
@@ -4014,7 +4014,7 @@ Prefab:
     - target: {fileID: 114000012541351500, guid: 6d18efe100f48f0468e52c6a6221f04f,
         type: 2}
       propertyPath: equilibriumRange
-      value: 0.04
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 114000012541351500, guid: 6d18efe100f48f0468e52c6a6221f04f,
         type: 2}
