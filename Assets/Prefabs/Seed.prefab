@@ -183,9 +183,9 @@ Animation:
   m_GameObject: {fileID: 1000011705495854}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 057a6a0f1432db0459ee702b74330fdb, type: 3}
+  m_Animation: {fileID: 7400000, guid: ce2cc9797ca3ac642a02aa87781857ab, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: 057a6a0f1432db0459ee702b74330fdb, type: 3}
+  - {fileID: 7400000, guid: ce2cc9797ca3ac642a02aa87781857ab, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -201,5 +201,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c042336ec7ad0b4f848392f59bb2e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToGrow: 6
+  timeToGrow: 7
   pulseRate: 0.2

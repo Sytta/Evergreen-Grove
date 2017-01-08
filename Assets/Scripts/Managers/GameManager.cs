@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         state = GM_InGame_State.Ending;
-       // GameInstance.instance.ToMainMenu();
+        GameInstance.instance.ToMainMenu();
     }
     public void PauseGame()
     {

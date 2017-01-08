@@ -41,7 +41,8 @@ public class LumberJackPlayer : PlayerCharacter {
     {
         cuttingTree = true;
         Vector3 cutPosition = transform.position;
-        terrainManager.CutTree(cutPosition);
+        if(terrainManager)
+            terrainManager.CutTree(cutPosition);
         cuttingTree = false;
         yield return null;
     }
