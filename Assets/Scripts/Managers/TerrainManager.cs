@@ -286,6 +286,7 @@ public class TerrainManager : MonoBehaviour
 
             // Now the pivot is in the center
             worldPositionOfGridLocation += new Vector3(squareLength / 2f, 0, squareLength / 2f);
+            worldPositionOfGridLocation.y = 0;
 
             // Spawns a tree in the center of the current grid square.
             GameObject newTree = Instantiate(this.treePrefabs[0],
