@@ -10,7 +10,7 @@ public class Tile
     // The world position of this Tile. The pivot is in the center of the tile
     Vector3 worldPosition;
     //The gameobject tied to this tile
-    //Either a Tree, a Seed or null for now
+    //Either a Tree or null for now
     public GameObject currentObject;
 
     public Tile(TileState currentState, Vector2 gridPosition, Vector3 worldPosition, GameObject currentObject)
