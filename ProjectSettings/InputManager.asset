@@ -49,9 +49,9 @@ InputManager:
     dead: 0.19
     sensitivity: 1
     snap: 1
-    invert: 0
+    invert: 1
     type: 2
-    axis: 0
+    axis: 1
     joyNum: 1
   - serializedVersion: 3
     m_Name: Player1Vertical
@@ -65,9 +65,9 @@ InputManager:
     dead: 0.19
     sensitivity: 1
     snap: 1
-    invert: 0
+    invert: 1
     type: 2
-    axis: 1
+    axis: 0
     joyNum: 1
   - serializedVersion: 3
     m_Name: Fire3
@@ -153,17 +153,17 @@ InputManager:
     m_Name: Player2Horizontal
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: s
-    positiveButton: w
+    negativeButton: w
+    positiveButton: s
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
     dead: 0.19
     sensitivity: 1
     snap: 1
-    invert: 0
+    invert: 1
     type: 2
-    axis: 0
+    axis: 1
     joyNum: 2
   - serializedVersion: 3
     m_Name: Player2Vertical
@@ -177,9 +177,9 @@ InputManager:
     dead: 0.19
     sensitivity: 1
     snap: 1
-    invert: 0
+    invert: 1
     type: 2
-    axis: 1
+    axis: 0
     joyNum: 2
   - serializedVersion: 3
     m_Name: PlantTree

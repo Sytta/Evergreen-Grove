@@ -24,7 +24,7 @@ public class LumberJackPlayer : PlayerCharacter {
         if(Input.GetButton("CutDownTree") && !cuttingTree)
         {
             anim.SetBool("Chopping", true);
-            StartCoroutine(CutTree());
+            //StartCoroutine(CutTree());
         }
         else
         {
