@@ -11,10 +11,8 @@ public class InGameUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetButton("PauseGame") && !pauseMenu.gameObject.activeSelf)
-        {
-            pauseMenu.gameObject.SetActive(true);
-        }
+
+
 	
 	}
 }

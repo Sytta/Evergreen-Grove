@@ -23,7 +23,14 @@ public class SeedComponent : MonoBehaviour {
     }
     IEnumerator CountDown()
     {
-        yield return new WaitForSeconds(timeToGrow);
+        for (int i = 0; i < 10; i++)
+        {
+            while (GameManager.instance.state == GM_InGame_State.Paused)
+            {
+                yield return new WaitForSeconds(0.2f);
+            }
+            yield return new WaitForSeconds(timeToGrow/10.0f);
+        }
         /*for(int i=0;i<timeToGrow/pulseRate; i++)
         {
             yield return new WaitForSeconds(timeToGrow*pulseRate);
